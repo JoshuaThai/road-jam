@@ -1,3 +1,3 @@
 # road-jam
 
-This is the official GameJam github.
+This is Sponge's Github branch.
