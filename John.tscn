@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://chp0ql1uvcuvk"]
+
+[ext_resource type="Texture2D" uid="uid://bglndev06v8nj" path="res://Characters/StickFigure/StickFigureHead.png" id="1_hqtel"]
+[ext_resource type="Texture2D" uid="uid://cg0l66qw6li0c" path="res://Characters/StickFigure/StickFigureBody.png" id="2_sweqy"]
+[ext_resource type="Texture2D" uid="uid://bejtt20h7vrhu" path="res://Characters/StickFigure/Leg.png" id="3_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://dbg64ok6deule" path="res://Characters/StickFigure/Arm.png" id="4_go8s1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hqtel"]
+
+[node name="John" type="Node2D"]
+
+[node name="Colorizer" type="Node2D" parent="."]
+
+[node name="Head" type="Sprite2D" parent="Colorizer"]
+texture = ExtResource("1_hqtel")
+
+[node name="Body" type="Sprite2D" parent="Colorizer"]
+position = Vector2(2, 68)
+texture = ExtResource("2_sweqy")
+
+[node name="Leg" type="Sprite2D" parent="Colorizer"]
+position = Vector2(8, 248)
+texture = ExtResource("3_2hs0m")
+
+[node name="Leg2" type="Sprite2D" parent="Colorizer"]
+position = Vector2(8, 248)
+texture = ExtResource("3_2hs0m")
+
+[node name="Arm" type="Sprite2D" parent="Colorizer"]
+material = SubResource("CanvasItemMaterial_hqtel")
+position = Vector2(2, 24.000004)
+scale = Vector2(1, 2.1643486)
+texture = ExtResource("4_go8s1")
