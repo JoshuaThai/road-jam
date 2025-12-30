@@ -67,10 +67,12 @@ func get_input(delta : float):
 			#brake
 			player_braking = -player_input.y * max_brake_force
 			player_acceleration = 0.0
-		else:
-			#reverse
-			player_braking = 0.0
-			player_acceleration = player_input.y
+			
+#		No reversing in this car.
+		#else:
+			##reverse
+			#player_braking = 0.0
+			#player_acceleration = player_input.y
 	else:
 		player_acceleration = 0.0
 		player_braking = 0.0
