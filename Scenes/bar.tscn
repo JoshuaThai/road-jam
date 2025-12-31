@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
 [ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="2_w5oem"]
+[ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwav4"]
 albedo_color = Color(0, 0, 0, 1)
@@ -19,10 +20,6 @@ albedo_color = Color(0.7411765, 0.5137255, 0.16862746, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vwav4"]
 size = Vector3(51, 15, 0.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggknq"]
-shading_mode = 0
-albedo_color = Color(0.4388856, 0.27553523, 0.12544891, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w5oem"]
 size = Vector3(2, 2, 30)
@@ -94,28 +91,82 @@ material = SubResource("StandardMaterial3D_w5oem")
 shape = SubResource("BoxShape3D_vwav4")
 
 [node name="WineGlass" parent="." instance=ExtResource("2_w5oem")]
-transform = Transform3D(0.24, 0, 0, 0, 0.15999998, 0, 0, 0, 0.18816002, -18.531166, 1.5380883, 8.117648)
+transform = Transform3D(0.10080001, 0, 0, 0, 0.11199999, 0, 0, 0, 0.11289602, -18.531166, 2.5380883, 8.117648)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Bar" type="Node3D" parent="."]
 
-[node name="BarStand" type="StaticBody3D" parent="Node3D"]
+[node name="BarStand" type="StaticBody3D" parent="Bar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.917658, 0.9321182, -2.3671532)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D/BarStand"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand"]
 size = Vector3(2, 2, 30)
-material = SubResource("StandardMaterial3D_ggknq")
+material = ExtResource("3_ggknq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/BarStand"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand"]
 shape = SubResource("BoxShape3D_w5oem")
+debug_fill = false
 
-[node name="BarStand2" type="StaticBody3D" parent="Node3D"]
+[node name="BarStand4" type="StaticBody3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.817657, 0.9321182, -2.3671532)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand4"]
+size = Vector3(2, 2, 30)
+material = ExtResource("3_ggknq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand4"]
+shape = SubResource("BoxShape3D_w5oem")
+debug_fill = false
+
+[node name="BarStand2" type="StaticBody3D" parent="Bar"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.31766, 0.9321182, -18.384724)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D/BarStand2"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1000023)
 size = Vector3(2, 2, 7)
-material = SubResource("StandardMaterial3D_ggknq")
+material = ExtResource("3_ggknq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/BarStand2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1000004)
 shape = SubResource("BoxShape3D_xgyi3")
+
+[node name="BarStand3" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.297867, 0.9897522, 12.113672)
+use_collision = true
+size = Vector3(4.9, 1.8698609, 1.0273438)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, -2)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, -2)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, -14)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, -14)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, 8.1)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, 8.1)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
