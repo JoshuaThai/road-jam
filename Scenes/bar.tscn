@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bq2kdr80nrrgi"]
+[gd_scene load_steps=13 format=3 uid="uid://bq2kdr80nrrgi"]
 
 [ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
+[ext_resource type="PackedScene" uid="uid://dfmosl6d8wsm" path="res://BarObjects/WoodenFloor.glb" id="1_xgyi3"]
 [ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="2_w5oem"]
 [ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwav4"]
-albedo_color = Color(0, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://c8agjsdnr6y13" path="res://BarObjects/stool.tscn" id="5_n8sa8"]
+[ext_resource type="PackedScene" uid="uid://bl00jlfucxq5d" path="res://BarObjects/alcoholBottle.tscn" id="5_uypo1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1h57"]
 size = Vector3(50, 0.1, 50)
@@ -31,12 +31,10 @@ size = Vector3(2, 2, 7)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ground"]
-size = Vector3(50, 0.1, 50)
-material = SubResource("StandardMaterial3D_vwav4")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_i1h57")
+
+[node name="WoodenFloor" parent="Ground" instance=ExtResource("1_xgyi3")]
 
 [node name="Player" parent="." instance=ExtResource("1_vwav4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.238235, 0.38732946, 23.169502)
@@ -45,9 +43,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.238235, 0.38732946, 23.16
 environment = SubResource("Environment_vwav4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.039190106, 0.99923176, 0, -0.99923176, 0.039190106, 0, 4.2729373, 0)
 light_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
-light_energy = 16.0
+light_energy = 5.0
 light_angular_distance = 15.0
 
 [node name="Wall" type="StaticBody3D" parent="."]
@@ -84,6 +81,7 @@ shape = SubResource("BoxShape3D_vwav4")
 transform = Transform3D(2.9802322e-08, 0, -1, 0, 1, 0, 1, 0, 2.9802322e-08, 25, 0, 0.08900261)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4505806e-07, 0, 25)
 size = Vector3(51, 15, 0.5)
 material = SubResource("StandardMaterial3D_w5oem")
 
@@ -142,7 +140,7 @@ size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Bar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.8365726, -2)
 use_collision = true
 size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
@@ -154,13 +152,13 @@ size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Bar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.866839, -14)
 use_collision = true
 size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Bar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.75, 8.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.9297528, 8.1)
 use_collision = true
 size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
@@ -170,3 +168,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, 8.1)
 use_collision = true
 size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
+
+[node name="Stool" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, 0)
+
+[node name="Alcohol" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.4, 9)
+
+[node name="Alcohol2" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.4, 7)
+
+[node name="Alcohol3" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.563509, 7)
+
+[node name="Alcohol4" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.563509, 8.9)
+
+[node name="Alcohol5" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.563509, -0.3000002)
+
+[node name="Alcohol6" parent="." instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -12.900001)
