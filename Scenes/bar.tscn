@@ -1,8 +1,7 @@
-[gd_scene load_steps=42 format=3 uid="uid://bq2kdr80nrrgi"]
+[gd_scene load_steps=46 format=3 uid="uid://bq2kdr80nrrgi"]
 
 [ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
 [ext_resource type="PackedScene" uid="uid://dfmosl6d8wsm" path="res://BarObjects/WoodenFloor.glb" id="1_xgyi3"]
-[ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="2_w5oem"]
 [ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
 [ext_resource type="AudioStream" uid="uid://c2viaxdc6j1ru" path="res://BarDialogue/InitalNarratorDialogue.mp3" id="3_oe2xn"]
 [ext_resource type="Script" uid="uid://dxy78f1ofcmgq" path="res://Scripts/narrator_dialogue.gd" id="4_or5po"]
@@ -10,12 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://c8agjsdnr6y13" path="res://BarObjects/stool.tscn" id="5_n8sa8"]
 [ext_resource type="AudioStream" uid="uid://ctxc0whrv2rt3" path="res://BarDialogue/SallyStartDialogue.mp3" id="5_oah5r"]
 [ext_resource type="PackedScene" uid="uid://bl00jlfucxq5d" path="res://BarObjects/alcoholBottle.tscn" id="5_uypo1"]
+[ext_resource type="AudioStream" uid="uid://c3plyvg48qbf2" path="res://BarDialogue/SallyPeerPressure.mp3" id="7_bcwx1"]
 [ext_resource type="PackedScene" uid="uid://c23xx8l0aiqk1" path="res://BarObjects/table.tscn" id="7_k0573"]
+[ext_resource type="Script" uid="uid://dbphne7lqatv1" path="res://Scripts/peer_pressure_dialogue.gd" id="8_nh5ln"]
 [ext_resource type="PackedScene" uid="uid://6a4iqkum3m4a" path="res://BarObjects/chair.tscn" id="8_riofv"]
 [ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="9_5chha"]
+[ext_resource type="AudioStream" uid="uid://iobnnmeidf26" path="res://BarDialogue/SallyFinalDialogue.mp3" id="9_6dd3f"]
+[ext_resource type="Script" uid="uid://i58barji3dh7" path="res://Scripts/final_dialogue.gd" id="9_nh5ln"]
 [ext_resource type="PackedScene" uid="uid://fb7na8q54080" path="res://Scenes/window.tscn" id="9_ubmj0"]
 [ext_resource type="Script" uid="uid://cbqwqba4elpln" path="res://Scripts/sally_Conversation.gd" id="10_a5bvc"]
 [ext_resource type="Script" uid="uid://swjlqbf6smov" path="res://Scripts/choice_rect.gd" id="16_0s6ix"]
+[ext_resource type="PackedScene" uid="uid://b24wfle3fl6o4" path="res://BarObjects/wine_glass_scene.tscn" id="18_bcwx1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1h57"]
 size = Vector3(50, 0.1, 50)
@@ -91,6 +95,34 @@ tracks/2/keys = {
 "values": [Vector3(0, -3.1415925, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_a5bvc"]
+resource_name = "WalkAway"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0), Vector3(0, -2.3561943, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-20.6, 3, -1), Vector3(-20.6, 3, -2), Vector3(-20.6, 3, -6), Vector3(-21.4, 3, -6)]
+}
+
 [sub_resource type="Animation" id="Animation_5chha"]
 resource_name = "Wave"
 length = 1.5
@@ -120,34 +152,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 1.5707965, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_a5bvc"]
-resource_name = "WalkAway"
-length = 1.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -3.1415925, 0), Vector3(0, -2.3561943, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.25, 0.5, 1, 1.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-20.6, 3, -1), Vector3(-20.6, 3, -2), Vector3(-20.6, 3, -6), Vector3(-21.4, 3, -6)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a5bvc"]
 _data = {
 &"RESET": SubResource("Animation_ubmj0"),
@@ -157,21 +161,6 @@ _data = {
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5bvc"]
 albedo_color = Color(1, 0.49803922, 1, 1)
-
-[sub_resource type="Animation" id="Animation_oah5r"]
-resource_name = "Turning"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5707963, 0), Vector3(0, 0.5235989, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_0s6ix"]
 length = 0.001
@@ -186,6 +175,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, -1.5707963, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oah5r"]
+resource_name = "Turning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707963, 0), Vector3(0, 0.5235989, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0yy5i"]
@@ -247,6 +251,16 @@ unique_name_in_owner = true
 stream = ExtResource("5_oah5r")
 script = ExtResource("5_703c4")
 
+[node name="PeerPressureDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("7_bcwx1")
+script = ExtResource("8_nh5ln")
+
+[node name="FinalDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("9_6dd3f")
+script = ExtResource("9_nh5ln")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vwav4")
 
@@ -299,9 +313,6 @@ material = SubResource("StandardMaterial3D_w5oem")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4505806e-07, 0, 25)
 shape = SubResource("BoxShape3D_n8sa8")
-
-[node name="WineGlass" parent="." instance=ExtResource("2_w5oem")]
-transform = Transform3D(0.10080001, 0, 0, 0, 0.11199999, 0, 0, 0, 0.11289602, -18.531166, 2.2380884, 8.117648)
 
 [node name="Bar" type="Node3D" parent="."]
 
@@ -726,7 +737,18 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.400001, 0.3, 2.6000001)
 visible = false
 
+[node name="WineGlassScene" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 6)
+
+[node name="WineGlassScene2" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 1)
+
+[node name="WineGlassScene3" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 2)
+
 [connection signal="finished" from="Player/NarratorDialogue" to="Sally/SallyProximityPrompt" method="_on_narrator_dialogue_finished"]
 [connection signal="finished" from="Player/SallyStartDialogue" to="Player/SallyStartDialogue" method="_on_finished"]
+[connection signal="finished" from="Player/PeerPressureDialogue" to="Player/PeerPressureDialogue" method="_on_finished"]
+[connection signal="finished" from="Player/FinalDialogue" to="Player/FinalDialogue" method="_on_finished"]
 [connection signal="pressed" from="DialogueScreen/ChoiceRect/YesButton" to="DialogueScreen/ChoiceRect" method="_on_yes_button_pressed"]
 [connection signal="pressed" from="DialogueScreen/ChoiceRect/NoButton" to="DialogueScreen/ChoiceRect" method="_on_no_button_pressed"]
