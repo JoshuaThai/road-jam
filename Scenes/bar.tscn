@@ -1,13 +1,17 @@
-[gd_scene load_steps=21 format=3 uid="uid://bq2kdr80nrrgi"]
+[gd_scene load_steps=31 format=3 uid="uid://bq2kdr80nrrgi"]
 
 [ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
 [ext_resource type="PackedScene" uid="uid://dfmosl6d8wsm" path="res://BarObjects/WoodenFloor.glb" id="1_xgyi3"]
 [ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="2_w5oem"]
 [ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
+[ext_resource type="AudioStream" uid="uid://c2viaxdc6j1ru" path="res://BarDialogue/InitalNarratorDialogue.mp3" id="3_oe2xn"]
 [ext_resource type="PackedScene" uid="uid://c8agjsdnr6y13" path="res://BarObjects/stool.tscn" id="5_n8sa8"]
 [ext_resource type="PackedScene" uid="uid://bl00jlfucxq5d" path="res://BarObjects/alcoholBottle.tscn" id="5_uypo1"]
 [ext_resource type="PackedScene" uid="uid://c23xx8l0aiqk1" path="res://BarObjects/table.tscn" id="7_k0573"]
 [ext_resource type="PackedScene" uid="uid://6a4iqkum3m4a" path="res://BarObjects/chair.tscn" id="8_riofv"]
+[ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="9_5chha"]
+[ext_resource type="PackedScene" uid="uid://fb7na8q54080" path="res://Scenes/window.tscn" id="9_ubmj0"]
+[ext_resource type="Script" uid="uid://cbqwqba4elpln" path="res://Scripts/sally_Conversation.gd" id="10_a5bvc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1h57"]
 size = Vector3(50, 0.1, 50)
@@ -18,7 +22,6 @@ fog_enabled = true
 fog_light_color = Color(0.23956126, 0.5304429, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5oem"]
-transparency = 1
 albedo_color = Color(0.22745098, 0.6117647, 0.7607843, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vwav4"]
@@ -45,6 +48,114 @@ size = Vector3(2, 2, 7)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_riofv"]
 height = 3.5
 
+[sub_resource type="Animation" id="Animation_ubmj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-20.6, 3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.3711378e-08, -4.3711392e-08, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5chha"]
+resource_name = "Wave"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(4.3711378e-08, -4.3711392e-08, -1.5707964), Vector3(4.2221952e-08, -3.239805e-08, -1.308997), Vector3(3.7855173e-08, -2.18557e-08, -1.0471976), Vector3(3.0908616e-08, -1.2802765e-08, -0.7853983), Vector3(3.7855177e-08, -2.185568e-08, -1.0471976), Vector3(4.2221963e-08, -3.239803e-08, -1.3089969), Vector3(4.37114e-08, -4.3711374e-08, -1.5707963)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_a5bvc"]
+resource_name = "WalkAway"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0), Vector3(0, -2.3561943, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-20.6, 3, -1), Vector3(-20.6, 3, -2), Vector3(-20.6, 3, -6), Vector3(-21.4, 3, -6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5bvc"]
+_data = {
+&"RESET": SubResource("Animation_ubmj0"),
+&"WalkAway": SubResource("Animation_a5bvc"),
+&"Wave": SubResource("Animation_5chha")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5bvc"]
+albedo_color = Color(1, 0.49803922, 1, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_5chha"]
+variation_embolden = 0.6
+
 [node name="Bar" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -55,7 +166,12 @@ shape = SubResource("BoxShape3D_i1h57")
 [node name="WoodenFloor" parent="Ground" instance=ExtResource("1_xgyi3")]
 
 [node name="Player" parent="." instance=ExtResource("1_vwav4")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.238235, 0.38732946, 23.169502)
+
+[node name="NarratorDialogue" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_oe2xn")
+autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vwav4")
@@ -77,7 +193,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 0)
 shape = SubResource("BoxShape3D_vwav4")
 
 [node name="Wall4" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.910997)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -24.910997)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Wall4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4, 0, 0)
@@ -190,9 +306,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, 8.1)
 use_collision = true
 size = Vector3(0.90000004, 0.1, 5)
 material = ExtResource("3_ggknq")
-
-[node name="Stool2" parent="Bar" instance=ExtResource("5_n8sa8")]
-transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, 2)
 
 [node name="Stool3" parent="Bar" instance=ExtResource("5_n8sa8")]
 transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, 4)
@@ -333,6 +446,12 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.
 [node name="Chair5" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.9333334, 0.8578565, -9.333334)
 
+[node name="Chair15" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -2.9333334, 0.8578565, -14.333334)
+
+[node name="Chair16" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -9.933333, 0.8578565, -16.333334)
+
 [node name="Chair11" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.9333334, 0.8578565, -9.333334)
 
@@ -372,15 +491,73 @@ text = "Bathroom"
 font_size = 128
 
 [node name="Bartender" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21, 3, 0)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -20.6, 3, 0)
+script = ExtResource("9_5chha")
 
 [node name="Head" type="CSGSphere3D" parent="Bartender"]
 material = SubResource("StandardMaterial3D_ubmj0")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Bartender"]
+[node name="Body" type="CSGSphere3D" parent="Bartender"]
 transform = Transform3D(1, 0, 0, 0, 2.7299998, 0, 0, 0, 1, 0, -1.5, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm1" type="CSGSphere3D" parent="Bartender"]
+transform = Transform3D(-1.857734e-08, 1.3649999, -1.5298985e-08, -0.425, -5.966604e-08, -1.5298985e-08, -1.8577339e-08, 5.966604e-08, 0.34999996, -0.6, -1.1, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm2" type="CSGSphere3D" parent="Bartender"]
+transform = Transform3D(-1.8577337e-08, 1.3649995, -1.529898e-08, -0.42499995, -5.966602e-08, -1.5298975e-08, -1.8577335e-08, 5.966602e-08, 0.34999985, 0.59999996, -1.1, 0)
 material = SubResource("StandardMaterial3D_5chha")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bartender"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
 shape = SubResource("CapsuleShape3D_riofv")
+
+[node name="BartenderAnimations" type="AnimationPlayer" parent="Bartender"]
+libraries = {
+&"": SubResource("AnimationLibrary_a5bvc")
+}
+
+[node name="Sally" type="StaticBody3D" parent="."]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -17.1, 3, 0)
+
+[node name="Head" type="CSGSphere3D" parent="Sally"]
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Body" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(1, 0, 0, 0, 2.7299998, 0, 0, 0, 1, 0, -1.5, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Arm1" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(-1.857734e-08, 1.3649999, -1.5298985e-08, -0.425, -5.966604e-08, -1.5298985e-08, -1.8577339e-08, 5.966604e-08, 0.34999996, -0.6, -1.1, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Arm2" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(-1.8577337e-08, 1.3649995, -1.529898e-08, -0.42499995, -5.966602e-08, -1.5298975e-08, -1.8577335e-08, 5.966602e-08, 0.34999985, 0.59999996, -1.1, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sally"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
+shape = SubResource("CapsuleShape3D_riofv")
+
+[node name="SallyAnimations" type="AnimationPlayer" parent="Sally"]
+
+[node name="SallyProximityPrompt" type="Label3D" parent="Sally"]
+unique_name_in_owner = true
+transform = Transform3D(-4.3711395e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711395e-08, 0.8, -0.5, 0)
+visible = false
+billboard = 1
+double_sided = false
+text = "Press \"E\" 
+to interact"
+font = SubResource("FontVariation_5chha")
+uppercase = true
+script = ExtResource("10_a5bvc")
+
+[node name="Window" parent="." instance=ExtResource("9_ubmj0")]
+transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e-07, -6.7999997, 4.7, -24.6)
+
+[node name="Window2" parent="." instance=ExtResource("9_ubmj0")]
+transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e-07, -22.4, 4.7, -24.6)
+
+[connection signal="finished" from="Player/NarratorDialogue" to="Sally/SallyProximityPrompt" method="_on_narrator_dialogue_finished"]
