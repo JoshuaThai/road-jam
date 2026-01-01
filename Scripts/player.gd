@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-const SPEED = 10.0
+# We will set this set speed to 0 when player is talking to user.
+@export var SPEED = 10.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -16,6 +17,9 @@ func _unhandled_input(event):
 #		Show cursor when player clicks escape key.
 	elif event.is_action_pressed("ui_cancel"): 
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#	Hide cursor when player clicks enter key
+	elif event.is_action_pressed("ui_accept"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 func _physics_process(delta):
 	var input_direction_2D = Input.get_vector(

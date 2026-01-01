@@ -1,17 +1,21 @@
-[gd_scene load_steps=31 format=3 uid="uid://bq2kdr80nrrgi"]
+[gd_scene load_steps=42 format=3 uid="uid://bq2kdr80nrrgi"]
 
 [ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
 [ext_resource type="PackedScene" uid="uid://dfmosl6d8wsm" path="res://BarObjects/WoodenFloor.glb" id="1_xgyi3"]
 [ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="2_w5oem"]
 [ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
 [ext_resource type="AudioStream" uid="uid://c2viaxdc6j1ru" path="res://BarDialogue/InitalNarratorDialogue.mp3" id="3_oe2xn"]
+[ext_resource type="Script" uid="uid://dxy78f1ofcmgq" path="res://Scripts/narrator_dialogue.gd" id="4_or5po"]
+[ext_resource type="Script" uid="uid://ca4gwgybxmryt" path="res://Scripts/sally_start_dialogue.gd" id="5_703c4"]
 [ext_resource type="PackedScene" uid="uid://c8agjsdnr6y13" path="res://BarObjects/stool.tscn" id="5_n8sa8"]
+[ext_resource type="AudioStream" uid="uid://ctxc0whrv2rt3" path="res://BarDialogue/SallyStartDialogue.mp3" id="5_oah5r"]
 [ext_resource type="PackedScene" uid="uid://bl00jlfucxq5d" path="res://BarObjects/alcoholBottle.tscn" id="5_uypo1"]
 [ext_resource type="PackedScene" uid="uid://c23xx8l0aiqk1" path="res://BarObjects/table.tscn" id="7_k0573"]
 [ext_resource type="PackedScene" uid="uid://6a4iqkum3m4a" path="res://BarObjects/chair.tscn" id="8_riofv"]
 [ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="9_5chha"]
 [ext_resource type="PackedScene" uid="uid://fb7na8q54080" path="res://Scenes/window.tscn" id="9_ubmj0"]
 [ext_resource type="Script" uid="uid://cbqwqba4elpln" path="res://Scripts/sally_Conversation.gd" id="10_a5bvc"]
+[ext_resource type="Script" uid="uid://swjlqbf6smov" path="res://Scripts/choice_rect.gd" id="16_0s6ix"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1h57"]
 size = Vector3(50, 0.1, 50)
@@ -90,6 +94,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_5chha"]
 resource_name = "Wave"
 length = 1.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -153,8 +158,71 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5bvc"]
 albedo_color = Color(1, 0.49803922, 1, 1)
 
+[sub_resource type="Animation" id="Animation_oah5r"]
+resource_name = "Turning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707963, 0), Vector3(0, 0.5235989, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0s6ix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5707963, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0yy5i"]
+_data = {
+&"RESET": SubResource("Animation_0s6ix"),
+&"Turning": SubResource("Animation_oah5r")
+}
+
 [sub_resource type="FontVariation" id="FontVariation_5chha"]
 variation_embolden = 0.6
+
+[sub_resource type="LabelSettings" id="LabelSettings_oe2xn"]
+font_size = 48
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oah5r"]
+font_size = 48
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oah5r"]
+bg_color = Color(0.19086605, 0.7366369, 7.70092e-07, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0s6ix"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [node name="Bar" type="Node3D"]
 
@@ -172,6 +240,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.238235, 0.38732946, 23.16
 [node name="NarratorDialogue" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("3_oe2xn")
 autoplay = true
+script = ExtResource("4_or5po")
+
+[node name="SallyStartDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("5_oah5r")
+script = ExtResource("5_703c4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vwav4")
@@ -514,12 +588,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
 shape = SubResource("CapsuleShape3D_riofv")
 
 [node name="BartenderAnimations" type="AnimationPlayer" parent="Bartender"]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_a5bvc")
 }
 
 [node name="Sally" type="StaticBody3D" parent="."]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -17.1, 3, 0)
+unique_name_in_owner = true
+transform = Transform3D(7.549791e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 7.549791e-08, -17.1, 3, 0)
 
 [node name="Head" type="CSGSphere3D" parent="Sally"]
 material = SubResource("StandardMaterial3D_a5bvc")
@@ -541,6 +617,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
 shape = SubResource("CapsuleShape3D_riofv")
 
 [node name="SallyAnimations" type="AnimationPlayer" parent="Sally"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_0yy5i")
+}
 
 [node name="SallyProximityPrompt" type="Label3D" parent="Sally"]
 unique_name_in_owner = true
@@ -549,7 +629,7 @@ visible = false
 billboard = 1
 double_sided = false
 text = "Press \"E\" 
-to interact"
+to interact with Sally"
 font = SubResource("FontVariation_5chha")
 uppercase = true
 script = ExtResource("10_a5bvc")
@@ -560,4 +640,93 @@ transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e
 [node name="Window2" parent="." instance=ExtResource("9_ubmj0")]
 transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e-07, -22.4, 4.7, -24.6)
 
+[node name="DialogueScreen" type="CanvasLayer" parent="."]
+
+[node name="DialogueLabel" type="Label" parent="DialogueScreen"]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -552.0
+offset_top = -137.0
+offset_right = 552.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Narrator: Sometimes you may encounter 
+peer pressure when 
+trying to avoid reckless driving situations."
+label_settings = SubResource("LabelSettings_oe2xn")
+horizontal_alignment = 1
+
+[node name="ChoiceRect" type="ColorRect" parent="DialogueScreen"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -49.0
+offset_bottom = 301.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.28235295, 0.28235295, 0.3019608, 0.7411765)
+script = ExtResource("16_0s6ix")
+
+[node name="ChoiceLabel" type="Label" parent="DialogueScreen/ChoiceRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -552.0
+offset_right = 552.0
+offset_bottom = 207.0
+grow_horizontal = 2
+text = "You will be driving soon.
+Drinking before driving is DANGEROUS!
+Will you accept the drink?"
+label_settings = SubResource("LabelSettings_oah5r")
+horizontal_alignment = 1
+
+[node name="YesButton" type="Button" parent="DialogueScreen/ChoiceRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 125.0
+offset_top = -125.0
+offset_right = 525.0
+offset_bottom = -25.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_oah5r")
+text = "Yes (Press 1)"
+
+[node name="NoButton" type="Button" parent="DialogueScreen/ChoiceRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -525.0
+offset_top = -125.0
+offset_right = -125.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_0s6ix")
+text = "No (Press 2)"
+
+[node name="PlayerStand" type="CSGBox3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.400001, 0.3, 2.6000001)
+visible = false
+
 [connection signal="finished" from="Player/NarratorDialogue" to="Sally/SallyProximityPrompt" method="_on_narrator_dialogue_finished"]
+[connection signal="finished" from="Player/SallyStartDialogue" to="Player/SallyStartDialogue" method="_on_finished"]
+[connection signal="pressed" from="DialogueScreen/ChoiceRect/YesButton" to="DialogueScreen/ChoiceRect" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="DialogueScreen/ChoiceRect/NoButton" to="DialogueScreen/ChoiceRect" method="_on_no_button_pressed"]
