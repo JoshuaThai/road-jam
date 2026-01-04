@@ -69,10 +69,10 @@ func get_input(delta : float):
 			player_acceleration = 0.0
 			
 #		No reversing in this car.
-		#else:
-			##reverse
-			#player_braking = 0.0
-			#player_acceleration = player_input.y
+		else:
+			#reverse
+			player_braking = 0.0
+			player_acceleration = player_input.y
 	else:
 		player_acceleration = 0.0
 		player_braking = 0.0
@@ -85,3 +85,10 @@ func going_forward() -> bool:
 	else:
 		return false
 	
+
+# Handle car crashing into anything
+func _on_car_area_3d_body_entered(body):
+	if body.name == "Ground": return
+	
+	print(body.name)
+	pass # Replace with function body.
