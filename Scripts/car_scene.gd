@@ -1,5 +1,8 @@
 extends Node3D
 
+func _ready():
+	get_tree().paused = true
+
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:

@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=18 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
 [ext_resource type="PackedScene" uid="uid://8ypq4d3d31yv" path="res://Scenes/street_light.tscn" id="3_ydi03"]
 [ext_resource type="Script" uid="uid://bpmdibt5bluxe" path="res://Scripts/np_cspawner.gd" id="4_68c7g"]
+[ext_resource type="StyleBox" uid="uid://bhm67c3pfsn6c" path="res://Materials/green_button.tres" id="4_t2ryq"]
+[ext_resource type="StyleBox" uid="uid://bgbjhxk5urcsg" path="res://Materials/green_button_pressed.tres" id="5_m807y"]
+[ext_resource type="Script" uid="uid://dkb4fojbmk268" path="res://Scripts/car_scene_button.gd" id="6_m807y"]
 
 [sub_resource type="Environment" id="Environment_jevge"]
 fog_enabled = true
@@ -29,6 +32,9 @@ size = Vector3(25, 1, 352)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_68c7g"]
 size = Vector3(25, 1, 352)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2ryq"]
+font_size = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68c7g"]
 
@@ -167,6 +173,119 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
 shape = SubResource("BoxShape3D_68c7g")
 
 [node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="DirectionsUI" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.88235295)
+
+[node name="Button" type="Button" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -73.0
+offset_right = 64.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_t2ryq")
+theme_override_styles/pressed = ExtResource("5_m807y")
+theme_override_styles/hover = ExtResource("5_m807y")
+text = "GO"
+script = ExtResource("6_m807y")
+
+[node name="TitleLabel" type="RichTextLabel" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -166.0
+offset_right = 166.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[u]Directions:[/u]"
+scroll_active = false
+
+[node name="GoalTitle" type="RichTextLabel" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 318.0
+offset_right = 125.0
+offset_bottom = 385.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[u]Goal:[/u]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeysTitle" type="RichTextLabel" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 75.0
+offset_right = 175.0
+offset_bottom = 139.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[u]How to Move:[/u]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeysLabel" type="Label" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -184.5
+offset_top = 125.0
+offset_right = 184.5
+offset_bottom = 314.0
+grow_horizontal = 2
+text = "W - Forward      A - Left
+S - Backward     D - Right"
+label_settings = SubResource("LabelSettings_t2ryq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeysLabel2" type="Label" parent="UI/DirectionsUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = 51.0
+offset_right = 400.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Drive home safely. Avoid crashing into anything! Keep a eye out for 
+pedestrians and car. Stay in your lane!"
+label_settings = SubResource("LabelSettings_t2ryq")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Crosswalk" type="Node3D" parent="."]
 
@@ -240,4 +359,5 @@ script = ExtResource("4_68c7g")
 wait_time = 5.0
 autostart = true
 
+[connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
 [connection signal="timeout" from="NPCspawner/Timer" to="NPCspawner" method="_on_timer_timeout"]

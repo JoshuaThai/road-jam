@@ -20,7 +20,6 @@ func _ready():
 
 
 func _on_movement_timer_timeout():
-	print(global_rotation)
 	var forward = -global_transform.basis.z
 	linear_velocity = forward.normalized() * 5
 
