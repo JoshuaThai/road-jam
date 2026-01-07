@@ -1,16 +1,17 @@
-[gd_scene load_steps=24 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=25 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
 [ext_resource type="PackedScene" uid="uid://8ypq4d3d31yv" path="res://Scenes/street_light.tscn" id="3_ydi03"]
 [ext_resource type="Script" uid="uid://bpmdibt5bluxe" path="res://Scripts/np_cspawner.gd" id="4_68c7g"]
-[ext_resource type="PackedScene" uid="uid://d0wdx6v4cvkiq" path="res://Characters/car_NPC.tscn" id="4_gh6qo"]
 [ext_resource type="StyleBox" uid="uid://bhm67c3pfsn6c" path="res://Materials/green_button.tres" id="4_t2ryq"]
 [ext_resource type="StyleBox" uid="uid://bgbjhxk5urcsg" path="res://Materials/green_button_pressed.tres" id="5_m807y"]
 [ext_resource type="Script" uid="uid://dkb4fojbmk268" path="res://Scripts/car_scene_button.gd" id="6_m807y"]
 [ext_resource type="Script" uid="uid://b5xj3djbj6kkw" path="res://Scripts/np_cspawner_left.gd" id="7_nuvie"]
+[ext_resource type="Script" uid="uid://c3srdow4ai3l7" path="res://Scripts/car_spawner_forward.gd" id="10_sxh1w"]
 [ext_resource type="Script" uid="uid://csr30t6ayam2j" path="res://Scripts/car_spawner_left.gd" id="10_thcgq"]
 [ext_resource type="Script" uid="uid://dgbsf5vemyuhc" path="res://Scripts/car_spawner_right.gd" id="11_1k36k"]
+[ext_resource type="Script" uid="uid://c3qwf6dxt3o65" path="res://Scripts/car_spawner_backward.gd" id="11_bxjcm"]
 
 [sub_resource type="Environment" id="Environment_jevge"]
 fog_enabled = true
@@ -66,12 +67,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250.5)
 shape = SubResource("BoxShape3D_0slyi")
 debug_color = Color(0.9965449, 0, 0.19349316, 0.41960785)
 
-[node name="car" parent="." instance=ExtResource("1_ho8dd")]
+[node name="carPlayer" parent="." instance=ExtResource("1_ho8dd")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, 321)
 max_steer = 0.25
 max_brake_force = 2.0
 
-[node name="Camera3D" type="Camera3D" parent="car"]
+[node name="Camera3D" type="Camera3D" parent="carPlayer"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.0003977, 0.29549074)
 
 [node name="Road" type="CSGBox3D" parent="."]
@@ -150,7 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
 shape = SubResource("BoxShape3D_m807y")
 
 [node name="Sidewalk4" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.900002, 0, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, -8)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
@@ -172,7 +174,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 117)
 shape = SubResource("BoxShape3D_i5trs")
 
 [node name="Sidewalk6" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.900002, 0, 407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, 407)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
@@ -361,9 +363,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
 size = Vector3(15, 0.75, 1)
 material = SubResource("StandardMaterial3D_68c7g")
 
-[node name="car2" parent="." instance=ExtResource("4_gh6qo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
 [node name="CarSpawnerLeft" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 345)
 script = ExtResource("10_thcgq")
@@ -377,6 +376,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 336)
 script = ExtResource("11_1k36k")
 
 [node name="Timer" type="Timer" parent="CarSpawnerRight"]
+wait_time = 5.0
+autostart = true
+
+[node name="CarSpawnerForward" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 329)
+script = ExtResource("10_sxh1w")
+
+[node name="Timer" type="Timer" parent="CarSpawnerForward"]
+wait_time = 5.0
+autostart = true
+
+[node name="CarSpawnerBackward" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 329)
+script = ExtResource("11_bxjcm")
+
+[node name="Timer" type="Timer" parent="CarSpawnerBackward"]
 wait_time = 5.0
 autostart = true
 
@@ -433,6 +448,8 @@ autostart = true
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
 [connection signal="timeout" from="CarSpawnerLeft/Timer" to="CarSpawnerLeft" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerRight/Timer" to="CarSpawnerRight" method="_on_timer_timeout"]
+[connection signal="timeout" from="CarSpawnerForward/Timer" to="CarSpawnerForward" method="_on_timer_timeout"]
+[connection signal="timeout" from="CarSpawnerBackward/Timer" to="CarSpawnerBackward" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/NPCspawnerLeft/Timer" to="NPCspawners/NPCspawnerLeft" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/NPCspawnerLeft2/Timer" to="NPCspawners/NPCspawnerLeft2" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/NPCspawnerLeft3/Timer" to="NPCspawners/NPCspawnerLeft3" method="_on_timer_timeout"]

@@ -216,7 +216,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jalnx")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m8f8g"]
-size = Vector3(1.4, 1, 2.5)
+size = Vector3(1.4, 1, 2.8486938)
 
 [node name="car" type="VehicleBody3D"]
 collision_layer = 2
@@ -298,7 +298,7 @@ skeleton = NodePath("")
 [node name="CarArea3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CarArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.6, -0.0500001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.6, 0.0110655725)
 shape = SubResource("BoxShape3D_m8f8g")
 
 [connection signal="body_entered" from="CarArea3D" to="." method="_on_car_area_3d_body_entered"]
