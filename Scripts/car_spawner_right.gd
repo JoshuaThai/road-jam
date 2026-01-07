@@ -1,23 +1,23 @@
 extends CSGBox3D
 
-var rotations = [90, 180, 90]
+@onready var car = load("res://Characters/car_NPC.tscn")
 
 # NPC SPAWNER TO THE RIGHT
 func _on_timer_timeout():
 	var randNumbDrunk = randi_range(1, 2)
 	if Global.drunk and randNumbDrunk%2 == 0:
 		#print("Timer ran out")
-		var npc = load("res://Characters/NPC.tscn").instantiate()
+		var npc = car.instantiate()
 		#npc.global_rotation = Vector3(0,rotations[0],0)
-		npc.drunk_rotations = [-90]
-		npc.global_position = global_position + Vector3(0,3,0)
+		npc.correct_rotation = 90
+		npc.global_position = global_position
 		get_parent().add_child(npc)
 	else:
 		var randNumb = randi_range(1, 4)
 		if randNumb == 2:
 			#print("Timer ran out")
-			var npc = load("res://Characters/NPC.tscn").instantiate()
+			var npc = car.instantiate()
 			#npc.global_rotation = Vector3(0,rotations[0],0)
-			npc.drunk_rotations = [-90]
-			npc.global_position = global_position + Vector3(0,3,0)
+			npc.correct_rotation = 90
+			npc.global_position = global_position
 			get_parent().add_child(npc)

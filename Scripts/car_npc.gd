@@ -1,0 +1,15 @@
+extends VehicleBody3D
+
+@export var correct_rotation = 180
+
+func _ready():
+	set_global_rotation(Vector3(0,deg_to_rad(correct_rotation),0))
+	
+
+func _physics_process(delta):
+	var forward = global_transform.basis.z
+	linear_velocity = forward.normalized() * 20
+
+
+func _on_timer_timeout():
+	queue_free()

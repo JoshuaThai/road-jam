@@ -1,12 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=24 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
 [ext_resource type="PackedScene" uid="uid://8ypq4d3d31yv" path="res://Scenes/street_light.tscn" id="3_ydi03"]
 [ext_resource type="Script" uid="uid://bpmdibt5bluxe" path="res://Scripts/np_cspawner.gd" id="4_68c7g"]
+[ext_resource type="PackedScene" uid="uid://d0wdx6v4cvkiq" path="res://Characters/car_NPC.tscn" id="4_gh6qo"]
 [ext_resource type="StyleBox" uid="uid://bhm67c3pfsn6c" path="res://Materials/green_button.tres" id="4_t2ryq"]
 [ext_resource type="StyleBox" uid="uid://bgbjhxk5urcsg" path="res://Materials/green_button_pressed.tres" id="5_m807y"]
 [ext_resource type="Script" uid="uid://dkb4fojbmk268" path="res://Scripts/car_scene_button.gd" id="6_m807y"]
+[ext_resource type="Script" uid="uid://b5xj3djbj6kkw" path="res://Scripts/np_cspawner_left.gd" id="7_nuvie"]
+[ext_resource type="Script" uid="uid://csr30t6ayam2j" path="res://Scripts/car_spawner_left.gd" id="10_thcgq"]
+[ext_resource type="Script" uid="uid://dgbsf5vemyuhc" path="res://Scripts/car_spawner_right.gd" id="11_1k36k"]
 
 [sub_resource type="Environment" id="Environment_jevge"]
 fog_enabled = true
@@ -26,6 +30,12 @@ albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ydi03"]
 size = Vector3(25, 0.75, 118)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m807y"]
+size = Vector3(25, 1, 400)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gh6qo"]
+size = Vector3(25, 1, 400)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5trs"]
 size = Vector3(25, 1, 352)
@@ -57,7 +67,7 @@ shape = SubResource("BoxShape3D_0slyi")
 debug_color = Color(0.9965449, 0, 0.19349316, 0.41960785)
 
 [node name="car" parent="." instance=ExtResource("1_ho8dd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, -196)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, 321)
 max_steer = 0.25
 max_brake_force = 2.0
 
@@ -137,7 +147,7 @@ size = Vector3(25, 0.75, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
-shape = SubResource("BoxShape3D_i5trs")
+shape = SubResource("BoxShape3D_m807y")
 
 [node name="Sidewalk4" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.900002, 0, -8)
@@ -148,7 +158,7 @@ size = Vector3(25, 0.75, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
-shape = SubResource("BoxShape3D_68c7g")
+shape = SubResource("BoxShape3D_gh6qo")
 
 [node name="Sidewalk5" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, 407)
@@ -351,13 +361,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
 size = Vector3(15, 0.75, 1)
 material = SubResource("StandardMaterial3D_68c7g")
 
-[node name="NPCspawner" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -84.5)
+[node name="car2" parent="." instance=ExtResource("4_gh6qo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="CarSpawnerLeft" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 345)
+script = ExtResource("10_thcgq")
+
+[node name="Timer" type="Timer" parent="CarSpawnerLeft"]
+wait_time = 5.0
+autostart = true
+
+[node name="CarSpawnerRight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 336)
+script = ExtResource("11_1k36k")
+
+[node name="Timer" type="Timer" parent="CarSpawnerRight"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawners" type="Node3D" parent="."]
+
+[node name="NPCspawnerLeft" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, -84.5)
+script = ExtResource("7_nuvie")
+
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawnerLeft2" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 180.5)
+script = ExtResource("7_nuvie")
+
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft2"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawnerLeft3" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 380.5)
+script = ExtResource("7_nuvie")
+
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft3"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawnerRight" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -64.5)
 script = ExtResource("4_68c7g")
 
-[node name="Timer" type="Timer" parent="NPCspawner"]
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerRight"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawnerRight2" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 60.5)
+script = ExtResource("4_68c7g")
+
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerRight2"]
+wait_time = 5.0
+autostart = true
+
+[node name="NPCspawnerRight3" type="CSGBox3D" parent="NPCspawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 466.5)
+script = ExtResource("4_68c7g")
+
+[node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerRight3"]
 wait_time = 5.0
 autostart = true
 
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
-[connection signal="timeout" from="NPCspawner/Timer" to="NPCspawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="CarSpawnerLeft/Timer" to="CarSpawnerLeft" method="_on_timer_timeout"]
+[connection signal="timeout" from="CarSpawnerRight/Timer" to="CarSpawnerRight" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerLeft/Timer" to="NPCspawners/NPCspawnerLeft" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerLeft2/Timer" to="NPCspawners/NPCspawnerLeft2" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerLeft3/Timer" to="NPCspawners/NPCspawnerLeft3" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerRight/Timer" to="NPCspawners/NPCspawnerRight" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerRight2/Timer" to="NPCspawners/NPCspawnerRight2" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/NPCspawnerRight3/Timer" to="NPCspawners/NPCspawnerRight3" method="_on_timer_timeout"]
