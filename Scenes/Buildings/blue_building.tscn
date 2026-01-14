@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuxt1ep4ulmfq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ib5h3"]
+size = Vector3(16.800001, 16.2, 12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i5lx"]
+albedo_color = Color(0.099584915, 0.600798, 0.8284203, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uj2qm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amr18"]
+albedo_color = Color(0.4745098, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_avus0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="BlueBuilding" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.536743e-07, 8.1, 0)
+shape = SubResource("BoxShape3D_ib5h3")
+
+[node name="Building" type="Node3D" parent="."]
+transform = Transform3D(0.42000002, 0, 0, 0, 0.4, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="BuildingBox" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.5, 0)
+size = Vector3(40, 40, 40)
+material = SubResource("StandardMaterial3D_0i5lx")
+
+[node name="Door" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1.0000045, 0, 0, 0, 1, 0, 4.5, 20.099998)
+size = Vector3(5, 8, 0.1)
+material = SubResource("StandardMaterial3D_uj2qm")
+
+[node name="BuildingBox3" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8.5, 20.1)
+size = Vector3(11, 10, 0.1)
+material = SubResource("StandardMaterial3D_amr18")
+
+[node name="BuildingBox4" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.000001, 8.5, 20.1)
+size = Vector3(11, 10, 0.1)
+material = SubResource("StandardMaterial3D_amr18")
+
+[node name="BuildingBox5" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 28.500002, 20.1)
+size = Vector3(11, 10, 0.1)
+material = SubResource("StandardMaterial3D_amr18")
+
+[node name="BuildingBox6" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.000001, 28.500002, 20.1)
+size = Vector3(11, 10, 0.1)
+material = SubResource("StandardMaterial3D_amr18")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+size = Vector3(40, 1, 40)
+material = SubResource("StandardMaterial3D_avus0")

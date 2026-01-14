@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=28 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://csr30t6ayam2j" path="res://Scripts/car_spawner_left.gd" id="10_thcgq"]
 [ext_resource type="Script" uid="uid://dgbsf5vemyuhc" path="res://Scripts/car_spawner_right.gd" id="11_1k36k"]
 [ext_resource type="Script" uid="uid://c3qwf6dxt3o65" path="res://Scripts/car_spawner_backward.gd" id="11_bxjcm"]
+[ext_resource type="PackedScene" uid="uid://biuotaanpuu0j" path="res://Scenes/Buildings/red_building.tscn" id="13_bxjcm"]
+[ext_resource type="PackedScene" uid="uid://cuxt1ep4ulmfq" path="res://Scenes/Buildings/blue_building.tscn" id="14_5puad"]
 
 [sub_resource type="Environment" id="Environment_jevge"]
 fog_enabled = true
@@ -29,20 +31,23 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydi03"]
 albedo_color = Color(1, 1, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5puad"]
+size = Vector3(6, 0.5, 118)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ydi03"]
-size = Vector3(25, 0.75, 118)
+size = Vector3(6, 0.5, 118)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m807y"]
-size = Vector3(25, 1, 400)
+size = Vector3(6, 1, 400)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gh6qo"]
-size = Vector3(25, 1, 400)
+size = Vector3(6, 1, 400)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5trs"]
-size = Vector3(25, 1, 352)
+size = Vector3(6, 1, 352)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_68c7g"]
-size = Vector3(25, 1, 352)
+size = Vector3(6, 1, 352)
 
 [sub_resource type="LabelSettings" id="LabelSettings_t2ryq"]
 font_size = 32
@@ -69,7 +74,7 @@ debug_color = Color(0.9965449, 0, 0.19349316, 0.41960785)
 
 [node name="carPlayer" parent="." instance=ExtResource("1_ho8dd")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, 321)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, -187)
 max_steer = 0.25
 max_brake_force = 2.0
 
@@ -106,82 +111,70 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 441.5)
 size = Vector3(1, 0.25, 517)
 material = SubResource("StandardMaterial3D_ydi03")
 
-[node name="StreetLight2" parent="." instance=ExtResource("3_ydi03")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, -193)
-
-[node name="StreetLight4" parent="." instance=ExtResource("3_ydi03")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 90)
-
-[node name="StreetLight3" parent="." instance=ExtResource("3_ydi03")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9, 0, -96)
-
-[node name="StreetLight5" parent="." instance=ExtResource("3_ydi03")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9, 0, 251)
-
 [node name="Sidewalk" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 0, -141)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.999999, 0, 0)
-size = Vector3(25, 0.75, 118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49999905, 0, 0)
+size = Vector3(6, 0.5, 118)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.999999, 0, 0)
-shape = SubResource("BoxShape3D_ydi03")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49999905, 0, 0)
+shape = SubResource("BoxShape3D_5puad")
 
 [node name="Sidewalk2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, -141)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 0)
-size = Vector3(25, 0.75, 118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 0)
+size = Vector3(6, 0.5, 118)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999866, 0, 0)
 shape = SubResource("BoxShape3D_ydi03")
 
 [node name="Sidewalk3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, -8)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
-size = Vector3(25, 0.75, 400)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 141)
+size = Vector3(6, 0.75, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 141)
 shape = SubResource("BoxShape3D_m807y")
 
 [node name="Sidewalk4" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, -8)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
-size = Vector3(25, 0.75, 400)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 141)
+size = Vector3(6, 0.75, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 141)
 shape = SubResource("BoxShape3D_gh6qo")
 
 [node name="Sidewalk5" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, 407)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 117)
-size = Vector3(25, 0.75, 352)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 117)
+size = Vector3(6, 0.75, 352)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 117)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 117)
 shape = SubResource("BoxShape3D_i5trs")
 
 [node name="Sidewalk6" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, 407)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
-size = Vector3(25, 0.75, 352)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 117)
+size = Vector3(6, 0.75, 352)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 117)
 shape = SubResource("BoxShape3D_68c7g")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -398,7 +391,7 @@ autostart = true
 [node name="NPCspawners" type="Node3D" parent="."]
 
 [node name="NPCspawnerLeft" type="CSGBox3D" parent="NPCspawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, -84.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -84.5)
 script = ExtResource("7_nuvie")
 
 [node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft"]
@@ -406,7 +399,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="NPCspawnerLeft2" type="CSGBox3D" parent="NPCspawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 180.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 180.5)
 script = ExtResource("7_nuvie")
 
 [node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft2"]
@@ -414,7 +407,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="NPCspawnerLeft3" type="CSGBox3D" parent="NPCspawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 380.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 380.5)
 script = ExtResource("7_nuvie")
 
 [node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerLeft3"]
@@ -430,7 +423,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="NPCspawnerRight2" type="CSGBox3D" parent="NPCspawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 60.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 60.5)
 script = ExtResource("4_68c7g")
 
 [node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerRight2"]
@@ -444,6 +437,140 @@ script = ExtResource("4_68c7g")
 [node name="Timer" type="Timer" parent="NPCspawners/NPCspawnerRight3"]
 wait_time = 5.0
 autostart = true
+
+[node name="StreetLights" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, -193)
+
+[node name="StreetLight2" parent="StreetLights" instance=ExtResource("3_ydi03")]
+
+[node name="StreetLight4" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -283, 0, -1.2397766e-05)
+
+[node name="StreetLight6" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -516, 0, -2.2888184e-05)
+
+[node name="StreetLight8" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -669, 0, -2.9563904e-05)
+
+[node name="StreetLight10" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -859, 0, -3.7670135e-05)
+
+[node name="StreetLight3" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -97, 0, 15.999995)
+
+[node name="StreetLight5" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -444, 0, 15.99998)
+
+[node name="StreetLight7" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -558, 0, 15.999975)
+
+[node name="StreetLight9" parent="StreetLights" instance=ExtResource("3_ydi03")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -758, 0, 15.999967)
+
+[node name="RedBuilding" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -179)
+
+[node name="BlueBuilding" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -157)
+
+[node name="RedBuilding2" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -136)
+
+[node name="BlueBuilding2" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -114)
+
+[node name="BlueBuilding3" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -94)
+
+[node name="RedBuilding5" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -57)
+
+[node name="BlueBuilding7" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -35)
+
+[node name="RedBuilding6" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -14)
+
+[node name="BlueBuilding8" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 8)
+
+[node name="BlueBuilding9" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 28)
+
+[node name="RedBuilding7" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 137)
+
+[node name="BlueBuilding10" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 180)
+
+[node name="RedBuilding8" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 217)
+
+[node name="BlueBuilding11" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 256)
+
+[node name="BlueBuilding12" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 297)
+
+[node name="RedBuilding3" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, -104)
+
+[node name="BlueBuilding4" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -126)
+
+[node name="RedBuilding4" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -147)
+
+[node name="BlueBuilding5" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -169)
+
+[node name="BlueBuilding6" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -189)
+
+[node name="RedBuilding9" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, 29)
+
+[node name="BlueBuilding13" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 7)
+
+[node name="RedBuilding10" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -14)
+
+[node name="BlueBuilding14" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -36)
+
+[node name="BlueBuilding15" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -56)
+
+[node name="RedBuilding11" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, 136)
+
+[node name="BlueBuilding16" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 114)
+
+[node name="RedBuilding12" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 93)
+
+[node name="BlueBuilding17" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 71)
+
+[node name="BlueBuilding18" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 51)
+
+[node name="BlueBuilding19" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 212)
+
+[node name="BlueBuilding20" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 179)
+
+[node name="RedBuilding16" parent="." instance=ExtResource("13_bxjcm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 316)
+
+[node name="BlueBuilding23" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 281)
+
+[node name="BlueBuilding24" parent="." instance=ExtResource("14_5puad")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 246)
 
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
 [connection signal="timeout" from="CarSpawnerLeft/Timer" to="CarSpawnerLeft" method="_on_timer_timeout"]
