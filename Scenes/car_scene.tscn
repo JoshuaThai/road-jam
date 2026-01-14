@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=29 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://c3qwf6dxt3o65" path="res://Scripts/car_spawner_backward.gd" id="11_bxjcm"]
 [ext_resource type="PackedScene" uid="uid://biuotaanpuu0j" path="res://Scenes/Buildings/red_building.tscn" id="13_bxjcm"]
 [ext_resource type="PackedScene" uid="uid://cuxt1ep4ulmfq" path="res://Scenes/Buildings/blue_building.tscn" id="14_5puad"]
+[ext_resource type="PackedScene" uid="uid://ybgf1r70dtb1" path="res://Scenes/Buildings/house.tscn" id="15_2gbb2"]
 
 [sub_resource type="Environment" id="Environment_jevge"]
 fog_enabled = true
@@ -467,109 +468,116 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -558
 [node name="StreetLight9" parent="StreetLights" instance=ExtResource("3_ydi03")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -758, 0, 15.999967)
 
-[node name="RedBuilding" parent="." instance=ExtResource("13_bxjcm")]
+[node name="Buildings" type="Node3D" parent="."]
+
+[node name="RedBuilding" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -179)
 
-[node name="BlueBuilding" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -157)
 
-[node name="RedBuilding2" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding2" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -136)
 
-[node name="BlueBuilding2" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding2" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -114)
 
-[node name="BlueBuilding3" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding3" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -94)
 
-[node name="RedBuilding5" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding5" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -57)
 
-[node name="BlueBuilding7" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding7" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -35)
 
-[node name="RedBuilding6" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding6" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, -14)
 
-[node name="BlueBuilding8" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding8" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 8)
 
-[node name="BlueBuilding9" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding9" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 28)
 
-[node name="RedBuilding7" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding7" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 137)
 
-[node name="BlueBuilding10" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding10" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 180)
 
-[node name="RedBuilding8" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding8" parent="Buildings" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 217)
 
-[node name="BlueBuilding11" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding11" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 256)
 
-[node name="BlueBuilding12" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding12" parent="Buildings" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 297)
 
-[node name="RedBuilding3" parent="." instance=ExtResource("13_bxjcm")]
+[node name="House" parent="." instance=ExtResource("15_2gbb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 676)
+
+[node name="Buildings2" type="Node3D" parent="."]
+
+[node name="RedBuilding3" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, -104)
 
-[node name="BlueBuilding4" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding4" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -126)
 
-[node name="RedBuilding4" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding4" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -147)
 
-[node name="BlueBuilding5" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding5" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -169)
 
-[node name="BlueBuilding6" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding6" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -189)
 
-[node name="RedBuilding9" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding9" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, 29)
 
-[node name="BlueBuilding13" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding13" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 7)
 
-[node name="RedBuilding10" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding10" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, -14)
 
-[node name="BlueBuilding14" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding14" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -36)
 
-[node name="BlueBuilding15" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding15" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, -56)
 
-[node name="RedBuilding11" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding11" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.699997, 0, 136)
 
-[node name="BlueBuilding16" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding16" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 114)
 
-[node name="RedBuilding12" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding12" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 93)
 
-[node name="BlueBuilding17" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding17" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 71)
 
-[node name="BlueBuilding18" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding18" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 51)
 
-[node name="BlueBuilding19" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding19" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 212)
 
-[node name="BlueBuilding20" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding20" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 179)
 
-[node name="RedBuilding16" parent="." instance=ExtResource("13_bxjcm")]
+[node name="RedBuilding16" parent="Buildings2" instance=ExtResource("13_bxjcm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.7, 0, 316)
 
-[node name="BlueBuilding23" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding23" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 281)
 
-[node name="BlueBuilding24" parent="." instance=ExtResource("14_5puad")]
+[node name="BlueBuilding24" parent="Buildings2" instance=ExtResource("14_5puad")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.700005, 0, 246)
 
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
