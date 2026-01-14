@@ -516,7 +516,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18.3, 0, 297)
 
 [node name="House" parent="." instance=ExtResource("15_2gbb2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 692)
 
 [node name="Buildings2" type="Node3D" parent="."]
 
