@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=35 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://b5xj3djbj6kkw" path="res://Scripts/np_cspawner_left.gd" id="7_nuvie"]
 [ext_resource type="Script" uid="uid://c3srdow4ai3l7" path="res://Scripts/car_spawner_forward.gd" id="10_sxh1w"]
 [ext_resource type="Script" uid="uid://csr30t6ayam2j" path="res://Scripts/car_spawner_left.gd" id="10_thcgq"]
-[ext_resource type="Script" uid="uid://dgbsf5vemyuhc" path="res://Scripts/car_spawner_right.gd" id="11_1k36k"]
 [ext_resource type="Script" uid="uid://c3qwf6dxt3o65" path="res://Scripts/car_spawner_backward.gd" id="11_bxjcm"]
 [ext_resource type="PackedScene" uid="uid://brhj8rsifw6b0" path="res://Scenes/traffic_light.tscn" id="12_a842a"]
 [ext_resource type="Script" uid="uid://caxrlgs5iur5t" path="res://Scenes/np_cspawner_traffic.gd" id="12_otmct"]
@@ -400,22 +399,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
 size = Vector3(15, 0.75, 1)
 material = SubResource("StandardMaterial3D_68c7g")
 
-[node name="CarSpawnerLeft" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 345)
-script = ExtResource("10_thcgq")
-
-[node name="Timer" type="Timer" parent="CarSpawnerLeft"]
-wait_time = 5.0
-autostart = true
-
-[node name="CarSpawnerRight" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 336)
-script = ExtResource("11_1k36k")
-
-[node name="Timer" type="Timer" parent="CarSpawnerRight"]
-wait_time = 5.0
-autostart = true
-
 [node name="CarSpawnerForward" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 329)
 script = ExtResource("10_sxh1w")
@@ -515,6 +498,11 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1
 [node name="TrafficLight4" parent="NPCspawners/TrafficNPCSpawn" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, -87)
+
+[node name="TrafficTimer1" type="Timer" parent="NPCspawners/TrafficNPCSpawn"]
+unique_name_in_owner = true
+wait_time = 12.0
+one_shot = true
 
 [node name="StreetLights" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, -193)
@@ -815,9 +803,41 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22.3
 [node name="House23" parent="." instance=ExtResource("18_06r5l")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22.3, 0.49999997, 671)
 
+[node name="SecondIntersection" type="Node3D" parent="."]
+
+[node name="CarSpawnerLeft" type="CSGBox3D" parent="SecondIntersection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 345)
+script = ExtResource("10_thcgq")
+
+[node name="Timer" type="Timer" parent="SecondIntersection/CarSpawnerLeft"]
+wait_time = 5.0
+autostart = true
+
+[node name="CarSpawnerRight" type="CSGBox3D" parent="SecondIntersection"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 336)
+
+[node name="Timer" type="Timer" parent="SecondIntersection/CarSpawnerRight"]
+wait_time = 5.0
+autostart = true
+
+[node name="TrafficLight6" parent="SecondIntersection" instance=ExtResource("12_a842a")]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, 332.5)
+
+[node name="TrafficLight7" parent="SecondIntersection" instance=ExtResource("12_a842a")]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, 332.5)
+
+[node name="TrafficLight8" parent="SecondIntersection" instance=ExtResource("12_a842a")]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, 348.5)
+
+[node name="TrafficLight9" parent="SecondIntersection" instance=ExtResource("12_a842a")]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, 348.5)
+
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
-[connection signal="timeout" from="CarSpawnerLeft/Timer" to="CarSpawnerLeft" method="_on_timer_timeout"]
-[connection signal="timeout" from="CarSpawnerRight/Timer" to="CarSpawnerRight" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerForward/Timer" to="CarSpawnerForward" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerBackward/Timer" to="CarSpawnerBackward" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerBackward2/Timer" to="CarSpawnerBackward2" method="_on_timer_timeout"]
@@ -828,3 +848,6 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22.3
 [connection signal="timeout" from="NPCspawners/NPCspawnerRight3/Timer" to="NPCspawners/NPCspawnerRight3" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/TrafficNPCSpawn/NPCspawnerLeft/Timer" to="NPCspawners/TrafficNPCSpawn/NPCspawnerLeft" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/TrafficNPCSpawn/NPCspawnerRight/Timer" to="NPCspawners/TrafficNPCSpawn/NPCspawnerRight" method="_on_timer_timeout"]
+[connection signal="timeout" from="NPCspawners/TrafficNPCSpawn/TrafficTimer1" to="NPCspawners/TrafficNPCSpawn/NPCspawnerLeft" method="_on_traffic_timer_1_timeout"]
+[connection signal="timeout" from="SecondIntersection/CarSpawnerLeft/Timer" to="SecondIntersection/CarSpawnerLeft" method="_on_timer_timeout"]
+[connection signal="timeout" from="SecondIntersection/CarSpawnerRight/Timer" to="SecondIntersection/CarSpawnerRight" method="_on_timer_timeout"]
