@@ -90,5 +90,16 @@ func going_forward() -> bool:
 func _on_car_area_3d_body_entered(body):
 	if body.name == "Ground": return
 	
+	if body.name.contains("Sidewalk"):
+		Global.driving_points -= 2
+	if body.name.contains("StreetLight"):
+		Global.driving_points -= 25
+#		hitting these objects are automatic losses.
+# Hitting 0 points means loss.
+	if body.name.contains("Building"):
+		Global.driving_points = 0
+	if body.name.contains("NPC"):
+		Global.driving_points = 0
+	
 	print(body.name)
 	pass # Replace with function body.

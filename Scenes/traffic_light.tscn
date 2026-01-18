@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://brhj8rsifw6b0"]
+
+[ext_resource type="Script" uid="uid://b32xdgsqgbrc5" path="res://Scenes/traffic_light.gd" id="1_tmwn3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glmt6"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmwn3"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l57qh"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wy3hc"]
+albedo_color = Color(0, 1, 0.14117648, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ungvk"]
+albedo_color = Color(1, 0.003921569, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_glmt6"]
+size = Vector3(0.2, 2.9, 0.2)
+
+[node name="TrafficLight" type="StaticBody3D"]
+script = ExtResource("1_tmwn3")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+size = Vector3(0.2, 2.5, 0.2)
+material = SubResource("StandardMaterial3D_glmt6")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+size = Vector3(0.2, 1.5, 1)
+material = SubResource("StandardMaterial3D_tmwn3")
+
+[node name="YellowLight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1005, 2.75, 0)
+visible = false
+size = Vector3(0.001, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_l57qh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="YellowLight"]
+light_color = Color(1, 1, 0, 1)
+light_size = 1.0
+
+[node name="GreenLight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1005, 2.35, 0)
+size = Vector3(0.001, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_wy3hc")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="GreenLight"]
+light_color = Color(0, 1, 0.14117648, 1)
+light_size = 1.0
+
+[node name="RedLight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1005, 3.15, 0)
+visible = false
+size = Vector3(0.001, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_ungvk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="RedLight"]
+light_color = Color(1, 0.003921569, 0, 1)
+light_size = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_glmt6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="GreenTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="GreenTimer" to="." method="_on_green_timer_timeout"]

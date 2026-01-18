@@ -3,3 +3,4 @@ extends Button
 func _on_pressed():
 	get_parent().visible = false
 	get_tree().paused = false
+	%PointsUI.visible = true

@@ -15,3 +15,13 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	queue_free()
+
+
+func _on_body_entered(body):
+	if body.name.contains("VehicleBody"):
+		queue_free()
+
+
+func _on_area_3d_body_entered(body):
+	if body.name.contains("VehicleBody") and not (body == self):
+		queue_free()
