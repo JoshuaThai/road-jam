@@ -95,6 +95,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 2, -5)
 shape = SubResource("BoxShape3D_vpxjd")
 
 [node name="GaragePavement" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3999996, -0.3, -10)
-size = Vector3(4.6, 0.4, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3999996, -0.4, -10)
+size = Vector3(4.6, 0.2, 6)
 material = SubResource("StandardMaterial3D_2emxv")

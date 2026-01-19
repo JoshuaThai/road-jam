@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=37 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
@@ -58,10 +58,16 @@ size = Vector3(6, 1, 352)
 [sub_resource type="LabelSettings" id="LabelSettings_t2ryq"]
 font_size = 32
 
+[sub_resource type="LabelSettings" id="LabelSettings_jje0o"]
+font_size = 32
+
 [sub_resource type="LabelSettings" id="LabelSettings_otmct"]
 font_size = 48
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vsry1"]
+size = Vector3(900, 3, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68c7g"]
 
@@ -149,7 +155,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, -8)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 141)
-size = Vector3(6, 0.75, 400)
+size = Vector3(6, 0.5, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 141)
@@ -160,7 +166,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, -8)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 141)
-size = Vector3(6, 0.75, 400)
+size = Vector3(6, 0.5, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 141)
@@ -171,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, 407)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 117)
-size = Vector3(6, 0.75, 352)
+size = Vector3(6, 0.5, 352)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999905, 0, 117)
@@ -182,7 +188,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8, 0, 407)
 
 [node name="Sidewalk" type="CSGBox3D" parent="Sidewalk6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 117)
-size = Vector3(6, 0.75, 352)
+size = Vector3(6, 0.5, 352)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 117)
@@ -298,12 +304,14 @@ offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Drive home safely. Avoid crashing into anything! Keep a eye out for 
-pedestrians and car. Stay in your lane!"
+pedestrians and car. Stay in your lane!
+DO NOT LET POINTS HIT 0."
 label_settings = SubResource("LabelSettings_t2ryq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FinishUI" type="ColorRect" parent="UI"]
+[node name="BadEndingUI" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,6 +319,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.88235295)
+
+[node name="DialogueLabel" type="Label" parent="UI/BadEndingUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -123.0
+offset_right = 500.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_jje0o")
 
 [node name="PointsUI" type="ColorRect" parent="UI"]
 unique_name_in_owner = true
@@ -335,75 +358,19 @@ text = "Points: 100"
 label_settings = SubResource("LabelSettings_otmct")
 script = ExtResource("6_jje0o")
 
-[node name="Crosswalk" type="Node3D" parent="."]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="Crosswalk2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="Crosswalk5" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 265)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="Crosswalk3" type="Node3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 75, 0, -73.299995)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="Crosswalk4" type="Node3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 95.6, 0, -73.3)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
-size = Vector3(15, 0.75, 1)
-material = SubResource("StandardMaterial3D_68c7g")
-
 [node name="CarSpawnerForward" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 329)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 354)
 script = ExtResource("10_sxh1w")
 
 [node name="Timer" type="Timer" parent="CarSpawnerForward"]
+wait_time = 5.0
+autostart = true
+
+[node name="CarSpawnerForward2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 207)
+script = ExtResource("10_sxh1w")
+
+[node name="Timer" type="Timer" parent="CarSpawnerForward2"]
 wait_time = 5.0
 autostart = true
 
@@ -489,11 +456,11 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 
 
 [node name="TrafficLight2" parent="NPCspawners/TrafficNPCSpawn" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, -66.6)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0.7, -66.6)
 
 [node name="TrafficLight3" parent="NPCspawners/TrafficNPCSpawn" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, -66)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 0.7, -66)
 
 [node name="TrafficLight4" parent="NPCspawners/TrafficNPCSpawn" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
@@ -510,10 +477,10 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 
 [node name="StreetLight2" parent="StreetLights" instance=ExtResource("3_ydi03")]
 
 [node name="StreetLight4" parent="StreetLights" instance=ExtResource("3_ydi03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -283, 0, -1.2397766e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -283, 0.2, -1.2397766e-05)
 
 [node name="StreetLight6" parent="StreetLights" instance=ExtResource("3_ydi03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -516, 0, -2.2888184e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -516, 0.1, -2.3841858e-05)
 
 [node name="StreetLight8" parent="StreetLights" instance=ExtResource("3_ydi03")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -669, 0, -2.9563904e-05)
@@ -737,6 +704,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0.6, -85)
 [node name="Tree24" parent="Trees" instance=ExtResource("16_txmgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5, -90)
 
+[node name="Tree31" parent="Trees" instance=ExtResource("16_txmgr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.5, -192)
+
+[node name="Tree32" parent="Trees" instance=ExtResource("16_txmgr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.5, -197)
+
 [node name="House2" parent="." instance=ExtResource("17_xu30l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.5, 668)
 
@@ -813,6 +786,11 @@ script = ExtResource("10_thcgq")
 wait_time = 5.0
 autostart = true
 
+[node name="CooldownTrafTimer" type="Timer" parent="SecondIntersection/CarSpawnerLeft"]
+unique_name_in_owner = true
+wait_time = 12.0
+one_shot = true
+
 [node name="CarSpawnerRight" type="CSGBox3D" parent="SecondIntersection"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 336)
@@ -823,22 +801,113 @@ autostart = true
 
 [node name="TrafficLight6" parent="SecondIntersection" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, 332.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0.7, 332.5)
 
 [node name="TrafficLight7" parent="SecondIntersection" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, 332.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 0.7, 332.5)
 
 [node name="TrafficLight8" parent="SecondIntersection" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 1, 348.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9, 0.8, 348.5)
 
 [node name="TrafficLight9" parent="SecondIntersection" instance=ExtResource("12_a842a")]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, 348.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0.7, 348.5)
+
+[node name="RestartGame" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -199)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RestartGame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90000004, 0)
+shape = SubResource("BoxShape3D_vsry1")
+debug_color = Color(0.98945326, 0, 0.2957049, 0.41960785)
+
+[node name="RestartGame2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -30, 0, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RestartGame2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -260, 0.90000004, -1.1444092e-05)
+shape = SubResource("BoxShape3D_vsry1")
+debug_color = Color(0.98945326, 0, 0.2957049, 0.41960785)
+
+[node name="RestartGame3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 35, 0, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RestartGame3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -260, 0.90000004, -1.1444092e-05)
+shape = SubResource("BoxShape3D_vsry1")
+debug_color = Color(0.98945326, 0, 0.2957049, 0.41960785)
+
+[node name="Crosswalks" type="Node3D" parent="."]
+
+[node name="Crosswalk" type="Node3D" parent="Crosswalks"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalks/Crosswalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalks/Crosswalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk2" type="Node3D" parent="Crosswalks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalks/Crosswalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalks/Crosswalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk5" type="Node3D" parent="Crosswalks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 265)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalks/Crosswalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalks/Crosswalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk3" type="Node3D" parent="Crosswalks"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 75, 0, -73.299995)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalks/Crosswalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalks/Crosswalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk4" type="Node3D" parent="Crosswalks"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 95.6, 0, -73.3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalks/Crosswalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalks/Crosswalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
 
 [connection signal="pressed" from="UI/DirectionsUI/Button" to="UI/DirectionsUI/Button" method="_on_pressed"]
 [connection signal="timeout" from="CarSpawnerForward/Timer" to="CarSpawnerForward" method="_on_timer_timeout"]
+[connection signal="timeout" from="CarSpawnerForward2/Timer" to="CarSpawnerForward2" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerBackward/Timer" to="CarSpawnerBackward" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerBackward2/Timer" to="CarSpawnerBackward2" method="_on_timer_timeout"]
 [connection signal="timeout" from="CarSpawnerBackward3/Timer" to="CarSpawnerBackward3" method="_on_timer_timeout"]
@@ -850,4 +919,5 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 
 [connection signal="timeout" from="NPCspawners/TrafficNPCSpawn/NPCspawnerRight/Timer" to="NPCspawners/TrafficNPCSpawn/NPCspawnerRight" method="_on_timer_timeout"]
 [connection signal="timeout" from="NPCspawners/TrafficNPCSpawn/TrafficTimer1" to="NPCspawners/TrafficNPCSpawn/NPCspawnerLeft" method="_on_traffic_timer_1_timeout"]
 [connection signal="timeout" from="SecondIntersection/CarSpawnerLeft/Timer" to="SecondIntersection/CarSpawnerLeft" method="_on_timer_timeout"]
+[connection signal="timeout" from="SecondIntersection/CarSpawnerLeft/CooldownTrafTimer" to="SecondIntersection/CarSpawnerLeft" method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="SecondIntersection/CarSpawnerRight/Timer" to="SecondIntersection/CarSpawnerRight" method="_on_timer_timeout"]

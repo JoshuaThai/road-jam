@@ -2,6 +2,8 @@ extends CSGBox3D
 
 @onready var car = load("res://Characters/car_NPC.tscn")
 
+var trafficDebounce = false
+
 func spawn_left_car():
 	#print("Timer ran out")
 	var npc = car.instantiate()
@@ -27,13 +29,21 @@ func change_traffic_light():
 # NPC SPAWNER TO THE RIGHT
 func _on_timer_timeout():
 	var randNumbDrunk = randi_range(1, 2)
-	if Global.drunk and randNumbDrunk%2 == 0:
+	if Global.drunk and randNumbDrunk%2 == 0 and not trafficDebounce:
+		trafficDebounce = true
 		change_traffic_light()
 		spawn_left_car()
 		spawn_right_car()
+		%CooldownTrafTimer.start()
 	else:
 		var randNumb = randi_range(1, 4)
-		if randNumb == 2:
+		if randNumb == 2 and not trafficDebounce:
+			trafficDebounce = true
 			change_traffic_light()
 			spawn_left_car()
 			spawn_right_car()
+			%CooldownTrafTimer.start()
+
+
+func _on_cooldown_timer_timeout():
+	trafficDebounce = false

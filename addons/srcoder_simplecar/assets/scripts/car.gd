@@ -89,6 +89,8 @@ func going_forward() -> bool:
 # Handle car crashing into anything
 func _on_car_area_3d_body_entered(body):
 	if body.name == "Ground": return
+	if body.name.contains("RestartGame"):
+		get_tree().reload_current_scene()
 	
 	if body.name.contains("Sidewalk"):
 		Global.driving_points -= 2
