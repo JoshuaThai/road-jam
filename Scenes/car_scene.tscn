@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cb5l2mslghlm1"]
+[gd_scene load_steps=47 format=3 uid="uid://cb5l2mslghlm1"]
 
 [ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
 [ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
@@ -40,6 +40,18 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydi03"]
 albedo_color = Color(1, 1, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_60871"]
+size = Vector3(1, 0.25, 113)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x3hko"]
+size = Vector3(1, 0.25, 240)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dehcq"]
+size = Vector3(1, 0.25, 150)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r7m4h"]
+size = Vector3(1, 0.25, 352)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_5puad"]
 size = Vector3(6, 0.5, 118)
 
@@ -76,6 +88,14 @@ size = Vector3(25, 50, 1)
 font_size = 48
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_60871"]
+font_size = 48
+font_color = Color(1, 0, 0, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.49019608)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x3hko"]
 shader = ExtResource("23_60871")
@@ -128,15 +148,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, -143.5
 size = Vector3(1, 0.25, 113)
 material = SubResource("StandardMaterial3D_ydi03")
 
+[node name="YellowLine" type="Area3D" parent="YellowLine"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="YellowLine/YellowLine"]
+shape = SubResource("BoxShape3D_60871")
+
 [node name="YellowLine2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 58)
 size = Vector3(1, 0.25, 240)
 material = SubResource("StandardMaterial3D_ydi03")
 
+[node name="YellowLine" type="Area3D" parent="YellowLine2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="YellowLine2/YellowLine"]
+shape = SubResource("BoxShape3D_x3hko")
+
 [node name="YellowLine3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 441.5)
-size = Vector3(1, 0.25, 517)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 258)
+size = Vector3(1, 0.25, 150)
 material = SubResource("StandardMaterial3D_ydi03")
+
+[node name="YellowLine" type="Area3D" parent="YellowLine3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="YellowLine3/YellowLine"]
+shape = SubResource("BoxShape3D_dehcq")
+
+[node name="YellowLine4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 524)
+size = Vector3(1, 0.25, 352)
+material = SubResource("StandardMaterial3D_ydi03")
+
+[node name="YellowLine" type="Area3D" parent="YellowLine4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="YellowLine4/YellowLine"]
+shape = SubResource("BoxShape3D_r7m4h")
 
 [node name="Sidewalk" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 0, -141)
@@ -937,6 +982,25 @@ grow_horizontal = 2
 text = "Points: 100"
 label_settings = SubResource("LabelSettings_otmct")
 script = ExtResource("6_jje0o")
+
+[node name="WarningLabel" type="Label" parent="OtherUI/PointsUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -75.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PAY ATTENTION TO THE ROAD!"
+label_settings = SubResource("LabelSettings_60871")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DrunkVision" type="ColorRect" parent="OtherUI"]
 unique_name_in_owner = true

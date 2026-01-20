@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=4 uid="uid://7l1irinimxa"]
+[gd_scene load_steps=20 format=4 uid="uid://7l1irinimxa"]
 
 [ext_resource type="Texture2D" uid="uid://d00a8fn18o6y3" path="res://addons/srcoder_simplecar/assets/models/Textures/colormap.png" id="1_n0mcw"]
 [ext_resource type="PhysicsMaterial" uid="uid://cuw7isymmyyku" path="res://addons/srcoder_simplecar/assets/materials/metal_physics_material.phymat" id="1_vukum"]
 [ext_resource type="Script" uid="uid://bbdjwh1i58bfh" path="res://addons/srcoder_simplecar/assets/scripts/car.gd" id="1_ymx53"]
+[ext_resource type="AudioStream" uid="uid://rioudpyrg1fb" path="res://DrunkDrivingDialogue/WarningAudio.mp3" id="4_0vicd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwqi7"]
 resource_name = "colormap"
@@ -216,7 +217,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jalnx")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m8f8g"]
-size = Vector3(1.4, 1, 2.8486938)
+size = Vector3(1.4, 1.1, 2.8486938)
 
 [node name="car" type="VehicleBody3D"]
 collision_layer = 2
@@ -298,7 +299,17 @@ skeleton = NodePath("")
 [node name="CarArea3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CarArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.6, 0.0110655725)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.55, 0.0110655725)
 shape = SubResource("BoxShape3D_m8f8g")
 
+[node name="WarningAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0vicd")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="area_entered" from="CarArea3D" to="." method="_on_car_area_3d_area_entered"]
 [connection signal="body_entered" from="CarArea3D" to="." method="_on_car_area_3d_body_entered"]
+[connection signal="finished" from="WarningAudio" to="." method="_on_warning_audio_finished"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

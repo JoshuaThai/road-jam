@@ -24,6 +24,8 @@ var player_braking : float = 0.0
 var player_steer : float = 0.0
 var player_input : Vector2 = Vector2.ZERO
 
+var soundPlayable = true
+
 #an exporetd array of driving wheels so we can limit rom of each wheel when we process input
 @onready var driving_wheels : Array[VehicleWheel3D] = [$WheelBackLeft,$WheelBackRight]
 @onready var steering_wheels : Array[VehicleWheel3D] = [$WheelFrontLeft,$WheelFrontRight]
@@ -86,6 +88,12 @@ func going_forward() -> bool:
 		return false
 	
 
+func _play_warning():
+	$WarningAudio.play()
+	%WarningLabel.visible = true
+	soundPlayable = false
+	$CooldownTimer.start()
+
 # Handle car crashing into anything
 func _on_car_area_3d_body_entered(body):
 	if body.name == "Ground": return
@@ -95,18 +103,21 @@ func _on_car_area_3d_body_entered(body):
 		%EndingUI.visible = true
 #		We need to use logic to determine if good ending or not.
 	# Handle Good Ending (if player is drunk):
-	if Global.drunk:
-		%EndingDialogue.emit_signal("endingReceived", "Drunk")
-	else: # Handle Good Ending (if player is not drunk):
-		%EndingDialogue.emit_signal("endingReceived", "Good")
-		get_tree().paused = true
+		if Global.drunk:
+			%EndingDialogue.emit_signal("endingReceived", "Drunk")
+		else: # Handle Good Ending (if player is not drunk):
+			%EndingDialogue.emit_signal("endingReceived", "Good")
+			get_tree().paused = true
 	
 	if body.name.contains("Sidewalk"):
 		Global.driving_points -= 2
+		_play_warning()
 	if body.name.contains("StreetLight"):
 		Global.driving_points -= 25
-#		hitting these objects are automatic losses.
-# Hitting 0 points means loss.
+		_play_warning()
+		
+	# Hitting these objects are automatic losses.
+	# Hitting 0 points means loss.
 	if body.name.contains("Building"):
 		Global.driving_points = 0
 	if body.name.contains("NPC"):
@@ -117,5 +128,20 @@ func _on_car_area_3d_body_entered(body):
 	if body.has_method("_on_delete_timer_timeout") or body.has_method("_on_area_3d_body_entered"):
 		Global.driving_points = 0
 	
-	print(body.name)
-	pass # Replace with function body.
+	#print(body.name)
+
+
+func _on_car_area_3d_area_entered(area):
+	if area.name == "YellowLine" and soundPlayable:
+		Global.driving_points -= 2
+		_play_warning()
+		
+	#print(area.name)
+
+
+func _on_cooldown_timer_timeout():
+	soundPlayable = true
+
+
+func _on_warning_audio_finished():
+	%WarningLabel.visible = false
