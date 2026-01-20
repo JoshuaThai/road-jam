@@ -9,6 +9,7 @@ extends ColorRect
 func giveGlass():
 #	Inititate drinking animation
 	var glass = load("res://BarObjects/wine_glass_scene.tscn").instantiate()
+	Global.drunk = true
 	player.add_child(glass)
 	glass.global_position = player.global_transform.origin + player.global_transform.basis * Vector3(0, 1.5, -1)
 	glass.play_drink_animation()

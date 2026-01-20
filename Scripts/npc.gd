@@ -1,7 +1,6 @@
-extends StaticBody3D
+extends RigidBody3D
 
 #@onready var NPCAnimations = %NPCAnimations
-@onready var bartenderAnimation = %BartenderAnimations
 var time = 0
 @export var non_drunk_rotations = [0,90,180]
 @export var drunk_rotations = [90]
@@ -14,9 +13,6 @@ func _ready():
 	#pass
 	#NPCAnimations.play("WalkStraight")
 
-func play_animation():
-	bartenderAnimation.stop()
-	bartenderAnimation.play("WalkAway")
 #func _physics_process(delta):
 	#if time <= 0:
 		#bartenderAnimation.play("Wave")
@@ -24,10 +20,10 @@ func play_animation():
 	#time -= 1
 
 
-#func _on_movement_timer_timeout():
-	#var forward = -global_transform.basis.z
-	#constant_linear_velocity = forward.normalized() * 5
-#
-#
-#func _on_delete_timer_timeout():
-	#queue_free()
+func _on_movement_timer_timeout():
+	var forward = -global_transform.basis.z
+	linear_velocity = forward.normalized() * 5
+
+
+func _on_delete_timer_timeout():
+	queue_free()

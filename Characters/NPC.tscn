@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d4bnkoxtagvp3"]
 
-[ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="1_ydrf3"]
+[ext_resource type="Script" uid="uid://dxtfpn2visxth" path="res://Scripts/npc.gd" id="1_ydrf3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubmj0"]
 

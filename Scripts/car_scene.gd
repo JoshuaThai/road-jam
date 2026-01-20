@@ -2,7 +2,6 @@ extends Node3D
 
 func _ready():
 	Global.driving_points = 100
-	get_tree().paused = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:

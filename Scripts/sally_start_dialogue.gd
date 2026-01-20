@@ -1,13 +1,12 @@
 extends AudioStreamPlayer
 
 @onready var dialogueLabel = %DialogueLabel
-@onready var bartenderAnimation = %BartenderAnimations
+@onready var bartender = %Bartender
 @onready var choiceRect = %ChoiceRect
 
 func _physics_process(delta):
 	if get_playback_position() >0 and get_playback_position() < 3:
-		bartenderAnimation.stop()
-		bartenderAnimation.play("WalkAway")
+		bartender.play_animation()
 		dialogueLabel.text = "Sally: Oh John! You are here."
 		#print(get_playback_position())
 	if get_playback_position() >= 3 and get_playback_position() < 7:

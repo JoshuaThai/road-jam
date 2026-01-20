@@ -91,6 +91,15 @@ func _on_car_area_3d_body_entered(body):
 	if body.name == "Ground": return
 	if body.name.contains("RestartGame"):
 		get_tree().reload_current_scene()
+	if body.name.contains("EndGame"):
+		%EndingUI.visible = true
+#		We need to use logic to determine if good ending or not.
+	# Handle Good Ending (if player is drunk):
+	if Global.drunk:
+		%EndingDialogue.emit_signal("endingReceived", "Drunk")
+	else: # Handle Good Ending (if player is not drunk):
+		%EndingDialogue.emit_signal("endingReceived", "Good")
+		get_tree().paused = true
 	
 	if body.name.contains("Sidewalk"):
 		Global.driving_points -= 2
@@ -101,6 +110,11 @@ func _on_car_area_3d_body_entered(body):
 	if body.name.contains("Building"):
 		Global.driving_points = 0
 	if body.name.contains("NPC"):
+		Global.driving_points = 0
+	if body.name.contains("House"):
+		Global.driving_points = 0
+#		Handle crashing into npcs.
+	if body.has_method("_on_delete_timer_timeout") or body.has_method("_on_area_3d_body_entered"):
 		Global.driving_points = 0
 	
 	print(body.name)
