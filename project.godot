@@ -11,13 +11,21 @@ config_version=5
 [application]
 
 config/name="road-jam"
-run/main_scene="uid://cb5l2mslghlm1"
+run/main_scene="uid://bq2kdr80nrrgi"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Scripts/global.gd"
+
+[display]
+
+window/size/viewport_width=250
+window/size/viewport_height=152
+window/size/sharp_corners=true
+window/stretch/mode="viewport"
+window/stretch/scale=0.5
 
 [input]
 
