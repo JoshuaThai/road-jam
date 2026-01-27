@@ -1,0 +1,1059 @@
+[gd_scene load_steps=21 format=3 uid="uid://bd4d0uexcglnm"]
+
+[ext_resource type="Script" uid="uid://c6wkuyhvehd6d" path="res://scripts/driving_scene.gd" id="1_lnu0m"]
+[ext_resource type="PackedScene" uid="uid://p2wey261dhty" path="res://Player/player.tscn" id="2_3p8ai"]
+[ext_resource type="FontFile" uid="uid://i1ke5j7pd1p3" path="res://GrapeSoda.ttf" id="3_r8wbj"]
+[ext_resource type="PackedScene" uid="uid://bjlxq0qwyvqhe" path="res://scenery/road.tscn" id="4_lnu0m"]
+[ext_resource type="Shader" uid="uid://c3auiagqe5rc4" path="res://shaders/night_sky_shader.tres" id="5_t8w7o"]
+[ext_resource type="Texture2D" uid="uid://dufcbdacxgr5u" path="res://glb_models/night_sky.jpg" id="6_i6iea"]
+[ext_resource type="Script" uid="uid://vy6gsgkr2qd4" path="res://scripts/player_first_pov.gd" id="8_1aup5"]
+[ext_resource type="Script" uid="uid://bxdnq440wpaa7" path="res://scripts/car_movement.gd" id="8_hvork"]
+[ext_resource type="PackedScene" uid="uid://dnw4bpiiesut8" path="res://glb_models/car_test.tscn" id="8_rc1vu"]
+[ext_resource type="Texture2D" uid="uid://tyjg2l82lpnm" path="res://glb_models/road_road_scene_128.png" id="10_hvork"]
+[ext_resource type="Script" uid="uid://ddutbvccvlmo3" path="res://scripts/event_trigger.gd" id="11_alov0"]
+[ext_resource type="Texture2D" uid="uid://lhkwgo1qb4cc" path="res://glb_models/tree.png" id="12_iretn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu0m"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhkpg"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8w7o"]
+bg_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6iea"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rc1vu"]
+shader = ExtResource("5_t8w7o")
+shader_parameter/tex = ExtResource("6_i6iea")
+
+[sub_resource type="Sky" id="Sky_1aup5"]
+sky_material = SubResource("ShaderMaterial_rc1vu")
+
+[sub_resource type="Environment" id="Environment_lnu0m"]
+background_mode = 2
+sky = SubResource("Sky_1aup5")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.0946387, 0.16380873, 0.3604127, 1)
+fog_density = 1.0
+fog_sky_affect = 0.578
+fog_height_density = 4.5328
+fog_depth_curve = 0.51763254
+adjustment_enabled = true
+adjustment_brightness = 0.96
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hvork"]
+size = Vector3(9.801758, 10.920227, 7.3154297)
+
+[node name="driving_scene" type="Node3D"]
+script = ExtResource("1_lnu0m")
+
+[node name="road" parent="." instance=ExtResource("4_lnu0m")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.007139206, -0.12873888, -0.041103363)
+
+[node name="road3" parent="." instance=ExtResource("4_lnu0m")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.007139206, -0.12873888, 498.971)
+
+[node name="road2" parent="." instance=ExtResource("4_lnu0m")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.007139206, -0.12873888, -499.7995)
+
+[node name="Pause" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -166.0
+offset_right = 191.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pause"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("3_r8wbj")
+theme_override_font_sizes/font_size = 30
+text = "Game Paused"
+
+[node name="back_button" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -129.0
+offset_right = 88.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_r8wbj")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu0m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nhkpg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t8w7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i6iea")
+text = "Back"
+
+[node name="exit" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -75.0
+offset_right = 88.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_r8wbj")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu0m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nhkpg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t8w7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i6iea")
+text = "Exit"
+
+[node name="main_menu" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.0
+offset_top = -182.0
+offset_right = 89.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_r8wbj")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu0m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nhkpg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t8w7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i6iea")
+text = "Main Menu"
+
+[node name="light" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.931997, 163.2839, 6.991596)
+light_color = Color(0.21478039, 0.44632244, 0.87512666, 1)
+light_energy = 45.81
+light_size = 0.755
+omni_range = 4077.39
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5000906, 4.0073776)
+visible = false
+light_color = Color(0.91150594, 0, 0.42344385, 1)
+directional_shadow_max_distance = 986.0
+directional_shadow_pancake_size = 104.2
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="light"]
+environment = SubResource("Environment_lnu0m")
+
+[node name="UI_road" type="Node2D" parent="."]
+
+[node name="car3" parent="." instance=ExtResource("8_rc1vu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8433504, 4.1638303, 2.5079055)
+script = ExtResource("8_hvork")
+
+[node name="player_first_pov" type="Camera3D" parent="car3"]
+transform = Transform3D(1, 0, 0, 0, 0.9942149, 0.107409395, 0, -0.107409395, 0.9942149, -2.2935658, 4.913305, -1.2971613)
+script = ExtResource("8_1aup5")
+
+[node name="player" parent="." instance=ExtResource("2_3p8ai")]
+transform = Transform3D(3.1, 0, 0, 0, 3.1, 0, 0, 0, 3.1, -4.28071, 4.3330994, 2.569995)
+
+[node name="Lamp_posts" type="Node3D" parent="."]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0527, 13.9023285, 0)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D2/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 25.288
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0527, 13.9023285, -101.711655)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D3/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 23.22
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0527, 13.9023285, -230.30582)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D4/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 25.288
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0527, 13.9023285, -331.0467)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D5/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 25.288
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.98949, 13.9023285, -330.21744)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D6/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 23.22
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -26.262775, 13.9023285, -230.30583)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D7/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 25.288
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -26.26278, 13.9023285, -101.71166)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D8/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 23.22
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Lamp_posts"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -26.262783, 13.9023285, 0)
+size = Vector3(3, 1, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Lamp_posts/CSGBox3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8014927, -5.9999995, 0)
+size = Vector3(0.655, 13.045, 0.32)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamp_posts/CSGBox3D9/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5289555, 4.022453, 0)
+light_color = Color(0.6331812, 0.52305084, 0.25388768, 1)
+light_energy = 16.0
+light_specular = 3.29
+omni_range = 23.22
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.600226, -236.6715)
+billboard = 2
+texture = ExtResource("10_hvork")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.301688, -7.3416977)
+script = ExtResource("11_alov0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.496876, -0.6112547, -35.29698)
+shape = SubResource("BoxShape3D_hvork")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Sprite3D2" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, 29.641478)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D3" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -44.457314)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D4" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, 11.843881)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D5" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -4.02308)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D6" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -25.321709)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D22" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, 157.26105)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D23" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, 83.16226)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D24" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, 139.46346)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D25" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, 123.5965)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D26" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, 102.29787)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D7" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, 29.641478)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D8" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -44.457314)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D9" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, 11.843881)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D10" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -4.02308)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D11" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -25.321709)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D12" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, 120.720215)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D13" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, 46.62142)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D14" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, 102.922615)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D15" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, 87.05566)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D16" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, 65.75703)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D17" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, 120.720215)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D18" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, 46.62142)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D19" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, 102.922615)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D20" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, 87.05566)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D21" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, 65.75703)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D27" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, 220.85846)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D28" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, 146.75967)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D29" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, 203.06087)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D30" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, 187.1939)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D31" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, 165.89526)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D32" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, 348.47803)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D33" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, 274.37924)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D34" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, 330.68042)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D35" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, 314.81348)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D36" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, 293.51483)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D37" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, 220.85846)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D38" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, 146.75967)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D39" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, 203.06087)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D40" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, 187.1939)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D41" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, 165.89526)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D42" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, 311.9372)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D43" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, 237.83841)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D44" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, 294.1396)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D45" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, 278.27264)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D46" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, 256.974)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D47" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, 311.9372)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D48" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, 237.83841)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D49" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, 294.1396)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D50" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, 278.27264)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D51" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, 256.974)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D52" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -370.25348)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D53" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -444.35226)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D54" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -388.0511)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D55" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -403.91803)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D56" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 60.717564, 10.591607, -425.21667)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D57" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, -242.63391)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D58" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, -316.7327)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D59" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, -260.43152)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D60" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, -276.29846)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D61" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 73.849, 10.591607, -297.5971)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D62" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -370.25348)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D63" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -444.35226)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D64" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -388.0511)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D65" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -403.91803)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D66" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -42.039368, 10.591607, -425.21667)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D67" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, -279.17474)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D68" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, -353.27353)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D69" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, -296.97235)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D70" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, -312.8393)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D71" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 54.166187, 10.591607, -334.13794)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D72" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, -279.17474)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D73" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, -353.27353)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D74" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, -296.97235)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D75" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, -312.8393)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D76" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -48.590744, 10.591607, -334.13794)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D77" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, -179.0365)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D78" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, -253.13528)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D79" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, -196.83409)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D80" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, -212.70107)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D81" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 71.47095, 10.591607, -233.9997)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D82" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, -51.41693)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D83" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, -125.51572)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D84" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, -69.21454)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D85" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, -85.08148)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D86" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 84.60239, 10.591607, -106.38013)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D87" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, -179.0365)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D88" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, -253.13528)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D89" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, -196.83409)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D90" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, -212.70107)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D91" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -31.28598, 10.591607, -233.9997)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D92" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, -87.95776)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D93" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, -162.05655)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D94" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, -105.75537)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D95" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, -121.622314)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D96" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, 64.91957, 10.591607, -142.92096)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D97" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, -87.95776)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D98" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, -162.05655)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D99" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, -105.75537)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D100" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, -121.622314)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[node name="Sprite3D101" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(4.02, 0, 0, 0, 4.02, 0, 0, 0, 4.02, -37.837357, 10.591607, -142.92096)
+gi_mode = 2
+modulate = Color(0.090413846, 0.48114198, 0.7649307, 1)
+billboard = 1
+texture = ExtResource("12_iretn")
+
+[connection signal="pressed" from="Pause/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Pause/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Pause/main_menu" to="." method="_on_main_menu_pressed"]

@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dulfwxq6pulsy"]
+
+[ext_resource type="Texture2D" uid="uid://mg4qgqwk7mj" path="res://textures/bar_textures/128x128/Wood 10 - 128x128.png" id="1_s0dca"]
+
+[resource]
+albedo_texture = ExtResource("1_s0dca")
+uv1_scale = Vector3(19.57, 10.54, 1)
+uv1_offset = Vector3(21.895, 0.085, 0)
+uv1_triplanar_sharpness = 0.21763839
+uv1_world_triplanar = true
+texture_filter = 0
