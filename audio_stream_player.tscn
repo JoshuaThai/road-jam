@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://x5il14ei5qwp"]
+
+[ext_resource type="AudioStream" uid="uid://c1kq0x3b7c17p" path="res://horrorambiance3.mp3" id="1_g84o6"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_g84o6")
+autoplay = true
+bus = &"Music"

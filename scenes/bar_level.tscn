@@ -1,0 +1,237 @@
+[gd_scene load_steps=18 format=3 uid="uid://cpccu7iablxhx"]
+
+[ext_resource type="Script" uid="uid://cj6ph5tjiy2se" path="res://scripts/bar_level.gd" id="1_3fbvq"]
+[ext_resource type="Texture2D" uid="uid://dr0kqnptis1nl" path="res://textures/bar_textures/256x256/Wood/Wood 18 - 256x256.png" id="1_er5xh"]
+[ext_resource type="PackedScene" uid="uid://p2wey261dhty" path="res://Player/player.tscn" id="2_bnmhi"]
+[ext_resource type="FontFile" uid="uid://i1ke5j7pd1p3" path="res://GrapeSoda.ttf" id="3_bnmhi"]
+[ext_resource type="PackedScene" uid="uid://tuicb87b0m0g" path="res://scenery/bar.tscn" id="5_i4uyw"]
+[ext_resource type="PackedScene" uid="uid://0s7cy8wjpyxe" path="res://scenery/bar_v_2.tscn" id="6_kd8cp"]
+[ext_resource type="Script" uid="uid://dw046lxwf5djq" path="res://scripts/next_scene_trigger.gd" id="7_f4a08"]
+[ext_resource type="PackedScene" uid="uid://dynhxxpoj7k25" path="res://glb_models/nightstand_low_poly.tscn" id="8_cl6ph"]
+[ext_resource type="Texture2D" uid="uid://tyjg2l82lpnm" path="res://glb_models/road_road_scene_128.png" id="9_urrxx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_er5xh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx3cb"]
+albedo_color = Color(0.3854925, 0.38549247, 0.38549247, 1)
+albedo_texture = ExtResource("1_er5xh")
+uv1_scale = Vector3(5, 4, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnmhi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnmhi"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fbvq"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4uyw"]
+bg_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kd8cp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kd8cp"]
+size = Vector3(1, 3.0210571, 4.0912476)
+
+[node name="bar_level" type="Node3D"]
+script = ExtResource("1_3fbvq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+mesh = SubResource("BoxMesh_er5xh")
+surface_material_override/0 = SubResource("StandardMaterial3D_jx3cb")
+
+[node name="Floor" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Floor"]
+shape = SubResource("BoxShape3D_bnmhi")
+
+[node name="player" parent="." instance=ExtResource("2_bnmhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0724697, 2.3586345, -5.493478)
+
+[node name="Pause" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -166.0
+offset_right = 191.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pause"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("3_bnmhi")
+theme_override_font_sizes/font_size = 30
+text = "Game Paused"
+
+[node name="back_button" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -129.0
+offset_right = 88.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_bnmhi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnmhi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3fbvq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i4uyw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kd8cp")
+text = "Back"
+
+[node name="exit" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -75.0
+offset_right = 88.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_bnmhi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnmhi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3fbvq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i4uyw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kd8cp")
+text = "Exit"
+
+[node name="main_menu" type="Button" parent="Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.0
+offset_top = -182.0
+offset_right = 89.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_bnmhi")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnmhi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3fbvq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i4uyw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kd8cp")
+text = "Main Menu"
+
+[node name="bar" parent="." instance=ExtResource("5_i4uyw")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -14.49191, -5.142458, 0.0020372868)
+
+[node name="bar_v2" parent="." instance=ExtResource("6_kd8cp")]
+transform = Transform3D(-0.255, 0, -3.8503927e-08, 0, 0.255, 0, 3.8503927e-08, 0, -0.255, -19.634613, 0.020238638, -4.377914)
+
+[node name="bar_v3" parent="." instance=ExtResource("6_kd8cp")]
+transform = Transform3D(-0.255, 0, -3.8503927e-08, 0, 0.255, 0, 3.8503927e-08, 0, -0.255, -8.444, 0.02, -4.4280725)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -7.981456, 5.2624626, -2.1715345)
+light_color = Color(0.9098039, 0.627451, 0.29803923, 1)
+light_energy = 5.83
+spot_range = 7.575
+spot_angle = 49.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -13.694101, 5.2624626, -2.1715345)
+light_color = Color(0.9098039, 0.627451, 0.29803923, 1)
+light_energy = 5.83
+spot_range = 7.575
+spot_angle = 49.0
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -19.618275, 5.2624626, -2.1715345)
+light_color = Color(0.9098039, 0.627451, 0.29803923, 1)
+light_energy = 5.83
+spot_range = 7.575
+spot_angle = 49.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.241732, 2.8833013, 0)
+light_color = Color(1, 0.73083997, 0.44173786, 1)
+omni_range = 34.353
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -23.902067, 2.1490057, -12.181026)
+light_color = Color(1, 0.73083997, 0.44173786, 1)
+omni_range = 34.353
+
+[node name="next_scene_trigger" type="Area3D" parent="."]
+script = ExtResource("7_f4a08")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="next_scene_trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.704435, 2.0311332, -4.1108923)
+shape = SubResource("BoxShape3D_kd8cp")
+
+[node name="nightstand_low_poly" parent="." instance=ExtResource("8_cl6ph")]
+transform = Transform3D(2.499499, 0, -0.050043996, 0, 2.5, 0, 0.050043996, 0, 2.499499, -23.884552, 0.6274748, -12.139517)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.445975, 3.6192846, 3.0566797)
+billboard = 2
+texture = ExtResource("9_urrxx")
+
+[connection signal="pressed" from="Pause/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Pause/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Pause/main_menu" to="." method="_on_main_menu_pressed"]
+[connection signal="body_entered" from="next_scene_trigger" to="next_scene_trigger" method="_on_body_entered"]
+[connection signal="body_exited" from="next_scene_trigger" to="next_scene_trigger" method="_on_body_exited"]
