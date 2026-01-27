@@ -1,0 +1,439 @@
+[gd_scene load_steps=21 format=3 uid="uid://b6b0jx5aifoxp"]
+
+[ext_resource type="Script" uid="uid://kijnh112fxhs" path="res://scripts/settings.gd" id="1_o21gg"]
+[ext_resource type="FontFile" uid="uid://i1ke5j7pd1p3" path="res://GrapeSoda.ttf" id="2_kstpm"]
+[ext_resource type="Script" uid="uid://bp8vsougo4vwu" path="res://scripts/audio_control.gd" id="3_6jx7q"]
+[ext_resource type="Script" uid="uid://3douni0wgcuw" path="res://scripts/sfx_control.gd" id="4_posl1"]
+[ext_resource type="Script" uid="uid://coats6jqlkg8g" path="res://scripts/fullscreen_control.gd" id="5_788pq"]
+[ext_resource type="Script" uid="uid://db4enuf3unn6q" path="res://scripts/scale_control.gd" id="6_8vkoj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fv1l"]
+bg_color = Color(0.32156864, 0.32156864, 0.32156864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mx4kw"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37a8j"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfvul"]
+bg_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blqn1"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_6jx7q"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_788pq"]
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_posl1"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_x1maq"]
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8m6qu"]
+thickness = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kstpm"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jx7q"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_788pq"]
+bg_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vkoj"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o21gg")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2fv1l")
+
+[node name="MainButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.25
+offset_top = -145.0
+offset_right = 126.25
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="resolution" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_mx4kw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_37a8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sfvul")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blqn1")
+text = "Resolution"
+
+[node name="volume" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_mx4kw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_37a8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sfvul")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blqn1")
+text = "Volume"
+
+[node name="graphics" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_mx4kw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_37a8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sfvul")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blqn1")
+text = "Graphics"
+
+[node name="Button4" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_mx4kw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_37a8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sfvul")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blqn1")
+text = "Back"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -116.0
+offset_top = 43.0
+offset_right = 116.0
+offset_bottom = 139.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 59
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Volume" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.0
+offset_top = -182.0
+offset_right = 359.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioControl" type="HSlider" parent="Volume"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -367.0
+offset_top = 51.0
+offset_right = -15.0
+offset_bottom = 108.0
+grow_horizontal = 0
+theme_override_styles/slider = SubResource("StyleBoxLine_6jx7q")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_788pq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_788pq")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("3_6jx7q")
+audio_bus_name = "Music"
+
+[node name="Label" type="Label" parent="Volume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -142.5
+offset_right = -58.0
+offset_bottom = -91.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 50
+text = "Music Volume"
+
+[node name="SFX" type="Label" parent="Volume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -77.5
+offset_right = -46.0
+offset_bottom = -26.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 50
+text = "Sound Effects"
+
+[node name="SFXControl" type="HSlider" parent="Volume"]
+layout_mode = 0
+offset_left = 301.0
+offset_top = 129.0
+offset_right = 653.0
+offset_bottom = 171.0
+theme_override_styles/slider = SubResource("StyleBoxLine_posl1")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_x1maq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_8m6qu")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("4_posl1")
+audio_bus_name = "SFX"
+
+[node name="back_button" type="Button" parent="Volume"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -74.0
+offset_right = 88.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_kstpm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6jx7q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_788pq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vkoj")
+text = "Back"
+
+[node name="Resolution" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.0
+offset_top = -182.0
+offset_right = 359.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Resolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -142.5
+offset_right = -64.0
+offset_bottom = -91.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 50
+text = "Resolution"
+
+[node name="full_screen" type="Label" parent="Resolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -84.5
+offset_right = -64.0
+offset_bottom = -33.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 50
+text = "Fullscreen"
+
+[node name="back_button" type="Button" parent="Resolution"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -74.0
+offset_right = 88.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_kstpm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6jx7q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_788pq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vkoj")
+text = "Back"
+
+[node name="FullscreenControl" type="CheckButton" parent="Resolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = -69.5
+offset_right = -63.0
+offset_bottom = -45.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kstpm")
+theme_override_font_sizes/font_size = 50
+script = ExtResource("5_788pq")
+
+[node name="ScaleControl" type="OptionButton" parent="Resolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -133.5
+offset_right = 230.0
+offset_bottom = -95.5
+grow_horizontal = 2
+grow_vertical = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Ultra"
+popup/item_0/id = 0
+popup/item_1/text = "High"
+popup/item_1/id = 1
+popup/item_2/text = "Medium"
+popup/item_2/id = 2
+popup/item_3/text = "Low"
+popup/item_3/id = 3
+script = ExtResource("6_8vkoj")
+
+[connection signal="pressed" from="MainButtons/resolution" to="." method="_on_resolution_pressed"]
+[connection signal="pressed" from="MainButtons/volume" to="." method="_on_volume_pressed"]
+[connection signal="pressed" from="MainButtons/Button4" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="Volume/AudioControl" to="Volume/AudioControl" method="_on_value_changed"]
+[connection signal="value_changed" from="Volume/SFXControl" to="Volume/SFXControl" method="_on_value_changed"]
+[connection signal="pressed" from="Volume/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Resolution/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="Resolution/FullscreenControl" to="Resolution/FullscreenControl" method="_on_toggled"]
+[connection signal="item_selected" from="Resolution/ScaleControl" to="Resolution/ScaleControl" method="_on_item_selected"]
