@@ -1,51 +1,34 @@
 extends CharacterBody3D
 
-# We will set this set speed to 0 when player is talking to user.
-@export var SPEED = 10.0
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-func _unhandled_input(event):
-	if event is InputEventMouseMotion:
-		rotation_degrees.y -= event.relative.x * 0.5
-		%Camera3D.rotation_degrees.x -= event.relative.y * 0.2
-#		Prevent players from fipping the view.
-		%Camera3D.rotation_degrees.x = clamp(
-			%Camera3D.rotation_degrees.x, -80.0, 80.0
-		)
-#		Show cursor when player clicks escape key.
-	elif event.is_action_pressed("ui_cancel"): 
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-#	Hide cursor when player clicks enter key
-	elif event.is_action_pressed("ui_accept"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.is_pressed():
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
+const SPRINT_VELOCITY = 2
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	#	velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir := Input.get_vector("left", "right", "forward", "backward")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+		# Check if sprinting
+		if Input.is_action_pressed("sprint"):
+			# We are sprinting
+			velocity.z *= SPRINT_VELOCITY
+			velocity.x *= SPRINT_VELOCITY
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
 		
-func _physics_process(delta):
-	var input_direction_2D = Input.get_vector(
-		"move_left","move_right", "move_up", "move_down"
-	)
-	
-	var input_direction_3D = Vector3(
-		input_direction_2D.x, 0.0, input_direction_2D.y
-	)
-	
-	var direction = transform.basis * input_direction_3D
-	velocity.x = direction.x * SPEED
-	velocity.z = direction.z * SPEED
-	
-	velocity.y -= 20 * delta
+
 	move_and_slide()
-	#print(Input.is_action_pressed("move_left"))
-	#if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		#var horizontalDir = Input.get_axis("move_left", "move_right")
-		#print("HorizontalDirection: ", horizontalDir)
-		#if horizontalDir < 0.0:
-			#velocity.x -= horizontalDir * SPEED * delta
-		#else:
-			#velocity.x += horizontalDir * SPEED * delta
-		#move_and_slide()
