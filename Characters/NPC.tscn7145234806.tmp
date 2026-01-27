@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4bnkoxtagvp3"]
+
+[ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="1_ydrf3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubmj0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5chha"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_riofv"]
+height = 3.5
+
+[sub_resource type="Animation" id="Animation_ubmj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-20.6, 3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.3711378e-08, -4.3711392e-08, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ydrf3"]
+resource_name = "WalkStraight"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5bvc"]
+_data = {
+&"RESET": SubResource("Animation_ubmj0"),
+&"WalkStraight": SubResource("Animation_ydrf3")
+}
+
+[node name="NPC" type="RigidBody3D"]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -20.6, 3, 0)
+script = ExtResource("1_ydrf3")
+
+[node name="Head" type="CSGSphere3D" parent="."]
+material = SubResource("StandardMaterial3D_ubmj0")
+
+[node name="Body" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.7299998, 0, 0, 0, 1, 0, -1.5, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm1" type="CSGSphere3D" parent="."]
+transform = Transform3D(-1.857734e-08, 1.3649999, -1.5298985e-08, -0.425, -5.966604e-08, -1.5298985e-08, -1.8577339e-08, 5.966604e-08, 0.34999996, -0.6, -1.1, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm2" type="CSGSphere3D" parent="."]
+transform = Transform3D(-1.8577337e-08, 1.3649995, -1.529898e-08, -0.42499995, -5.966602e-08, -1.5298975e-08, -1.8577335e-08, 5.966602e-08, 0.34999985, 0.59999996, -1.1, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
+shape = SubResource("CapsuleShape3D_riofv")
+
+[node name="NPCAnimations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_a5bvc")
+}
+
+[node name="MovementTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="MovementTimer" to="." method="_on_movement_timer_timeout"]

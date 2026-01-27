@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl00jlfucxq5d"]
+
+[ext_resource type="PackedScene" uid="uid://dx80tugg5a80g" path="res://BarObjects/Alcohol1New.glb" id="1_6leum"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_iegst"]
+height = 1.0
+radius = 0.2
+
+[node name="Alcohol" type="StaticBody3D"]
+
+[node name="Alcohol1New" parent="." instance=ExtResource("1_6leum")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.085819304, 0)
+shape = SubResource("CylinderShape3D_iegst")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://x072yrfm53dj"]
+
+[ext_resource type="PackedScene" uid="uid://02hwe3td8drc" path="res://john_player.tscn" id="1_1k8jw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k8jw"]
+size = Vector2(1148, 136)
+
+[node name="BarScene" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_1k8jw")]
+position = Vector2(99, 74)
+
+[node name="BarBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BarBackground"]
+offset_right = 1151.0
+offset_bottom = 647.0
+color = Color(0.23763326, 0.00011339605, 0.7889065, 1)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="Floor"]
+offset_left = 1.0
+offset_top = 509.0
+offset_right = 1151.0
+offset_bottom = 647.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+visible = false
+position = Vector2(576, 578)
+shape = SubResource("RectangleShape2D_1k8jw")

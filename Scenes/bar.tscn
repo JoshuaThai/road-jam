@@ -1,0 +1,621 @@
+[gd_scene load_steps=40 format=3 uid="uid://bq2kdr80nrrgi"]
+
+[ext_resource type="PackedScene" uid="uid://ck0pjiha20w3m" path="res://Scenes/player.tscn" id="1_vwav4"]
+[ext_resource type="PackedScene" uid="uid://dfmosl6d8wsm" path="res://BarObjects/WoodenFloor.glb" id="1_xgyi3"]
+[ext_resource type="Material" uid="uid://ch8tutp51k0nh" path="res://Materials/brown.tres" id="3_ggknq"]
+[ext_resource type="AudioStream" uid="uid://c2viaxdc6j1ru" path="res://BarDialogue/InitalNarratorDialogue.mp3" id="3_oe2xn"]
+[ext_resource type="Script" uid="uid://dxy78f1ofcmgq" path="res://Scripts/narrator_dialogue.gd" id="4_or5po"]
+[ext_resource type="Script" uid="uid://ca4gwgybxmryt" path="res://Scripts/sally_start_dialogue.gd" id="5_703c4"]
+[ext_resource type="PackedScene" uid="uid://c8agjsdnr6y13" path="res://BarObjects/stool.tscn" id="5_n8sa8"]
+[ext_resource type="AudioStream" uid="uid://ctxc0whrv2rt3" path="res://BarDialogue/SallyStartDialogue.mp3" id="5_oah5r"]
+[ext_resource type="PackedScene" uid="uid://bl00jlfucxq5d" path="res://BarObjects/alcoholBottle.tscn" id="5_uypo1"]
+[ext_resource type="AudioStream" uid="uid://c3plyvg48qbf2" path="res://BarDialogue/SallyPeerPressure.mp3" id="7_bcwx1"]
+[ext_resource type="PackedScene" uid="uid://c23xx8l0aiqk1" path="res://BarObjects/table.tscn" id="7_k0573"]
+[ext_resource type="Script" uid="uid://dbphne7lqatv1" path="res://Scripts/peer_pressure_dialogue.gd" id="8_nh5ln"]
+[ext_resource type="PackedScene" uid="uid://6a4iqkum3m4a" path="res://BarObjects/chair.tscn" id="8_riofv"]
+[ext_resource type="AudioStream" uid="uid://iobnnmeidf26" path="res://BarDialogue/SallyFinalDialogue.mp3" id="9_6dd3f"]
+[ext_resource type="Script" uid="uid://i58barji3dh7" path="res://Scripts/final_dialogue.gd" id="9_nh5ln"]
+[ext_resource type="PackedScene" uid="uid://fb7na8q54080" path="res://Scenes/window.tscn" id="9_ubmj0"]
+[ext_resource type="Script" uid="uid://cbqwqba4elpln" path="res://Scripts/sally_Conversation.gd" id="10_a5bvc"]
+[ext_resource type="Script" uid="uid://swjlqbf6smov" path="res://Scripts/choice_rect.gd" id="16_0s6ix"]
+[ext_resource type="PackedScene" uid="uid://56ea1w582jtn" path="res://Characters/bartender.tscn" id="16_6dd3f"]
+[ext_resource type="PackedScene" uid="uid://b24wfle3fl6o4" path="res://BarObjects/wine_glass_scene.tscn" id="18_bcwx1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i1h57"]
+size = Vector3(50, 0.1, 50)
+
+[sub_resource type="Environment" id="Environment_vwav4"]
+background_energy_multiplier = 7.02
+fog_enabled = true
+fog_light_color = Color(0.23956126, 0.5304429, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5oem"]
+albedo_color = Color(0.22745098, 0.6117647, 0.7607843, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vwav4"]
+size = Vector3(26, 15, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0573"]
+size = Vector3(51, 16, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n8sa8"]
+size = Vector3(51, 16, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w5oem"]
+size = Vector3(2, 2, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xgyi3"]
+size = Vector3(2, 2, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riofv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5bvc"]
+albedo_color = Color(1, 0.49803922, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_riofv"]
+height = 3.5
+
+[sub_resource type="Animation" id="Animation_0s6ix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5707963, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oah5r"]
+resource_name = "Turning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707963, 0), Vector3(0, 0.5235989, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0yy5i"]
+_data = {
+&"RESET": SubResource("Animation_0s6ix"),
+&"Turning": SubResource("Animation_oah5r")
+}
+
+[sub_resource type="FontVariation" id="FontVariation_5chha"]
+variation_embolden = 0.6
+
+[sub_resource type="LabelSettings" id="LabelSettings_oe2xn"]
+font_size = 48
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oah5r"]
+font_size = 48
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oah5r"]
+bg_color = Color(0.19086605, 0.7366369, 7.70092e-07, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0s6ix"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Bar" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_i1h57")
+
+[node name="WoodenFloor" parent="Ground" instance=ExtResource("1_xgyi3")]
+
+[node name="Player" parent="." instance=ExtResource("1_vwav4")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.238235, 0.38732946, 23.169502)
+
+[node name="NarratorDialogue" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_oe2xn")
+autoplay = true
+script = ExtResource("4_or5po")
+
+[node name="SallyStartDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("5_oah5r")
+script = ExtResource("5_703c4")
+
+[node name="PeerPressureDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("7_bcwx1")
+script = ExtResource("8_nh5ln")
+
+[node name="FinalDialogue" type="AudioStreamPlayer" parent="Player"]
+unique_name_in_owner = true
+stream = ExtResource("9_6dd3f")
+script = ExtResource("9_nh5ln")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vwav4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -15, 4, 0)
+light_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.089003)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4, 0, 0)
+size = Vector3(25.2, 15, 0.5)
+material = SubResource("StandardMaterial3D_w5oem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 0)
+shape = SubResource("BoxShape3D_vwav4")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -24.910997)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4, 0, 0)
+size = Vector3(25.2, 15, 0.5)
+material = SubResource("StandardMaterial3D_w5oem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4, 0, 0)
+shape = SubResource("BoxShape3D_vwav4")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(2.9802322e-08, 0, -1, 0, 1, 0, 1, 0, 2.9802322e-08, -25, 0, 0.08900261)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Wall2"]
+size = Vector3(51, 15, 0.5)
+material = SubResource("StandardMaterial3D_w5oem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_k0573")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(2.9802322e-08, 0, -1, 0, 1, 0, 1, 0, 2.9802322e-08, 25, 0, 0.08900261)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4505806e-07, 0, 25)
+size = Vector3(51, 15, 0.5)
+material = SubResource("StandardMaterial3D_w5oem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4505806e-07, 0, 25)
+shape = SubResource("BoxShape3D_n8sa8")
+
+[node name="Bar" type="Node3D" parent="."]
+
+[node name="BarStand" type="StaticBody3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.917658, 0.9321182, -2.3671532)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand"]
+size = Vector3(2, 2, 30)
+material = ExtResource("3_ggknq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand"]
+shape = SubResource("BoxShape3D_w5oem")
+debug_fill = false
+
+[node name="BarStand4" type="StaticBody3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.817657, 0.9321182, -2.3671532)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand4"]
+size = Vector3(2, 2, 30)
+material = ExtResource("3_ggknq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand4"]
+shape = SubResource("BoxShape3D_w5oem")
+debug_fill = false
+
+[node name="BarStand2" type="StaticBody3D" parent="Bar"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.31766, 0.9321182, -18.384724)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar/BarStand2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1000023)
+size = Vector3(2, 2, 7)
+material = ExtResource("3_ggknq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar/BarStand2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1000004)
+shape = SubResource("BoxShape3D_xgyi3")
+
+[node name="BarStand3" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.297867, 0.9897522, 12.113672)
+use_collision = true
+size = Vector3(4.9, 1.8698609, 1.0273438)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, -2)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.8365726, -2)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, -14)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.866839, -14)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 3.9297528, 8.1)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.349998, 2.75, 8.1)
+use_collision = true
+size = Vector3(0.90000004, 0.1, 5)
+material = ExtResource("3_ggknq")
+
+[node name="Stool3" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, 4)
+
+[node name="Stool4" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, 6)
+
+[node name="Stool5" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -8)
+
+[node name="Stool6" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -6)
+
+[node name="Stool7" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -4)
+
+[node name="Stool8" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -2)
+
+[node name="Stool9" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -16)
+
+[node name="Stool10" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -14)
+
+[node name="Stool11" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -12)
+
+[node name="Stool12" parent="Bar" instance=ExtResource("5_n8sa8")]
+transform = Transform3D(1, 0, 0, 0, 0.5417922, 0, 0, 0, 1, -17, 1.4, -10)
+
+[node name="Alchohols" type="Node3D" parent="Bar"]
+
+[node name="Alcohol" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.4, 9)
+
+[node name="Alcohol2" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.4, 7)
+
+[node name="Alcohol3" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.563509, 7)
+
+[node name="Alcohol4" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.563509, 8.9)
+
+[node name="Alcohol5" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.463509, -0.3000002)
+
+[node name="Alcohol6" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -12.900001)
+
+[node name="Alcohol7" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -14.000001)
+
+[node name="Alcohol8" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -12.000001)
+
+[node name="Alcohol11" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -3.000001)
+
+[node name="Alcohol9" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -15.000001)
+
+[node name="Alcohol10" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 3.363509, -15.900001)
+
+[node name="Alcohol12" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.5032086, -12.900001)
+
+[node name="Alcohol13" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.5032086, -14.000001)
+
+[node name="Alcohol14" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.5032086, -12.000001)
+
+[node name="Alcohol15" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.5032086, -15.000001)
+
+[node name="Alcohol16" parent="Bar/Alchohols" instance=ExtResource("5_uypo1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24.3, 4.5032086, -15.900001)
+
+[node name="Tables & Chairs" type="Node3D" parent="Bar"]
+
+[node name="Table" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.81546444, 0)
+
+[node name="Table4" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.81546444, 0)
+
+[node name="Table7" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.81546444, 0)
+
+[node name="Chair" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.8, 0.8578565, 2)
+
+[node name="Chair7" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7.8, 0.8578565, 2)
+
+[node name="Chair8" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -11.8, 0.8578565, 2)
+
+[node name="Chair2" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, -0.7071068, -2.8000002, 0.8578565, 2)
+
+[node name="Table2" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.81546444, 12)
+
+[node name="Table5" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.81546444, 12)
+
+[node name="Table9" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.81546444, 12)
+
+[node name="Chair3" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.8, 0.8578565, 14)
+
+[node name="Chair9" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7.8, 0.8578565, 14)
+
+[node name="Chair10" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.8, 0.8578565, 14)
+
+[node name="Chair4" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, -0.7071068, -2.8000002, 0.8578565, 14)
+
+[node name="Table3" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.7333336, 0.81546444, -7.333334)
+
+[node name="Table6" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7.7333336, 0.81546444, -7.333334)
+
+[node name="Table10" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(-3.7799997, 0, 8.742276e-08, 0, 1, 0, -3.3045808e-07, 0, -0.9999998, -5.7333336, 0.81546444, -17.333334)
+
+[node name="Table8" parent="Bar/Tables & Chairs" instance=ExtResource("7_k0573")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.733334, 0.81546444, -7.333334)
+
+[node name="Chair5" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.9333334, 0.8578565, -9.333334)
+
+[node name="Chair15" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -2.9333334, 0.8578565, -14.333334)
+
+[node name="Chair16" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -9.933333, 0.8578565, -16.333334)
+
+[node name="Chair11" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.9333334, 0.8578565, -9.333334)
+
+[node name="Chair12" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11.933333, 0.8578565, -9.333334)
+
+[node name="Chair14" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, -7.9333334, 0.8578565, -5.333334)
+
+[node name="Chair13" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11.933333, 0.8578565, -2.333334)
+
+[node name="Chair6" parent="Bar/Tables & Chairs" instance=ExtResource("8_riofv")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -4.9333334, 0.8578565, -9.333334)
+
+[node name="Bathroom" type="CSGBox3D" parent="."]
+transform = Transform3D(2.9802322e-08, 0, -1, 0, 1, 0, 1, 0, 2.9802322e-08, -5.950001, 0, 21.689003)
+use_collision = true
+size = Vector3(6.4, 15, 12)
+material = SubResource("StandardMaterial3D_w5oem")
+
+[node name="BathroomDoor" type="CSGBox3D" parent="."]
+transform = Transform3D(2.0861625e-08, 0, -1, 0, 1, 0, 0.7, 0, 2.9802322e-08, -12.000001, 2.8999999, 21.889006)
+use_collision = true
+size = Vector3(4, 5.2000003, 0.1)
+material = ExtResource("3_ggknq")
+
+[node name="BathroomLabel" type="CSGBox3D" parent="."]
+transform = Transform3D(2.0861625e-08, 0, -1, 0, 1, 0, 0.7, 0, 2.9802322e-08, -12.000001, 6.5, 21.889006)
+use_collision = true
+size = Vector3(4, 1, 0.1)
+material = SubResource("StandardMaterial3D_riofv")
+
+[node name="Label3D" type="Label3D" parent="BathroomLabel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0509758)
+text = "Bathroom"
+font_size = 128
+
+[node name="Bartender" parent="." instance=ExtResource("16_6dd3f")]
+unique_name_in_owner = true
+
+[node name="Sally" type="StaticBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(7.549791e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 7.549791e-08, -17.1, 3, 0)
+
+[node name="Head" type="CSGSphere3D" parent="Sally"]
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Body" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(1, 0, 0, 0, 2.7299998, 0, 0, 0, 1, 0, -1.5, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Arm1" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(-1.857734e-08, 1.3649999, -1.5298985e-08, -0.425, -5.966604e-08, -1.5298985e-08, -1.8577339e-08, 5.966604e-08, 0.34999996, -0.6, -1.1, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="Arm2" type="CSGSphere3D" parent="Sally"]
+transform = Transform3D(-1.8577337e-08, 1.3649995, -1.529898e-08, -0.42499995, -5.966602e-08, -1.5298975e-08, -1.8577335e-08, 5.966602e-08, 0.34999985, 0.59999996, -1.1, 0)
+material = SubResource("StandardMaterial3D_a5bvc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sally"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
+shape = SubResource("CapsuleShape3D_riofv")
+
+[node name="SallyAnimations" type="AnimationPlayer" parent="Sally"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_0yy5i")
+}
+
+[node name="SallyProximityPrompt" type="Label3D" parent="Sally"]
+unique_name_in_owner = true
+transform = Transform3D(-4.3711395e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711395e-08, 0.8, -0.5, 0)
+visible = false
+billboard = 1
+double_sided = false
+text = "Press \"E\" 
+to interact with Sally"
+font = SubResource("FontVariation_5chha")
+uppercase = true
+script = ExtResource("10_a5bvc")
+
+[node name="Window" parent="." instance=ExtResource("9_ubmj0")]
+transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e-07, -6.7999997, 4.7, -24.6)
+
+[node name="Window2" parent="." instance=ExtResource("9_ubmj0")]
+transform = Transform3D(-4.371139e-08, 0, -3.645, 0, 1.885, 0, 1, 0, -1.5932801e-07, -22.4, 4.7, -24.6)
+
+[node name="DialogueScreen" type="CanvasLayer" parent="."]
+
+[node name="DialogueLabel" type="Label" parent="DialogueScreen"]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -552.0
+offset_top = -137.0
+offset_right = 552.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Narrator: Sometimes you may encounter 
+peer pressure when 
+trying to avoid reckless driving situations."
+label_settings = SubResource("LabelSettings_oe2xn")
+horizontal_alignment = 1
+
+[node name="ChoiceRect" type="ColorRect" parent="DialogueScreen"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -49.0
+offset_bottom = 301.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.28235295, 0.28235295, 0.3019608, 0.7411765)
+script = ExtResource("16_0s6ix")
+
+[node name="ChoiceLabel" type="Label" parent="DialogueScreen/ChoiceRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -552.0
+offset_right = 552.0
+offset_bottom = 207.0
+grow_horizontal = 2
+text = "You will be driving soon.
+Drinking before driving is DANGEROUS!
+Will you accept the drink?"
+label_settings = SubResource("LabelSettings_oah5r")
+horizontal_alignment = 1
+
+[node name="YesButton" type="Button" parent="DialogueScreen/ChoiceRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 125.0
+offset_top = -125.0
+offset_right = 525.0
+offset_bottom = -25.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_oah5r")
+text = "Yes (Press 1)"
+
+[node name="NoButton" type="Button" parent="DialogueScreen/ChoiceRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -525.0
+offset_top = -125.0
+offset_right = -125.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_0s6ix")
+text = "No (Press 2)"
+
+[node name="PlayerStand" type="CSGBox3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.400001, 0.3, 2.6000001)
+visible = false
+
+[node name="WineGlassScene" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 6)
+
+[node name="WineGlassScene2" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 1)
+
+[node name="WineGlassScene3" parent="." instance=ExtResource("18_bcwx1")]
+transform = Transform3D(0.099999964, 0, 0, 0, 0.099999964, 0, 0, 0, 0.099999964, -19, 2.2, 2)
+
+[connection signal="finished" from="Player/NarratorDialogue" to="Sally/SallyProximityPrompt" method="_on_narrator_dialogue_finished"]
+[connection signal="finished" from="Player/SallyStartDialogue" to="Player/SallyStartDialogue" method="_on_finished"]
+[connection signal="finished" from="Player/PeerPressureDialogue" to="Player/PeerPressureDialogue" method="_on_finished"]
+[connection signal="finished" from="Player/FinalDialogue" to="Player/FinalDialogue" method="_on_finished"]
+[connection signal="pressed" from="DialogueScreen/ChoiceRect/YesButton" to="DialogueScreen/ChoiceRect" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="DialogueScreen/ChoiceRect/NoButton" to="DialogueScreen/ChoiceRect" method="_on_no_button_pressed"]

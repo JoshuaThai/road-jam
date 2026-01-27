@@ -1,0 +1,243 @@
+[gd_scene load_steps=14 format=3 uid="uid://cb5l2mslghlm1"]
+
+[ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="1_ho8dd"]
+[ext_resource type="Script" uid="uid://b4jew2i68g3ld" path="res://Scripts/car_scene.gd" id="1_t3a5b"]
+[ext_resource type="PackedScene" uid="uid://8ypq4d3d31yv" path="res://Scenes/street_light.tscn" id="3_ydi03"]
+[ext_resource type="Script" uid="uid://bpmdibt5bluxe" path="res://Scripts/np_cspawner.gd" id="4_68c7g"]
+
+[sub_resource type="Environment" id="Environment_jevge"]
+fog_enabled = true
+fog_light_color = Color(0.09623919, 4.8323272e-05, 0.33876106, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5trs"]
+albedo_color = Color(3.6699697e-07, 0.3457875, 0.06864143, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0slyi"]
+size = Vector3(400, 0.1, 901)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3a5b"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydi03"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ydi03"]
+size = Vector3(25, 0.75, 118)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5trs"]
+size = Vector3(25, 1, 352)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68c7g"]
+size = Vector3(25, 1, 352)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68c7g"]
+
+[node name="Car" type="Node3D"]
+script = ExtResource("1_t3a5b")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jevge")
+
+[node name="Ground" type="StaticBody3D" parent="WorldEnvironment"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 251.5)
+size = Vector3(400, 0.1, 901)
+material = SubResource("StandardMaterial3D_i5trs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250.5)
+shape = SubResource("BoxShape3D_0slyi")
+debug_color = Color(0.9965449, 0, 0.19349316, 0.41960785)
+
+[node name="car" parent="." instance=ExtResource("1_ho8dd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.259, 0, -196)
+max_steer = 0.25
+max_brake_force = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="car"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.0003977, 0.29549074)
+
+[node name="Road" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 250)
+size = Vector3(15, 0.05, 900)
+material = SubResource("StandardMaterial3D_t3a5b")
+
+[node name="Road2" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1438708, 0.07515147, -74.5)
+size = Vector3(15, 0.05, 450)
+material = SubResource("StandardMaterial3D_t3a5b")
+
+[node name="Road3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1438708, 0.07515147, 340.5)
+size = Vector3(15, 0.05, 450)
+material = SubResource("StandardMaterial3D_t3a5b")
+
+[node name="YellowLine" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, -143.5)
+size = Vector3(1, 0.25, 113)
+material = SubResource("StandardMaterial3D_ydi03")
+
+[node name="YellowLine2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 58)
+size = Vector3(1, 0.25, 240)
+material = SubResource("StandardMaterial3D_ydi03")
+
+[node name="YellowLine3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1438708, 0.07515147, 441.5)
+size = Vector3(1, 0.25, 517)
+material = SubResource("StandardMaterial3D_ydi03")
+
+[node name="StreetLight2" parent="." instance=ExtResource("3_ydi03")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, -193)
+
+[node name="StreetLight4" parent="." instance=ExtResource("3_ydi03")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 90)
+
+[node name="StreetLight3" parent="." instance=ExtResource("3_ydi03")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9, 0, -96)
+
+[node name="StreetLight5" parent="." instance=ExtResource("3_ydi03")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9, 0, 251)
+
+[node name="Sidewalk" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 0, -141)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.999999, 0, 0)
+size = Vector3(25, 0.75, 118)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.999999, 0, 0)
+shape = SubResource("BoxShape3D_ydi03")
+
+[node name="Sidewalk2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, -141)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 0)
+size = Vector3(25, 0.75, 118)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 0)
+shape = SubResource("BoxShape3D_ydi03")
+
+[node name="Sidewalk3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, -8)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
+size = Vector3(25, 0.75, 400)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 141)
+shape = SubResource("BoxShape3D_i5trs")
+
+[node name="Sidewalk4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.900002, 0, -8)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
+size = Vector3(25, 0.75, 400)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 141)
+shape = SubResource("BoxShape3D_68c7g")
+
+[node name="Sidewalk5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.099999, 0, 407)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 117)
+size = Vector3(25, 0.75, 352)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.999999, 0, 117)
+shape = SubResource("BoxShape3D_i5trs")
+
+[node name="Sidewalk6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.900002, 0, 407)
+
+[node name="Sidewalk" type="CSGBox3D" parent="Sidewalk6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
+size = Vector3(25, 0.75, 352)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sidewalk6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 117)
+shape = SubResource("BoxShape3D_68c7g")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Crosswalk" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 265)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk3" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 75, 0, -73.299995)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="Crosswalk4" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 95.6, 0, -73.3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crosswalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -82.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Crosswalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, -0.2, -86.5)
+size = Vector3(15, 0.75, 1)
+material = SubResource("StandardMaterial3D_68c7g")
+
+[node name="NPCspawner" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -84.5)
+script = ExtResource("4_68c7g")
+
+[node name="Timer" type="Timer" parent="NPCspawner"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="NPCspawner/Timer" to="NPCspawner" method="_on_timer_timeout"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://8ypq4d3d31yv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxu3s"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb51c"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Environment" id="Environment_jxu3s"]
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxu3s"]
+size = Vector3(0.7, 10, 0.7)
+
+[node name="StreetLight" type="RigidBody3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, 5, 0)
+size = Vector3(0.7, 10, 0.5)
+material = SubResource("StandardMaterial3D_jxu3s")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, 9.5, 2.75)
+size = Vector3(0.7, 1, 5)
+material = SubResource("StandardMaterial3D_jxu3s")
+
+[node name="Light" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, 8.5, 4.75)
+size = Vector3(0.7, 1, 1)
+material = SubResource("StandardMaterial3D_gb51c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 5.9604645e-08, 1.0000001, 0, -1.0000001, 5.9604645e-08, 0, 8.2, 4.6)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jxu3s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("BoxShape3D_jxu3s")

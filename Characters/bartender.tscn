@@ -1,0 +1,142 @@
+[gd_scene load_steps=9 format=3 uid="uid://56ea1w582jtn"]
+
+[ext_resource type="Script" uid="uid://v2jcxeaw6imp" path="res://Scripts/bartender.gd" id="1_aew4v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubmj0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5chha"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_riofv"]
+height = 3.5
+
+[sub_resource type="Animation" id="Animation_ubmj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-20.6, 3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.3711378e-08, -4.3711392e-08, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_a5bvc"]
+resource_name = "WalkAway"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0), Vector3(0, -2.3561943, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-20.6, 3, -1), Vector3(-20.6, 3, -2), Vector3(-20.6, 3, -6), Vector3(-21.4, 3, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_5chha"]
+resource_name = "Wave"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(4.3711378e-08, -4.3711392e-08, -1.5707964), Vector3(4.2221952e-08, -3.239805e-08, -1.308997), Vector3(3.7855173e-08, -2.18557e-08, -1.0471976), Vector3(3.0908616e-08, -1.2802765e-08, -0.7853983), Vector3(3.7855177e-08, -2.185568e-08, -1.0471976), Vector3(4.2221963e-08, -3.239803e-08, -1.3089969), Vector3(4.37114e-08, -4.3711374e-08, -1.5707963)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5bvc"]
+_data = {
+&"RESET": SubResource("Animation_ubmj0"),
+&"WalkAway": SubResource("Animation_a5bvc"),
+&"Wave": SubResource("Animation_5chha")
+}
+
+[node name="Bartender" type="StaticBody3D"]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -20.6, 3, 0)
+script = ExtResource("1_aew4v")
+
+[node name="Head" type="CSGSphere3D" parent="."]
+material = SubResource("StandardMaterial3D_ubmj0")
+
+[node name="Body" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.7299998, 0, 0, 0, 1, 0, -1.5, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm1" type="CSGSphere3D" parent="."]
+transform = Transform3D(-1.857734e-08, 1.3649999, -1.5298985e-08, -0.425, -5.966604e-08, -1.5298985e-08, -1.8577339e-08, 5.966604e-08, 0.34999996, -0.6, -1.1, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="Arm2" type="CSGSphere3D" parent="."]
+transform = Transform3D(-1.8577337e-08, 1.3649995, -1.529898e-08, -0.42499995, -5.966602e-08, -1.5298975e-08, -1.8577335e-08, 5.966602e-08, 0.34999985, 0.59999996, -1.1, 0)
+material = SubResource("StandardMaterial3D_5chha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1000001, 0)
+shape = SubResource("CapsuleShape3D_riofv")
+
+[node name="BartenderAnimations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_a5bvc")
+}
