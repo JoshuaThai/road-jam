@@ -55,10 +55,10 @@ func _physics_process(delta: float) -> void:
 ## sets the variables player_steer, player_brake and player_acceleration based on the player input
 func get_input(delta : float):
 	#steer first
-	player_input.x = Input.get_axis("move_right","move_left")
+	player_input.x = Input.get_axis("right","left")
 	player_steer = move_toward(player_steer, player_input.x * max_steer,steer_damping * delta)
 	#now acceleration and/or braking
-	player_input.y = Input.get_axis("move_down","move_up")
+	player_input.y = Input.get_axis("backward","forward")
 	if player_input.y > 0.01:
 		#accelerating
 		player_acceleration = player_input.y
@@ -88,53 +88,46 @@ func going_forward() -> bool:
 		return false
 	
 
-func _play_warning():
-	$WarningAudio.play()
-	%WarningLabel.visible = true
-	soundPlayable = false
-	$CooldownTimer.start()
-
 # Handle car crashing into anything
 func _on_car_area_3d_body_entered(body):
 	if body.name == "Ground": return
-	if body.name.contains("RestartGame"):
-		get_tree().reload_current_scene()
-	if body.name.contains("EndGame"):
-		%EndingUI.visible = true
-#		We need to use logic to determine if good ending or not.
-	# Handle Good Ending (if player is drunk):
-		if Global.drunk:
-			%EndingDialogue.emit_signal("endingReceived", "Drunk")
-		else: # Handle Good Ending (if player is not drunk):
-			%EndingDialogue.emit_signal("endingReceived", "Good")
-			get_tree().paused = true
 	
-	if body.name.contains("Sidewalk"):
-		Global.driving_points -= 2
-		_play_warning()
-	if body.name.contains("StreetLight"):
-		Global.driving_points -= 25
-		_play_warning()
-		
-	# Hitting these objects are automatic losses.
-	# Hitting 0 points means loss.
-	if body.name.contains("Building"):
-		Global.driving_points = 0
-	if body.name.contains("NPC"):
-		Global.driving_points = 0
-	if body.name.contains("House"):
-		Global.driving_points = 0
-#		Handle crashing into npcs.
-	if body.has_method("_on_delete_timer_timeout") or body.has_method("_on_area_3d_body_entered"):
-		Global.driving_points = 0
+	#if body.name.contains("RestartGame"):
+		#get_tree().reload_current_scene()
+	#if body.name.contains("EndGame"):
+		#%EndingUI.visible = true
+##		We need to use logic to determine if good ending or not.
+	## Handle Good Ending (if player is drunk):
+		#if Global.drunk:
+			#%EndingDialogue.emit_signal("endingReceived", "Drunk")
+		#else: # Handle Good Ending (if player is not drunk):
+			#%EndingDialogue.emit_signal("endingReceived", "Good")
+			#get_tree().paused = true
+		#
+	## Hitting these objects are automatic losses.
+	## Hitting 0 points means loss.
+	#if body.name.contains("Building"):
+		#Global.driving_points = 0
+	#if body.name.contains("NPC"):
+		#Global.driving_points = 0
+	#if body.name.contains("House"):
+		#Global.driving_points = 0
+##		Handle crashing into npcs.
+	#if body.has_method("_on_delete_timer_timeout") or body.has_method("_on_area_3d_body_entered"):
+		#Global.driving_points = 0
 	
 	#print(body.name)
 
 
 func _on_car_area_3d_area_entered(area):
-	if area.name == "YellowLine" and soundPlayable:
-		Global.driving_points -= 2
-		_play_warning()
+	print(area.name)
+	if area.name == "GenerateGround":
+		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
+#		We need to access ground size to calculate how to do proceduaral generation for road rage.
+		print(ground.get_node("ActualGround").size)
+		get_tree().root.add_child(ground)
+		print("Ground should be generated")
+	pass
 		
 	#print(area.name)
 

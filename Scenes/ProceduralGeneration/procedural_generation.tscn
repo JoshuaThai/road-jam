@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwo577vc7e8y5"]
+
+[ext_resource type="PackedScene" uid="uid://ccfwwsbds7woo" path="res://Scenes/ProceduralGeneration/ground.tscn" id="1_seuj3"]
+[ext_resource type="PackedScene" uid="uid://bfdaetg7dwe15" path="res://addons/srcoder_simplecar/car_roadRage.tscn" id="2_seuj3"]
+
+[sub_resource type="Environment" id="Environment_tgohh"]
+fog_enabled = true
+fog_light_color = Color(0.18293369, 0.57315046, 0.8755278, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seuj3"]
+
+[node name="ProceduralGeneration" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tgohh")
+
+[node name="Ground" parent="." instance=ExtResource("1_seuj3")]
+
+[node name="carPlayer" parent="." instance=ExtResource("2_seuj3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Camera3D" type="Camera3D" parent="carPlayer"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 0.54494697)
+
+[node name="GenerateGround" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GenerateGround"]
+shape = SubResource("BoxShape3D_seuj3")
