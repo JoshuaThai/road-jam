@@ -20,6 +20,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GenerateGround"]
 shape = SubResource("BoxShape3D_d8ydx")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
-size = Vector3(1, 1, 26)
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="StaticBody3D"]
