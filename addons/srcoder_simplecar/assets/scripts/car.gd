@@ -1,5 +1,5 @@
 extends VehicleBody3D
-
+"""
 @export_category("Car Settings")
 ## max steer in radians for the front wheels- defaults to 0.45
 @export var max_steer : float = 0.45
@@ -86,7 +86,12 @@ func going_forward() -> bool:
 		return true
 	else:
 		return false
-	
+"""
+
+const SPEED = 10
+
+func _physics_process(delta):
+	global_position.z += SPEED * delta
 
 # Handle car crashing into anything
 func _on_car_area_3d_body_entered(body):
@@ -125,6 +130,8 @@ func _on_car_area_3d_area_entered(area):
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
 #		We need to access ground size to calculate how to do proceduaral generation for road rage.
 		print(ground.get_node("ActualGround").size)
+		var offset = ground.get_node("ActualGround").size.z
+		ground.global_position.z = area.get_parent().global_position.z + offset
 		get_tree().root.add_child(ground)
 		print("Ground should be generated")
 	pass
@@ -132,9 +139,9 @@ func _on_car_area_3d_area_entered(area):
 	#print(area.name)
 
 
-func _on_cooldown_timer_timeout():
-	soundPlayable = true
-
-
-func _on_warning_audio_finished():
-	%WarningLabel.visible = false
+#func _on_cooldown_timer_timeout():
+	#soundPlayable = true
+#
+#
+#func _on_warning_audio_finished():
+	#%WarningLabel.visible = false
