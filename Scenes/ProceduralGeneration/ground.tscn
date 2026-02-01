@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccfwwsbds7woo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tgohh"]
-size = Vector3(50, 0.1, 50)
+size = Vector3(50, 0.1, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8ydx"]
 size = Vector3(50, 1, 1)
@@ -9,17 +9,20 @@ size = Vector3(50, 1, 1)
 [node name="StaticBody3D" type="StaticBody3D"]
 
 [node name="ActualGround" type="CSGBox3D" parent="."]
-size = Vector3(50, 0.1, 50)
+size = Vector3(50, 0.1, 200)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_tgohh")
 
 [node name="GenerateGround" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -74)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GenerateGround"]
 shape = SubResource("BoxShape3D_d8ydx")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Road" type="StaticBody3D" parent="."]
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="StaticBody3D"]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Road"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)

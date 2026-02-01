@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://kjugmux01p8i"]
+
+[ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Vehicles/CarBody.tscn" id="1_bghju"]
+[ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
+[ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
+size = Vector3(2, 3.25, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0r146"]
+size = Vector3(15, 15, 24.5)
+
+[node name="CarBody" type="VehicleBody3D"]
+script = ExtResource("1_vefwf")
+
+[node name="Car2" parent="." instance=ExtResource("1_bghju")]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64140546, 0.4806323)
+shape = SubResource("BoxShape3D_vefwf")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, -1, 0.5)
+shape = SubResource("BoxShape3D_0r146")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.7)
+current = true
+script = ExtResource("2_y720f")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
