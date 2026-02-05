@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c7xy5b6pyiy2r" path="res://Scripts/wine_glass_scene.gd" id="1_3khhv"]
 [ext_resource type="PackedScene" uid="uid://br7f2wm5xqk81" path="res://BarObjects/WineGlass.glb" id="1_y10pm"]
-[ext_resource type="AudioStream" uid="uid://bq3nkokuwgn8n" path="res://Effects/drinking-water-sound-effect.mp3" id="3_vnwmg"]
+[ext_resource type="AudioStream" uid="uid://bq3nkokuwgn8n" path="res://Joshua/Road Rage/Effects/drinking-water-sound-effect.mp3" id="3_vnwmg"]
 [ext_resource type="Script" uid="uid://dwd7grtuasl25" path="res://Scripts/drinking_effect.gd" id="4_vnwmg"]
 
 [sub_resource type="Animation" id="Animation_fuusw"]

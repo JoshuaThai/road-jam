@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bq3nkokuwgn8n"
+path="res://.godot/imported/drinking-water-sound-effect.mp3-a24af0937c594ce0ff453a520531b5c0.mp3str"
+
+[deps]
+
+source_file="res://Joshua/Road Rage/Effects/drinking-water-sound-effect.mp3"
+dest_files=["res://.godot/imported/drinking-water-sound-effect.mp3-a24af0937c594ce0ff453a520531b5c0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,17 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccfwwsbds7woo"]
+[gd_scene load_steps=7 format=3 uid="uid://ccfwwsbds7woo"]
+
+[ext_resource type="PackedScene" uid="uid://7scdehtr2qy3" path="res://Joshua/Road Rage/Scenery/RoadRageRoad.glb" id="1_k42qn"]
+[ext_resource type="PackedScene" uid="uid://d3mvix2o7bk3g" path="res://Joshua/Road Rage/Scenery/RoadRageDivider.glb" id="2_17eit"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tgohh"]
-size = Vector3(50, 0.1, 200)
+size = Vector3(50, 0.1, 216)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8ydx"]
 size = Vector3(50, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_k42qn"]
+size = Vector3(10, 0.25, 36)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ccofd"]
+size = Vector3(1, 2, 25)
+
+[node name="Ground" type="StaticBody3D"]
 
 [node name="ActualGround" type="CSGBox3D" parent="."]
-size = Vector3(50, 0.1, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+size = Vector3(50, 0.1, 216)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 shape = SubResource("BoxShape3D_tgohh")
 
 [node name="GenerateGround" type="Area3D" parent="."]
@@ -21,8 +32,113 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -74)
 shape = SubResource("BoxShape3D_d8ydx")
 
 [node name="Road" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -82)
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Road"]
+[node name="RoadRageRoad" parent="Road" instance=ExtResource("1_k42qn")]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="Road2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -46)
+
+[node name="RoadRageRoad" parent="Road2" instance=ExtResource("1_k42qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road2"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="Road3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -10)
+
+[node name="RoadRageRoad" parent="Road3" instance=ExtResource("1_k42qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road3"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="Road4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 26)
+
+[node name="RoadRageRoad" parent="Road4" instance=ExtResource("1_k42qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road4"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="Road5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 62)
+
+[node name="RoadRageRoad" parent="Road5" instance=ExtResource("1_k42qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road5"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="Road6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 98)
+
+[node name="RoadRageRoad" parent="Road6" instance=ExtResource("1_k42qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road6"]
+shape = SubResource("BoxShape3D_k42qn")
+
+[node name="HighwayDivider" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, -87.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, -62.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider2" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider2"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, -37.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider3" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider3"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, -12.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider4" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider4"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, 12.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider5" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider5"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, 37.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider6" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider6"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider7" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, 62.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider7" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider7"]
+shape = SubResource("BoxShape3D_ccofd")
+
+[node name="HighwayDivider8" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.336433, 1, 87.5)
+
+[node name="RoadRageDivider" parent="HighwayDivider8" instance=ExtResource("2_17eit")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighwayDivider8"]
+shape = SubResource("BoxShape3D_ccofd")

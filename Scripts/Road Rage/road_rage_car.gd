@@ -1,6 +1,6 @@
 extends VehicleBody3D
 
-const SPEED = 10
+const SPEED = 40
 
 @onready var rear_mirror = $RearViewport/MirrorCamera
 @onready var left_mirror = $SideLViewport/MirrorCamera
