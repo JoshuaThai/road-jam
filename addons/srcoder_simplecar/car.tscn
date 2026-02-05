@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d00a8fn18o6y3" path="res://addons/srcoder_simplecar/assets/models/Textures/colormap.png" id="1_n0mcw"]
 [ext_resource type="PhysicsMaterial" uid="uid://cuw7isymmyyku" path="res://addons/srcoder_simplecar/assets/materials/metal_physics_material.phymat" id="1_vukum"]
 [ext_resource type="Script" uid="uid://bbdjwh1i58bfh" path="res://addons/srcoder_simplecar/assets/scripts/car.gd" id="1_ymx53"]
-[ext_resource type="AudioStream" uid="uid://rioudpyrg1fb" path="res://DrunkDrivingDialogue/WarningAudio.mp3" id="4_0vicd"]
+[ext_resource type="AudioStream" uid="uid://rioudpyrg1fb" path="res://Joshua/DrunkDrivingDialogue/WarningAudio.mp3" id="4_0vicd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwqi7"]
 resource_name = "colormap"

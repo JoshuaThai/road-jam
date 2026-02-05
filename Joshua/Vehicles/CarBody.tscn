@@ -3,3 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://l7pr25k8nc47" path="res://Joshua/Vehicles/Car2.glb" id="1_pdwuv"]
 
 [node name="Car2" instance=ExtResource("1_pdwuv")]
+
+[node name="Mirror" parent="." index="10"]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -9, 0, -2)
+
+[node name="Mirror_001" parent="." index="11"]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 9, 0, -2)

@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://cpccu7iablxhx"]
 
-[ext_resource type="Script" uid="uid://cj6ph5tjiy2se" path="res://scripts/bar_level.gd" id="1_3fbvq"]
+[ext_resource type="Script" uid="uid://cj6ph5tjiy2se" path="res://Scripts/bar_level.gd" id="1_3fbvq"]
 [ext_resource type="Texture2D" uid="uid://dr0kqnptis1nl" path="res://textures/bar_textures/256x256/Wood/Wood 18 - 256x256.png" id="1_er5xh"]
-[ext_resource type="PackedScene" uid="uid://p2wey261dhty" path="res://Player/player.tscn" id="2_bnmhi"]
+[ext_resource type="PackedScene" uid="uid://p2wey261dhty" path="res://Freddie/Player/player.tscn" id="2_bnmhi"]
 [ext_resource type="FontFile" uid="uid://i1ke5j7pd1p3" path="res://GrapeSoda.ttf" id="3_bnmhi"]
 [ext_resource type="PackedScene" uid="uid://tuicb87b0m0g" path="res://scenery/bar.tscn" id="5_i4uyw"]
 [ext_resource type="PackedScene" uid="uid://0s7cy8wjpyxe" path="res://scenery/bar_v_2.tscn" id="6_kd8cp"]
-[ext_resource type="Script" uid="uid://dw046lxwf5djq" path="res://scripts/next_scene_trigger.gd" id="7_f4a08"]
+[ext_resource type="Script" uid="uid://dw046lxwf5djq" path="res://Scripts/next_scene_trigger.gd" id="7_f4a08"]
 [ext_resource type="PackedScene" uid="uid://dynhxxpoj7k25" path="res://glb_models/nightstand_low_poly.tscn" id="8_cl6ph"]
 [ext_resource type="Texture2D" uid="uid://tyjg2l82lpnm" path="res://glb_models/road_road_scene_128.png" id="9_urrxx"]
 
