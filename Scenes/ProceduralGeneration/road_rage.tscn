@@ -29,6 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="CarBody" parent="." instance=ExtResource("2_4mroq")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 3, -22)
+script = null
 
 [node name="RearViewport" type="SubViewport" parent="CarBody"]
 
@@ -74,3 +75,6 @@ fov = 60.0
 
 [node name="RightCamAnchor" type="Marker3D" parent="CarBody"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.2000003, 0, 0.6000004)
+
+[node name="CarBody2" parent="." instance=ExtResource("2_4mroq")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 3, -14)

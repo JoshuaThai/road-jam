@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=7 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
@@ -9,6 +9,9 @@ size = Vector3(2, 3.25, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0r146"]
 size = Vector3(15, 15, 24.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5wy1f"]
+viewport_path = NodePath("Mirrors/RearViewport")
 
 [node name="CarBody" type="VehicleBody3D"]
 script = ExtResource("1_vefwf")
@@ -30,5 +33,22 @@ shape = SubResource("BoxShape3D_0r146")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.7)
 current = true
 script = ExtResource("2_y720f")
+
+[node name="Mirrors" type="Node3D" parent="."]
+
+[node name="RearViewport" type="SubViewport" parent="Mirrors"]
+
+[node name="MirrorCamera" type="Camera3D" parent="Mirrors/RearViewport"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)
+fov = 60.0
+far = 1000.0
+
+[node name="RearMirror" type="Sprite3D" parent="Mirrors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.673898, -0.07055956)
+pixel_size = 0.0005
+texture = SubResource("ViewportTexture_5wy1f")
+
+[node name="RearCamAnchor" type="Marker3D" parent="Mirrors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
