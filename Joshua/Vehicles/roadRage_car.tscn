@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
-[ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
-[ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
+[ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
+[ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Joshua/Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)

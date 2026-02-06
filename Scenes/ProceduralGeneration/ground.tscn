@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ccfwwsbds7woo"]
 
 [ext_resource type="PackedScene" uid="uid://7scdehtr2qy3" path="res://Joshua/Road Rage/Scenery/RoadRageRoad.glb" id="1_k42qn"]
-[ext_resource type="Script" uid="uid://balc7yfev7n0o" path="res://Scripts/Road Rage/precedural_ground_despawn.gd" id="1_rrixk"]
+[ext_resource type="Script" uid="uid://balc7yfev7n0o" path="res://Joshua/Scripts/Road Rage/precedural_ground_despawn.gd" id="1_rrixk"]
 [ext_resource type="PackedScene" uid="uid://d3mvix2o7bk3g" path="res://Joshua/Road Rage/Scenery/RoadRageDivider.glb" id="2_17eit"]
 [ext_resource type="PackedScene" uid="uid://ce0be00f75pqh" path="res://Joshua/Road Rage/Scenery/road_rage_road_no_line.tscn" id="3_ccofd"]
 
