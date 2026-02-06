@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=9 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
@@ -12,6 +12,12 @@ size = Vector3(15, 15, 24.5)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5wy1f"]
 viewport_path = NodePath("Mirrors/RearViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f22eo"]
+viewport_path = NodePath("Mirrors/LeftViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_utrii"]
+viewport_path = NodePath("Mirrors/RightViewport")
 
 [node name="CarBody" type="VehicleBody3D"]
 script = ExtResource("1_vefwf")
@@ -48,7 +54,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.673898, -0.07055956)
 pixel_size = 0.0005
 texture = SubResource("ViewportTexture_5wy1f")
 
-[node name="RearCamAnchor" type="Marker3D" parent="Mirrors"]
+[node name="RearCamMarker" type="Marker3D" parent="Mirrors"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)
+
+[node name="LeftViewport" type="SubViewport" parent="Mirrors"]
+
+[node name="MirrorCamera" type="Camera3D" parent="Mirrors/LeftViewport"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.2015221, 0, 1)
+fov = 60.0
+far = 1000.0
+
+[node name="LeftMirror" type="Sprite3D" parent="Mirrors"]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.0395381, 0, -0.12608902)
+flip_h = true
+pixel_size = 0.0004
+texture = SubResource("ViewportTexture_f22eo")
+
+[node name="LeftCamMarker" type="Marker3D" parent="Mirrors"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2, 0, 1)
+
+[node name="RightViewport" type="SubViewport" parent="Mirrors"]
+
+[node name="MirrorCamera" type="Camera3D" parent="Mirrors/RightViewport"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1, 0, 1.2)
+fov = 60.0
+far = 1000.0
+
+[node name="RightMirror" type="Sprite3D" parent="Mirrors"]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 1.0483129, 0, -0.11826503)
+flip_h = true
+pixel_size = 0.0004
+texture = SubResource("ViewportTexture_utrii")
+
+[node name="RightCamMarker" type="Marker3D" parent="Mirrors"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1, 0, 1.2)
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

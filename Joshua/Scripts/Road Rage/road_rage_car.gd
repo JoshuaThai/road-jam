@@ -3,17 +3,17 @@ extends VehicleBody3D
 const SPEED = 40
 
 @onready var rear_mirror = $Mirrors/RearViewport/MirrorCamera
-#@onready var left_mirror = $SideLViewport/MirrorCamera
-#@onready var right_mirror = $SideRViewport/MirrorCamera
+@onready var left_mirror = $Mirrors/LeftViewport/MirrorCamera
+@onready var right_mirror = $Mirrors/RightViewport/MirrorCamera
 
-@onready var anchor = $Mirrors/RearCamAnchor
-#@onready var left_anchor = $LeftCamAnchor
-#@onready var right_anchor = $RightCamAnchor
+@onready var rear_marker = $Mirrors/RearCamMarker
+@onready var left_marker = $Mirrors/LeftCamMarker
+@onready var right_marker = $Mirrors/RightCamMarker
 
 func _process(_dt):
-	rear_mirror.global_transform = anchor.global_transform
-	#left_mirror.global_transform = left_anchor.global_transform
-	#right_mirror.global_transform = right_anchor.global_transform
+	rear_mirror.global_transform = rear_marker.global_transform
+	left_mirror.global_transform = left_marker.global_transform
+	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
 	global_position.z += SPEED * delta
