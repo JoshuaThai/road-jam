@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwo577vc7e8y5"]
+[gd_scene load_steps=6 format=3 uid="uid://cwo577vc7e8y5"]
 
 [ext_resource type="PackedScene" uid="uid://ccfwwsbds7woo" path="res://Scenes/ProceduralGeneration/ground.tscn" id="1_4mroq"]
 [ext_resource type="PackedScene" uid="uid://kjugmux01p8i" path="res://Joshua/Vehicles/roadRage_car.tscn" id="2_4mroq"]
@@ -6,6 +6,26 @@
 [sub_resource type="Environment" id="Environment_tgohh"]
 fog_enabled = true
 fog_light_color = Color(0.18293369, 0.57315046, 0.8755278, 1)
+
+[sub_resource type="Animation" id="Animation_t3n1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1, 2.3999999, -14)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ip0t"]
+_data = {
+&"RESET": SubResource("Animation_t3n1x")
+}
 
 [node name="RoadRage" type="Node3D"]
 
@@ -20,3 +40,8 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="CarBody2" parent="." instance=ExtResource("2_4mroq")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 2.3999999, -14)
+
+[node name="CarAnimations" type="AnimationPlayer" parent="CarBody2"]
+libraries = {
+&"": SubResource("AnimationLibrary_2ip0t")
+}
