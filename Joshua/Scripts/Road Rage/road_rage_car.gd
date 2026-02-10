@@ -11,10 +11,11 @@ var isAccelerating = false
 var isMerging = false
 # Make sure the car can only merge between the left and right lane
 var inLeft = false
+# Make sure the car doesn't merge lane repeatedly.
+var canMerge = true
 
 var speedOffset = 0
 
-@onready var CarAnimations = $CarAnimations
 @onready var rear_mirror = $Mirrors/RearViewport/MirrorCamera
 @onready var left_mirror = $Mirrors/LeftViewport/MirrorCamera
 @onready var right_mirror = $Mirrors/RightViewport/MirrorCamera
@@ -42,7 +43,10 @@ func _physics_process(delta):
 	if isAccelerating:
 #		YOU CAN ONLY SWITCH LANES WHILE ACCELERATING
 		#	If you press q, player switch lanes to left.
-		if(Input.is_key_pressed(Key.KEY_Q) and not isMerging and not inLeft):
+		if(Input.is_key_pressed(Key.KEY_Q) 
+		and not isMerging and not inLeft and canMerge):
+			$LaneSwitchTimer.start()
+			canMerge = false
 			inLeft = true
 			isMerging = true
 			var tween = create_tween()
@@ -51,7 +55,10 @@ func _physics_process(delta):
 			isMerging = false
 			
 #			If you press E, player switch lane to the right.
-		if(Input.is_key_pressed(Key.KEY_E) and not isMerging and inLeft):
+		if(Input.is_key_pressed(Key.KEY_E) 
+		and not isMerging and inLeft and canMerge):
+			$LaneSwitchTimer.start()
+			canMerge = false
 			inLeft = false
 			isMerging = true
 			var tween = create_tween()
@@ -81,7 +88,8 @@ func _on_area_3d_area_entered(area):
 		ground.global_position.z = area.get_parent().global_position.z + offset
 		get_tree().root.add_child(ground)
 		print("Ground should be generated")
-	pass
+	if area.name == "RemoveGround":
+		area.delete_ground()
 	
-	
-	
+func _on_lane_switch_timer_timeout():
+	canMerge = true
