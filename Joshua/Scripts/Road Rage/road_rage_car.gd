@@ -1,7 +1,7 @@
 extends VehicleBody3D
 
 #const SPEED = 40
-var SPEED = 0
+@export var SPEED = 0
 # We will use this to adjust brake speed
 var speedOffset = 5
 
@@ -42,6 +42,7 @@ func _physics_process(delta):
 			global_position.z += 0
 			return
 		SPEED -= 0.01
+		SPEED = clamp(SPEED, 0, 80)
 		isAccelerating = false
 
 		#CarAnimations.play("move_left")
@@ -89,6 +90,7 @@ func _physics_process(delta):
 #		Player should gradually slow down if not accelerating.
 		#var speed = (SPEED * delta) - speedOffset
 		SPEED -= 0.05 * speedOffset
+		SPEED = clamp(SPEED, 0, 80)
 		speedOffset += 0.01
 		speedOffset = clamp(speedOffset, 1, 5)
 		if SPEED <= 0: 

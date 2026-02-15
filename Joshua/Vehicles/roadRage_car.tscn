@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=11 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
 [ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Joshua/Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
+[ext_resource type="Texture2D" uid="uid://dq400aku2efn5" path="res://Joshua/Road Rage/UI/ChatgptSpeedometerRoadJam.png" id="4_f22eo"]
+[ext_resource type="Script" uid="uid://q065a3ikhwar" path="res://Joshua/Scripts/Road Rage/speed_stick.gd" id="5_utrii"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)
@@ -36,8 +38,10 @@ transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, -1, 0.5)
 shape = SubResource("BoxShape3D_0r146")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.7)
 current = true
+fov = 60.0
 script = ExtResource("2_y720f")
 
 [node name="Mirrors" type="Node3D" parent="."]
@@ -91,6 +95,48 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1,
 
 [node name="LaneSwitchTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -743.0
+offset_top = -607.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_f22eo")
+expand_mode = 1
+
+[node name="SpeedStick" type="ColorRect" parent="CanvasLayer/ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = 1.5
+offset_right = 176.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.7524579
+color = Color(1, 0, 0.44313726, 1)
+script = ExtResource("5_utrii")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="LaneSwitchTimer" to="." method="_on_lane_switch_timer_timeout"]

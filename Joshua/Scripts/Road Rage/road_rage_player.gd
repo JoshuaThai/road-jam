@@ -1,9 +1,11 @@
 extends Camera3D
 # MOVE THE CAMERA WHEN PLAYER IS IN CAR IN ROAD RAGE LEVEL
 
+# WE WILL NO LONGER CAPTURE CURSOR IN GAME. Browser games only support this 
+# with JavaScript.
 # Hide cursor in game
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#func _ready():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 # Player will rotate with mouse motion!
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -18,5 +20,5 @@ func _unhandled_input(event):
 			rotation_degrees.x, -80.0, 80.0
 		)
 #		Show cursor when player clicks escape key.
-	elif event.is_action_pressed("ui_cancel"): 
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#elif event.is_action_pressed("ui_cancel"): 
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
