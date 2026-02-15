@@ -50,7 +50,7 @@ fov = 60.0
 far = 1000.0
 
 [node name="RearMirror" type="Sprite3D" parent="Mirrors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.673898, -0.07055956)
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0.5293007, -0.06433749)
 pixel_size = 0.0005
 texture = SubResource("ViewportTexture_5wy1f")
 
@@ -65,7 +65,7 @@ fov = 60.0
 far = 1000.0
 
 [node name="LeftMirror" type="Sprite3D" parent="Mirrors"]
-transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.0395381, 0, -0.12608902)
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.0395381, 0, -0.1116641)
 flip_h = true
 pixel_size = 0.0004
 texture = SubResource("ViewportTexture_f22eo")
