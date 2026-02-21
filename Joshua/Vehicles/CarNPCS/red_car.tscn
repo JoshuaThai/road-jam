@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckupam2mo0wsn"]
+
+[ext_resource type="PackedScene" uid="uid://dsy7pie3m38t2" path="res://Joshua/Vehicles/CarNPC_Bodies/RedCarBody.tscn" id="1_kjhec"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kjhec"]
+size = Vector3(2.8, 3.7, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4iow4"]
+size = Vector3(2.8, 2.1000001, 4.7000003)
+
+[node name="RedCar" type="VehicleBody3D"]
+
+[node name="Car2" parent="." instance=ExtResource("1_kjhec")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, -1.35, 0.74440944)
+shape = SubResource("BoxShape3D_kjhec")
+
+[node name="Area3D" type="Area3D" parent="." groups=["CarNPC"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, 0.6944094)
+shape = SubResource("BoxShape3D_4iow4")

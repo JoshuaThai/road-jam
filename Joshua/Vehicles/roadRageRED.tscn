@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmhgsyn3l8o1p"]
 
-[ext_resource type="PackedScene" uid="uid://dsy7pie3m38t2" path="res://Joshua/Vehicles/CarBodyRed.tscn" id="1_w2pvt"]
+[ext_resource type="PackedScene" uid="uid://dsy7pie3m38t2" path="res://Joshua/Vehicles/CarNPC_Bodies/RedCarBody.tscn" id="1_w2pvt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)

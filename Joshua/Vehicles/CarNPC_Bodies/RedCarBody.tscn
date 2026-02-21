@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://bkbxlagkdx3bg" path="res://Materials/CarBodyRed.tres" id="2_itjpb"]
 
 [node name="Car2" instance=ExtResource("1_b0j1a")]
+transform = Transform3D(0.1715, 0, 0, 0, 0.1715, 0, 0, 0, 0.1715, 0, 0, 0)
 
 [node name="Cube" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_itjpb")

@@ -31,7 +31,7 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
-	print("Speed: ", SPEED)
+	#print("Speed: ", SPEED)
 #	 Slow car down if moving.
 	if (Input.is_key_pressed(Key.KEY_S)):
 		if(!carStarted):
@@ -83,7 +83,7 @@ func _physics_process(delta):
 		SPEED = clamp(SPEED, 0, 80)
 		speedOffset -= 0.01
 		speedOffset = clamp(speedOffset, 1, 5)
-		print("speedOffset: ",speedOffset)
+		#print("speedOffset: ",speedOffset)
 		global_position.z += SPEED * delta
 	else:
 		if(!carStarted): return
@@ -128,6 +128,8 @@ func _physics_process(delta):
 
 func _on_area_3d_area_entered(area):
 	print(area.name)
+	if area.is_in_group("CarNPC"):
+		print("YES A CAR NPC!!")
 	if area.name == "GenerateGround":
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
 #		We need to access ground size to calculate how to do proceduaral generation for road rage.
@@ -141,3 +143,9 @@ func _on_area_3d_area_entered(area):
 	
 func _on_lane_switch_timer_timeout():
 	canMerge = true
+
+
+#func _on_body_entered(body):
+	#print("Body Name: ", body.name)
+	#if body.is_in_group("CarNPC"):
+		#print("We crashed into a NPC")
