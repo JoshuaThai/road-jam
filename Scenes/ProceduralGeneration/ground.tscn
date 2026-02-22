@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccfwwsbds7woo"]
+[gd_scene load_steps=14 format=3 uid="uid://ccfwwsbds7woo"]
 
 [ext_resource type="Script" uid="uid://balc7yfev7n0o" path="res://Joshua/Scripts/Road Rage/precedural_ground_despawn.gd" id="1_rrixk"]
 [ext_resource type="Script" uid="uid://v66ackpawbxs" path="res://Scenes/ProceduralGeneration/remove_ground.gd" id="2_jn6wl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btbh1jkj3v5k6" path="res://Joshua/Road Rage/PixelScenery/RoadRageRoadPixel.glb" id="6_54k38"]
 [ext_resource type="PackedScene" uid="uid://ckupam2mo0wsn" path="res://Joshua/Vehicles/CarNPCS/red_car.tscn" id="6_avxe2"]
 [ext_resource type="PackedScene" uid="uid://cthfiny6hrxli" path="res://Joshua/Vehicles/CarNPCS/blue_car.tscn" id="7_avxe2"]
+[ext_resource type="Script" uid="uid://bm65f3vv27c40" path="res://Scenes/ProceduralGeneration/car_spawn.gd" id="8_mibgi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jn6wl"]
 albedo_color = Color(0, 0.5338458, 0.1317423, 1)
@@ -295,14 +296,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.299999, 1, 125.89999
 [node name="RoadRageDividerPixel7" parent="Divider4" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.648648, -4.299999, 1, 143.9)
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6, 0)
-height = 14.0
-
 [node name="RedCar" parent="." instance=ExtResource("6_avxe2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5000002, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.5000002, 9)
 
 [node name="BlueCar" parent="." instance=ExtResource("7_avxe2")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 2, -56)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 15, 2, -56)
+
+[node name="CarSpawn" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.6, 34)
+script = ExtResource("8_mibgi")
+
+[node name="SpawnTimer" type="Timer" parent="CarSpawn"]
+wait_time = 5.0
+autostart = true
 
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="timeout" from="CarSpawn/SpawnTimer" to="CarSpawn" method="_on_spawn_timer_timeout"]
