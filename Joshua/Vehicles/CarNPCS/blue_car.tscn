@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cthfiny6hrxli"]
+
+[ext_resource type="PackedScene" uid="uid://buj03xaddfwsf" path="res://Joshua/Vehicles/CarNPC_Bodies/BlueCarBody.tscn" id="1_1ypf8"]
+[ext_resource type="Script" uid="uid://bq04xrmey6j47" path="res://Joshua/Scripts/Road Rage/blueCar_NPC.gd" id="1_j4wpq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ypf8"]
+size = Vector3(1.8000001, 2.9, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4wpq"]
+size = Vector3(1, 3, 2.8)
+
+[node name="BlueCar" type="VehicleBody3D"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_j4wpq")
+
+[node name="BlueCar" parent="." instance=ExtResource("1_1ypf8")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8414865e-08, -0.95000005, -0.49999994)
+shape = SubResource("BoxShape3D_1ypf8")
+
+[node name="Area3D" type="Area3D" parent="." groups=["CarNPC"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4969112e-08, -1, -0.5)
+shape = SubResource("BoxShape3D_j4wpq")
