@@ -8,7 +8,7 @@ ambient_light_source = 3
 ambient_light_color = Color(0.62152386, 0.62152386, 0.6215238, 1)
 fog_enabled = true
 fog_light_color = Color(0.18293369, 0.57315046, 0.8755278, 1)
-fog_density = 0.005
+fog_density = 0.008
 
 [node name="RoadRage" type="Node3D"]
 
@@ -23,3 +23,15 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="Player" parent="." instance=ExtResource("2_4mroq")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 2.3999999, -14)
+
+[node name="PixelatedLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PixelatedLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.10980392)

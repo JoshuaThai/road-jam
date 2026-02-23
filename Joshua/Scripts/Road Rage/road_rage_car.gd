@@ -131,6 +131,7 @@ func _on_area_3d_area_entered(area):
 	if area.is_in_group("CarNPC"):
 		print("YES A CAR NPC!!")
 	if area.name == "GenerateGround":
+		# Cloning the ground		
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
 #		We need to access ground size to calculate how to do proceduaral generation for road rage.
 		print(ground.get_node("ActualGround").size)
