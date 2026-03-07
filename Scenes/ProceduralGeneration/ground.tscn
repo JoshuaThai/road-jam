@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bf38bqyoxd82f" path="res://Joshua/Road Rage/PixelScenery/RoadRageDividerPixel.glb" id="5_54k38"]
 [ext_resource type="PackedScene" uid="uid://d0qfxnuu6w0bu" path="res://Joshua/Road Rage/PixelScenery/road_rage_road_pixel.tscn" id="5_jn6wl"]
 [ext_resource type="PackedScene" uid="uid://btbh1jkj3v5k6" path="res://Joshua/Road Rage/PixelScenery/RoadRageRoadPixel.glb" id="6_54k38"]
-[ext_resource type="PackedScene" uid="uid://ckupam2mo0wsn" path="res://Joshua/Vehicles/CarNPCS/red_car.tscn" id="6_avxe2"]
 [ext_resource type="PackedScene" uid="uid://cthfiny6hrxli" path="res://Joshua/Vehicles/CarNPCS/blue_car.tscn" id="7_avxe2"]
 [ext_resource type="Script" uid="uid://bm65f3vv27c40" path="res://Scenes/ProceduralGeneration/car_spawn.gd" id="8_mibgi"]
 
@@ -23,6 +22,9 @@ size = Vector3(10.5, 0.6, 216)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_54k38"]
 size = Vector3(10.5, 0.6, 252)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mibgi"]
+size = Vector3(1, 1, 50)
 
 [node name="Ground" type="StaticBody3D"]
 script = ExtResource("1_rrixk")
@@ -296,19 +298,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.299999, 1, 125.89999
 [node name="RoadRageDividerPixel7" parent="Divider4" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.648648, -4.299999, 1, 143.9)
 
-[node name="RedCar" parent="." instance=ExtResource("6_avxe2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.5000002, 9)
-
-[node name="BlueCar" parent="." instance=ExtResource("7_avxe2")]
+[node name="BlueCar" parent="." groups=["CarNPC"] instance=ExtResource("7_avxe2")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 15, 2, -56)
 
-[node name="CarSpawn" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.6, 34)
-script = ExtResource("8_mibgi")
+[node name="BlueCar2" parent="." groups=["CarNPC"] instance=ExtResource("7_avxe2")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 2, -15)
 
-[node name="SpawnTimer" type="Timer" parent="CarSpawn"]
-wait_time = 5.0
+[node name="CarSpawnLeft" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 139)
+script = ExtResource("8_mibgi")
+metadata/inLeft = true
+
+[node name="SpawnTimer" type="Timer" parent="CarSpawnLeft"]
 autostart = true
 
+[node name="CheckNear" type="Area3D" parent="CarSpawnLeft"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnLeft/CheckNear"]
+shape = SubResource("BoxShape3D_mibgi")
+
+[node name="CarSpawnRight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.6, 331)
+script = ExtResource("8_mibgi")
+metadata/inLeft = false
+
+[node name="SpawnTimer" type="Timer" parent="CarSpawnRight"]
+autostart = true
+
+[node name="CheckNear" type="Area3D" parent="CarSpawnRight"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnRight/CheckNear"]
+shape = SubResource("BoxShape3D_mibgi")
+
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
-[connection signal="timeout" from="CarSpawn/SpawnTimer" to="CarSpawn" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="CarSpawnLeft/SpawnTimer" to="CarSpawnLeft" method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="CarSpawnLeft/CheckNear" to="CarSpawnLeft" method="_on_check_touching_area_entered"]
+[connection signal="area_exited" from="CarSpawnLeft/CheckNear" to="CarSpawnLeft" method="_on_check_touching_area_exited"]
+[connection signal="timeout" from="CarSpawnRight/SpawnTimer" to="CarSpawnRight" method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="CarSpawnRight/CheckNear" to="CarSpawnRight" method="_on_check_touching_area_entered"]
+[connection signal="area_exited" from="CarSpawnRight/CheckNear" to="CarSpawnRight" method="_on_check_touching_area_exited"]

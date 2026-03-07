@@ -18,13 +18,10 @@ var frontOpen = true
 # Keep track of Merging
 var isMerging = false
 
-# Keep of if police is near car and merge into a different lane.
-var policeNear = false
-
 #var tween
 
 func _ready():
-	var selectedSpeed = randi_range(10, 55)
+	var selectedSpeed = randi_range(30, 65)
 	speed = selectedSpeed
 	orgSpeed = speed
 	#self.set_meta("Speed", selectedSpeed)
@@ -38,7 +35,7 @@ func _determine_tween_time(speed):
 		return 1.5
 	if speed < 38 and speed >= 20:
 		return 1
-	return 0.5
+	return 0.25
 	
 func merge():
 	#print("Car should be merging")
@@ -58,8 +55,8 @@ func merge():
 #	Move from right lane to left lane (if left lane is not open)
 #	Reduce speed until you can finally merge.
 	if(not inLeft and not leftOpen):
-		speed -= 5
-		speed = clamp(speed, 0, 55)
+		speed -= 10
+		speed = clamp(speed, 0, 65)
 		
 	#	Move from left lane to right lane (if right lane is open)
 	if(inLeft and rightOpen):
@@ -74,8 +71,8 @@ func merge():
 		isMerging = false
 #	Slow car down until it can merge to right lane.
 	if(inLeft and not rightOpen):
-		speed -= 5
-		speed = clamp(speed, 0, 55)
+		speed -= 10
+		speed = clamp(speed, 0, 65)
 	#await tween.finished
 	#isMerging = false
 
@@ -106,13 +103,6 @@ func _physics_process(delta):
 			leftOpen = false
 	elif not $LeftRayCast3D.is_colliding():
 		leftOpen = true
-	if $BackRayCast3D.is_colliding():
-		var collider = $BackRayCast3D.get_collider()
-		if collider.is_in_group("CarNPC") and collider.get_parent().is_in_group("PoliceCar"):
-			merge()
-			#policeNear = true
-	#elif not $BackRayCast3D.is_colliding():
-		#policeNear = false
 	
 	
 func _on_despawn_timer_timeout():

@@ -3,11 +3,36 @@ extends CSGBox3D
 #@onready var carNPCs = ["res://Joshua/Vehicles/CarNPCS/blue_car.tscn", 
 #"res://Joshua/Vehicles/CarNPCS/red_car.tscn"]
 @onready var carNPCs = [
-"res://Joshua/Vehicles/CarNPCS/red_car.tscn"]
+"res://Joshua/Vehicles/CarNPCS/red_car.tscn",
+"res://Joshua/Vehicles/CarNPCS/police_car.tscn"
+]
+
+var somethingNear = false
 
 # This will spawn a car NPC
 func _on_spawn_timer_timeout():
-	var spawnCar = load(carNPCs[0]).instantiate()
+#	Do not spawn Car NPC if another car NPC is nearby.
+	if somethingNear: return
+	#var decideToSpawnCar = randi_range(1,4)
+	var decideToSpawnCar = 1
+	if not decideToSpawnCar == 1: return
+	$SpawnTimer.wait_time = randf_range(10, 15)
+	var spawnCar = load(carNPCs[randi_range(0,1)]).instantiate()
+#	Ensure the car moves accordingly to its starting lane.
+	#print("In Left in left lane: ", self.get_meta("inLeft"))
+	spawnCar.inLeft = self.get_meta("inLeft")
 	get_tree().get_root().add_child(spawnCar)
-	spawnCar.global_position = global_position
+	if spawnCar.is_in_group("PoliceCar"):
+		spawnCar.global_position = global_position + Vector3(0,2,0)
+	else:
+		spawnCar.global_position = global_position
 	#pass # Replace with function body.
+
+
+func _on_check_touching_area_entered(area):
+	#print("Car NPC is nearby. DO NOT SPAWN!")
+	somethingNear = true
+
+
+func _on_check_touching_area_exited(area):
+	somethingNear = false

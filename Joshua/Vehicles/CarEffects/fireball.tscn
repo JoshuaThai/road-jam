@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu71b3jrlxvb3"]
+
+[ext_resource type="Script" uid="uid://bgg5qmad7xmnw" path="res://Joshua/Scripts/Road Rage/fireball.gd" id="1_0pbx0"]
+
+[sub_resource type="Gradient" id="Gradient_kllxj"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0pbx0"]
+gradient = SubResource("Gradient_kllxj")
+fill_to = Vector2(0.010309278, 0.53608245)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yghsl"]
+albedo_color = Color(1, 0.4862745, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_0pbx0")
+
+[node name="Fireball" type="CSGSphere3D"]
+radius = 3.0
+material = SubResource("StandardMaterial3D_yghsl")
+script = ExtResource("1_0pbx0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
