@@ -1,6 +1,7 @@
 extends VehicleBody3D
 
 @export var speed = 10
+@export var direction = 1
 var orgSpeed = speed
 
 # hard-coded left and right lane position ( Can be changed by car spawner)
@@ -77,13 +78,13 @@ func merge():
 	#isMerging = false
 
 func _physics_process(delta):
-	global_position.z -= speed * delta
+	global_position.z -= speed * delta * direction
 #	NPC will only attempt merge lane if there is a car in front of them.
 	if $FrontRayCast3D.is_colliding():
 		var collider = $FrontRayCast3D.get_collider()
 		#print("Hit:", collider.name)
 #		If car detects a car NPC, perform merge.
-		if collider.is_in_group("CarNPC") and not isMerging:
+		if collider and collider.is_in_group("CarNPC") and not isMerging:
 			merge()
 #	CHECK IF RIGHT LANE IS OPEN
 	if $RightRayCast3D.is_colliding():

@@ -1,6 +1,7 @@
 extends VehicleBody3D
 
 @export var speed = 10
+@export var direction = 1
 var orgSpeed = speed
 
 # hard-coded left and right lane position ( Can be changed by car spawner)
@@ -49,7 +50,7 @@ func merge():
 		isMerging = true
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
-		tween.tween_property(self, "global_position:x", global_position.x - laneShift, time)
+		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await tween.finished
 		speed = orgSpeed
@@ -66,7 +67,7 @@ func merge():
 		isMerging = true
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
-		tween.tween_property(self, "global_position:x", global_position.x + laneShift, time)
+		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await tween.finished
 		inLeft = false
@@ -80,35 +81,35 @@ func merge():
 	#isMerging = false
 
 func _physics_process(delta):
-	global_position.z -= speed * delta
+	global_position.z -= speed * delta * direction
 #	NPC will only attempt merge lane if there is a car in front of them.
 	if $FrontRayCast3D.is_colliding():
 		var collider = $FrontRayCast3D.get_collider()
 		#print("Hit:", collider.name)
 #		If car detects a car NPC, perform merge.
-		if collider.is_in_group("CarNPC") and not isMerging:
+		if collider and collider.is_in_group("CarNPC") and not isMerging:
 			merge()
 #	CHECK IF RIGHT LANE IS OPEN
 	if $RightRayCast3D.is_colliding():
 		var collider = $RightRayCast3D.get_collider()
 #		If car detects a car NPC, perform merge.
-		if collider.is_in_group("CarNPC"):
+		if collider and collider.is_in_group("CarNPC"):
 			rightOpen = false
 	elif not $RightRayCast3D.is_colliding():
 		rightOpen = true
 #	CHECK IF LEFT LANE IS OPEN
 	if $LeftRayCast3D.is_colliding():
 		var collider = $LeftRayCast3D.get_collider()
-		print("Objects to left: ", collider)
-		print("On left: ", collider.name)
+		#print("Objects to left: ", collider)
+		#print("On left: ", collider.name)
 #		If car detects a car NPC, perform merge.
-		if collider.is_in_group("CarNPC"):
+		if collider and collider.is_in_group("CarNPC"):
 			leftOpen = false
 	elif not $LeftRayCast3D.is_colliding():
 		leftOpen = true
 	if $BackRayCast3D.is_colliding():
 		var collider = $BackRayCast3D.get_collider()
-		if collider.is_in_group("CarNPC") and collider.get_parent().is_in_group("PoliceCar"):
+		if collider and collider.is_in_group("CarNPC") and collider.get_parent().is_in_group("PoliceCar"):
 			merge()
 			#policeNear = true
 	#elif not $BackRayCast3D.is_colliding():

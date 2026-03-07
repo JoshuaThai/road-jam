@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckupam2mo0wsn"]
+[gd_scene load_steps=5 format=3 uid="uid://cxhonwqofv2sv"]
 
-[ext_resource type="Script" uid="uid://bt154y8o8o277" path="res://Joshua/Scripts/Road Rage/redcar_NPC.gd" id="1_4iow4"]
-[ext_resource type="PackedScene" uid="uid://dsy7pie3m38t2" path="res://Joshua/Vehicles/CarNPC_Bodies/RedCarBody.tscn" id="1_kjhec"]
+[ext_resource type="Script" uid="uid://bt154y8o8o277" path="res://Joshua/Scripts/Road Rage/redcar_NPC.gd" id="1_0gscu"]
+[ext_resource type="PackedScene" uid="uid://dsy7pie3m38t2" path="res://Joshua/Vehicles/CarNPC_Bodies/RedCarBody.tscn" id="2_4muun"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kjhec"]
 size = Vector3(2.8, 3.2, 2.8)
@@ -10,14 +10,15 @@ size = Vector3(2.8, 3.2, 2.8)
 size = Vector3(2.2, 2.1, 3)
 
 [node name="RedCar" type="VehicleBody3D"]
-script = ExtResource("1_4iow4")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_0gscu")
 metadata/inLeft = false
 metadata/leftOpen = true
 metadata/rightOpen = true
 metadata/Speed = 10.0
 metadata/Merging = false
 
-[node name="Car2" parent="." instance=ExtResource("1_kjhec")]
+[node name="Car2" parent="." instance=ExtResource("2_4muun")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, -0.6999999, 0.5444095)
@@ -32,7 +33,6 @@ shape = SubResource("BoxShape3D_4iow4")
 [node name="DespawnTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
-autostart = true
 
 [node name="MergingCooldown" type="Timer" parent="."]
 wait_time = 3.0
