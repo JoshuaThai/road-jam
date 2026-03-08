@@ -144,9 +144,3 @@ func _on_area_3d_area_entered(area):
 	
 func _on_lane_switch_timer_timeout():
 	canMerge = true
-
-
-#func _on_body_entered(body):
-	#print("Body Name: ", body.name)
-	#if body.is_in_group("CarNPC"):
-		#print("We crashed into a NPC")

@@ -2,7 +2,7 @@ extends VehicleBody3D
 
 @export var speed = 10
 @export var direction = 1
-var orgSpeed = speed
+@export var orgSpeed = speed
 
 # hard-coded left and right lane position ( Can be changed by car spawner)
 @export var rightPos = 15.0
@@ -18,6 +18,8 @@ var rightOpen = true
 var frontOpen = true
 # Keep track of Merging
 var isMerging = false
+# Activate  chase if a car in front of them is wanted.
+var foundWanted = false
 
 #var tween
 
@@ -47,10 +49,10 @@ func merge():
 		isMerging = true
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
-		tween.tween_property(self, "global_position:x", global_position.x - laneShift, time)
+		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await tween.finished
-		speed = orgSpeed
+		#speed = orgSpeed
 		inLeft = true
 		isMerging = false
 #	Move from right lane to left lane (if left lane is not open)
@@ -64,11 +66,11 @@ func merge():
 		isMerging = true
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
-		tween.tween_property(self, "global_position:x", global_position.x + laneShift, time)
+		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await tween.finished
 		inLeft = false
-		speed = orgSpeed
+		#speed = orgSpeed
 		isMerging = false
 #	Slow car down until it can merge to right lane.
 	if(inLeft and not rightOpen):
@@ -86,6 +88,9 @@ func _physics_process(delta):
 #		If car detects a car NPC, perform merge.
 		if collider and collider.is_in_group("CarNPC") and not isMerging:
 			merge()
+	else:
+		speed += 5
+		speed = clamp(speed, 30, orgSpeed)
 #	CHECK IF RIGHT LANE IS OPEN
 	if $RightRayCast3D.is_colliding():
 		var collider = $RightRayCast3D.get_collider()
@@ -104,7 +109,16 @@ func _physics_process(delta):
 			leftOpen = false
 	elif not $LeftRayCast3D.is_colliding():
 		leftOpen = true
+	if $LeftBlindSpot.is_colliding():
+		var collider = $LeftBlindSpot.get_collider()
+		if collider and collider.is_in_group("CarNPC"):
+			leftOpen = false
+	if $RightBlindSpot.is_colliding():
+		var collider = $RightBlindSpot.get_collider()
+		if collider and collider.is_in_group("CarNPC"):
+			rightOpen = false
 	
 	
 func _on_despawn_timer_timeout():
+	("Police car should despawn.")
 	queue_free()

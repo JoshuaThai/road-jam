@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfpxbc1naj6dx"]
+[gd_scene load_steps=6 format=3 uid="uid://bfpxbc1naj6dx"]
 
 [ext_resource type="Script" uid="uid://bww1maaovht6t" path="res://Joshua/Scripts/Road Rage/police_car.gd" id="1_7qu1g"]
 [ext_resource type="PackedScene" uid="uid://dxcvaje8qm8ae" path="res://Joshua/Vehicles/CarNPC_Bodies/policeCarBody.tscn" id="1_jnj85"]
@@ -8,6 +8,9 @@ size = Vector3(1.9, 3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7qu1g"]
 size = Vector3(2, 1, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qu1g"]
+albedo_color = Color(0.99607843, 0, 0, 1)
 
 [node name="PoliceCar" type="VehicleBody3D" groups=["PoliceCar"]]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -45,5 +48,25 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3909066e-08, 0, -0.5)
 shape = SubResource("BoxShape3D_7qu1g")
+
+[node name="LeftBlindSpot" type="RayCast3D" parent="."]
+transform = Transform3D(-0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, -0.7071068, 1.2000004, 0, -1.9999998)
+target_position = Vector3(0, -1, 2.5)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="RightBlindSpot" type="RayCast3D" parent="."]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, -1.1999997, 0, -2)
+target_position = Vector3(0, -1, 2.5)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="LeftTurn" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.80000037, -0.95000005, -1.9999999)
+size = Vector3(0.3, 0.5, 0.2)
+material = SubResource("StandardMaterial3D_7qu1g")
+
+[node name="RightTurn" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7999997, -0.95000005, -2.0000002)
+size = Vector3(0.3, 0.5, 0.2)
+material = SubResource("StandardMaterial3D_7qu1g")
 
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

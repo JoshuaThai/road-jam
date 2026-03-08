@@ -22,6 +22,9 @@ var isMerging = false
 # Keep of if police is near car and merge into a different lane.
 var policeNear = false
 
+@onready var leftBlind = $LeftBlindSpot
+@onready var rightBlind = $RightBlindSpot
+
 #var tween
 
 func _ready():
@@ -53,14 +56,14 @@ func merge():
 		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await tween.finished
-		speed = orgSpeed
+		#speed = orgSpeed
 		inLeft = true
 		isMerging = false
 #	Move from right lane to left lane (if left lane is not open)
 #	Reduce speed until you can finally merge.
 	if(not inLeft and not leftOpen):
 		speed -= 5
-		speed = clamp(speed, 0, 55)
+		speed = clamp(speed, 0, orgSpeed)
 		
 	#	Move from left lane to right lane (if right lane is open)
 	if(inLeft and rightOpen):
@@ -71,12 +74,12 @@ func merge():
 		#$MergingCooldown.start()
 		await tween.finished
 		inLeft = false
-		speed = orgSpeed
+		#speed = orgSpeed
 		isMerging = false
 #	Slow car down until it can merge to right lane.
 	if(inLeft and not rightOpen):
 		speed -= 5
-		speed = clamp(speed, 0, 55)
+		speed = clamp(speed, 0, orgSpeed)
 	#await tween.finished
 	#isMerging = false
 
@@ -89,6 +92,9 @@ func _physics_process(delta):
 #		If car detects a car NPC, perform merge.
 		if collider and collider.is_in_group("CarNPC") and not isMerging:
 			merge()
+	else:
+		speed += 5
+		speed = clamp(speed, 10, orgSpeed)
 #	CHECK IF RIGHT LANE IS OPEN
 	if $RightRayCast3D.is_colliding():
 		var collider = $RightRayCast3D.get_collider()
@@ -111,9 +117,16 @@ func _physics_process(delta):
 		var collider = $BackRayCast3D.get_collider()
 		if collider and collider.is_in_group("CarNPC") and collider.get_parent().is_in_group("PoliceCar"):
 			merge()
-			#policeNear = true
-	#elif not $BackRayCast3D.is_colliding():
-		#policeNear = false
+	if leftBlind.is_colliding():
+		var collider = leftBlind.get_collider()
+		if collider and collider.is_in_group("CarNPC"):
+			leftOpen = false
+	if rightBlind.is_colliding():
+		var collider = rightBlind.get_collider()
+		if collider and collider.is_in_group("CarNPC"):
+			rightOpen = false
+		
+
 	
 	
 func _on_despawn_timer_timeout():
