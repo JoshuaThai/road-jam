@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccfwwsbds7woo"]
+[gd_scene load_steps=16 format=3 uid="uid://ccfwwsbds7woo"]
 
 [ext_resource type="Script" uid="uid://balc7yfev7n0o" path="res://Joshua/Scripts/Road Rage/precedural_ground_despawn.gd" id="1_rrixk"]
 [ext_resource type="Script" uid="uid://v66ackpawbxs" path="res://Scenes/ProceduralGeneration/remove_ground.gd" id="2_jn6wl"]
@@ -22,6 +22,9 @@ size = Vector3(10.5, 0.6, 216)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_54k38"]
 size = Vector3(10.5, 0.6, 252)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoqso"]
+size = Vector3(1, 2.5, 468)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mibgi"]
 size = Vector3(1, 1, 50)
@@ -218,22 +221,52 @@ shape = SubResource("BoxShape3D_54k38")
 [node name="RoadRageRoadPixel" parent="." instance=ExtResource("5_jn6wl")]
 transform = Transform3D(0.17999998, 0, 0, 0, 1, 0, 0, 0, 0.46199998, 6.9, 0, 107.7)
 
-[node name="Divider" type="Node3D" parent="."]
+[node name="Dividers" type="StaticBody3D" parent="."]
 
-[node name="RoadRageDividerPixel" parent="Divider" instance=ExtResource("5_54k38")]
+[node name="Divider" type="Node3D" parent="Dividers"]
+
+[node name="RoadRageDividerPixel" parent="Dividers/Divider" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -75.3)
 
-[node name="RoadRageDividerPixel2" parent="Divider" instance=ExtResource("5_54k38")]
+[node name="RoadRageDividerPixel2" parent="Dividers/Divider" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -26.300003)
 
-[node name="RoadRageDividerPixel3" parent="Divider" instance=ExtResource("5_54k38")]
+[node name="RoadRageDividerPixel3" parent="Dividers/Divider" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 22.699997)
 
-[node name="RoadRageDividerPixel4" parent="Divider" instance=ExtResource("5_54k38")]
+[node name="RoadRageDividerPixel4" parent="Dividers/Divider" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 71.7)
 
-[node name="RoadRageDividerPixel5" parent="Divider" instance=ExtResource("5_54k38")]
+[node name="RoadRageDividerPixel5" parent="Dividers/Divider" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.3, 1, 105.9)
+
+[node name="Divider4" type="Node3D" parent="Dividers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 216)
+
+[node name="RoadRageDividerPixel" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -75.3)
+
+[node name="RoadRageDividerPixel2" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -26.300003)
+
+[node name="RoadRageDividerPixel3" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 22.699997)
+
+[node name="RoadRageDividerPixel4" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 71.7)
+
+[node name="RoadRageDividerPixel5" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.3, 1, 105.9)
+
+[node name="RoadRageDividerPixel6" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.299999, 1, 125.899994)
+
+[node name="RoadRageDividerPixel7" parent="Dividers/Divider4" instance=ExtResource("5_54k38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.648648, -4.299999, 1, 143.9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dividers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.75, 134)
+shape = SubResource("BoxShape3D_hoqso")
 
 [node name="Divider2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 0)
@@ -275,30 +308,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.3, 1, 105.9)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.299999, 1, 125.899994)
 
 [node name="RoadRageDividerPixel7" parent="Divider3" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.648648, -4.299999, 1, 143.9)
-
-[node name="Divider4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 216)
-
-[node name="RoadRageDividerPixel" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -75.3)
-
-[node name="RoadRageDividerPixel2" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, -26.300003)
-
-[node name="RoadRageDividerPixel3" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 22.699997)
-
-[node name="RoadRageDividerPixel4" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.98, -4.3, 1, 71.7)
-
-[node name="RoadRageDividerPixel5" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.3, 1, 105.9)
-
-[node name="RoadRageDividerPixel6" parent="Divider4" instance=ExtResource("5_54k38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.81081, -4.299999, 1, 125.899994)
-
-[node name="RoadRageDividerPixel7" parent="Divider4" instance=ExtResource("5_54k38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.648648, -4.299999, 1, 143.9)
 
 [node name="BlueCar" parent="." groups=["CarNPC"] instance=ExtResource("7_avxe2")]

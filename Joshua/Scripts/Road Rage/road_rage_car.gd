@@ -4,6 +4,7 @@ extends VehicleBody3D
 @export var SPEED = 0
 # We will use this to adjust brake speed
 var speedOffset = 5
+var turnOffset = 1
 
 # Car variables
 # Prevent the car from moving at the start
@@ -39,12 +40,39 @@ func _physics_process(delta):
 		if SPEED <= 0:
 			SPEED = 0
 			speedOffset = 5
+			turnOffset = 1
 			global_position.z += 0
 			return
-		SPEED -= 0.01
+		SPEED -= 1
 		SPEED = clamp(SPEED, 0, 80)
-		isAccelerating = false
+	elif(Input.is_key_pressed(Key.KEY_A)):
+		rotate_y((0.15 * turnOffset) * delta)
+	elif(Input.is_key_pressed(Key.KEY_D)):
+		rotate_y((-0.15 * turnOffset) * delta)
 
+	elif (Input.is_key_pressed(Key.KEY_W)):
+		SPEED += 0.15
+		SPEED = clamp(SPEED, 0, 80)
+		speedOffset -= 0.01
+		turnOffset += 0.01
+		speedOffset = clamp(speedOffset, 1, 5)
+		turnOffset = clamp(turnOffset, 1, 2)
+	else:
+		SPEED -= 0.05 * speedOffset
+		SPEED = clamp(SPEED, 0, 80)
+		speedOffset += 0.01
+		turnOffset -= 0.01
+		speedOffset = clamp(speedOffset, 1, 5)
+		turnOffset = clamp(turnOffset, 1, 2)
+		if SPEED <= 0: 
+			SPEED = 0
+			speedOffset = 5
+			turnOffset = 1
+			global_position.z += 0
+			
+	global_transform.origin += -global_transform.basis.z * SPEED * delta
+
+"""
 		#CarAnimations.play("move_left")
 	# When player are clicking w, they are moving forward.
 	if (Input.is_key_pressed(Key.KEY_W)):
@@ -123,13 +151,16 @@ func _physics_process(delta):
 				isMerging = false
 				
 			global_position.z += SPEED * delta
+"""
 
 
 
 func _on_area_3d_area_entered(area):
 	print(area.name)
+#	Handle Crashing Into Car.
 	if area.is_in_group("CarNPC"):
 		print("YES A CAR NPC!!")
+		area.get_parent().queue_free()
 	if area.name == "GenerateGround":
 		# Cloning the ground		
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()

@@ -46,7 +46,7 @@ func _determine_tween_time(speed):
 	
 func merge():
 	#print("Car should be merging")
-	print("leftOpen: ", leftOpen)
+	#print("leftOpen: ", leftOpen)
 	var laneShift = 5
 #	Move from right lane to left lane (if left lane is open)
 	if(not inLeft and leftOpen):
