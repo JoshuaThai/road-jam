@@ -21,16 +21,18 @@ func _on_spawn_timer_timeout():
 	var decideToSpawnCar = randi_range(1,4)
 	#var decideToSpawnCar = 1
 	if not decideToSpawnCar == 1: return
-	$SpawnTimer.wait_time = randf_range(10, 15)
+#	It should be 10 and 15
+	$SpawnTimer.wait_time = randf_range(5, 8)
 	var spawnCar
 	if self.get_meta("Flipped"):
-		spawnCar = load(carNPCsFlipped[randi_range(0,1)]).instantiate()
+#		SHould be 0 and 1
+		spawnCar = load(carNPCsFlipped[randi_range(1,1)]).instantiate()
 	#print("Meta: ", self.get_meta("Flipped"))
 		spawnCar.direction = -1
 		spawnCar.rightPos = -1.0
 		spawnCar.leftPos = 4.0
 	else:
-		spawnCar = load(carNPCs[randi_range(0,1)]).instantiate()
+		spawnCar = load(carNPCs[randi_range(1,1)]).instantiate()
 #	Ensure the car moves accordingly to its starting lane.
 	#print("In Left in left lane: ", self.get_meta("inLeft"))
 	spawnCar.inLeft = self.get_meta("inLeft")
