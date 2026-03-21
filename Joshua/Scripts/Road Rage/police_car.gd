@@ -47,6 +47,7 @@ func _determine_tween_time(speed):
 	
 func activateSignals(signalName):
 	animationPlayer.play(signalName)
+	
 func merge():
 	#print("Car should be merging")
 	print("leftOpen: ", leftOpen)
@@ -56,13 +57,16 @@ func merge():
 #	Move from right lane to left lane (if left lane is open)
 	if(not inLeft and leftOpen):
 		isMerging = true
-		activateSignals("Turn Left")
-		
+		if direction == -1:
+			activateSignals("Turn Left")
+		else:
+			activateSignals("Turn Right")
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
 		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await get_tree().create_timer(2.0).timeout
+		print("ANIMATION SHOULD RESET")
 		activateSignals("RESET")
 		#speed = orgSpeed
 		inLeft = true
@@ -76,13 +80,17 @@ func merge():
 	#	Move from left lane to right lane (if right lane is open)
 	if(inLeft and rightOpen):
 		isMerging = true
-		activateSignals("Turn Right")
+		if direction == -1:
+			activateSignals("Turn Right")
+		else:
+			activateSignals("Turn Left")
 		
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
 		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await get_tree().create_timer(2.0).timeout
+		print("ANIMATION SHOULD RESET")
 		activateSignals("RESET")
 		inLeft = false
 		#speed = orgSpeed

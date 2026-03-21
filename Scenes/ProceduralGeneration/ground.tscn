@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccfwwsbds7woo"]
+[gd_scene load_steps=18 format=3 uid="uid://ccfwwsbds7woo"]
 
 [ext_resource type="Script" uid="uid://balc7yfev7n0o" path="res://Joshua/Scripts/Road Rage/precedural_ground_despawn.gd" id="1_rrixk"]
 [ext_resource type="Script" uid="uid://v66ackpawbxs" path="res://Scenes/ProceduralGeneration/remove_ground.gd" id="2_jn6wl"]
@@ -28,6 +28,12 @@ size = Vector3(1, 2.5, 468)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mibgi"]
 size = Vector3(1, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_55gwa"]
+size = Vector3(20, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jx5vl"]
+size = Vector3(23, 3, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_avxe2"]
 size = Vector3(1.6, 9, 468)
@@ -333,8 +339,42 @@ autostart = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnLSameSide/CheckNear"]
 shape = SubResource("BoxShape3D_mibgi")
 
+[node name="DestroySpawn" type="Area3D" parent="CarSpawnLSameSide"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnLSameSide/DestroySpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, 0)
+shape = SubResource("BoxShape3D_55gwa")
+
+[node name="CarSpawnL" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.70000005, 19)
+script = ExtResource("8_mibgi")
+metadata/inLeft = true
+metadata/Flipped = false
+
+[node name="SpawnTimer" type="Timer" parent="CarSpawnL"]
+autostart = true
+
+[node name="CheckNear" type="Area3D" parent="CarSpawnL"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnL/CheckNear"]
+shape = SubResource("BoxShape3D_mibgi")
+
+[node name="CarSpawnR" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.70000005, 197)
+script = ExtResource("8_mibgi")
+metadata/inLeft = false
+metadata/Flipped = false
+
+[node name="SpawnTimer" type="Timer" parent="CarSpawnR"]
+autostart = true
+
+[node name="CheckNear" type="Area3D" parent="CarSpawnR"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnR/CheckNear"]
+shape = SubResource("BoxShape3D_mibgi")
+
 [node name="CarSpawnRSameSide2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.70000005, 114)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.70000005, 108)
 script = ExtResource("8_mibgi")
 metadata/inLeft = false
 metadata/Flipped = true
@@ -347,6 +387,12 @@ autostart = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnRSameSide2/CheckNear"]
 shape = SubResource("BoxShape3D_mibgi")
 
+[node name="DestroySpawn" type="Area3D" parent="CarSpawnRSameSide2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarSpawnRSameSide2/DestroySpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 0)
+shape = SubResource("BoxShape3D_jx5vl")
+
 [node name="DestroyCar" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
 
@@ -358,7 +404,15 @@ shape = SubResource("BoxShape3D_avxe2")
 [connection signal="timeout" from="CarSpawnLSameSide/SpawnTimer" to="CarSpawnLSameSide" method="_on_spawn_timer_timeout"]
 [connection signal="area_entered" from="CarSpawnLSameSide/CheckNear" to="CarSpawnLSameSide" method="_on_check_touching_area_entered"]
 [connection signal="area_exited" from="CarSpawnLSameSide/CheckNear" to="CarSpawnLSameSide" method="_on_check_touching_area_exited"]
+[connection signal="area_entered" from="CarSpawnLSameSide/DestroySpawn" to="CarSpawnLSameSide" method="_on_destroy_spawn_area_entered"]
+[connection signal="timeout" from="CarSpawnL/SpawnTimer" to="CarSpawnL" method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="CarSpawnL/CheckNear" to="CarSpawnL" method="_on_check_touching_area_entered"]
+[connection signal="area_exited" from="CarSpawnL/CheckNear" to="CarSpawnL" method="_on_check_touching_area_exited"]
+[connection signal="timeout" from="CarSpawnR/SpawnTimer" to="CarSpawnR" method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="CarSpawnR/CheckNear" to="CarSpawnR" method="_on_check_touching_area_entered"]
+[connection signal="area_exited" from="CarSpawnR/CheckNear" to="CarSpawnR" method="_on_check_touching_area_exited"]
 [connection signal="timeout" from="CarSpawnRSameSide2/SpawnTimer" to="CarSpawnRSameSide2" method="_on_spawn_timer_timeout"]
 [connection signal="area_entered" from="CarSpawnRSameSide2/CheckNear" to="CarSpawnRSameSide2" method="_on_check_touching_area_entered"]
 [connection signal="area_exited" from="CarSpawnRSameSide2/CheckNear" to="CarSpawnRSameSide2" method="_on_check_touching_area_exited"]
+[connection signal="area_entered" from="CarSpawnRSameSide2/DestroySpawn" to="CarSpawnRSameSide2" method="_on_destroy_spawn_area_entered"]
 [connection signal="area_entered" from="DestroyCar" to="." method="_on_destroy_car_area_entered"]

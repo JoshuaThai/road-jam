@@ -3,6 +3,7 @@ extends VehicleBody3D
 @export var speed = 10
 @export var direction = 1
 var orgSpeed = speed
+@onready var animationPlayer = $AnimationPlayer
 
 # hard-coded left and right lane position ( Can be changed by car spawner)
 @export var rightPos = 15.0
@@ -21,6 +22,10 @@ var isMerging = false
 
 # Keep of if police is near car and merge into a different lane.
 var policeNear = false
+
+# Keeps track if car is too close.
+var tooClose = false
+
 
 @onready var leftBlind = $LeftBlindSpot
 @onready var rightBlind = $RightBlindSpot
@@ -44,6 +49,9 @@ func _determine_tween_time(speed):
 		return 1
 	return 0.5
 	
+func activateSignals(signalName):
+	animationPlayer.play(signalName)
+	
 func merge():
 	#print("Car should be merging")
 	#print("leftOpen: ", leftOpen)
@@ -51,11 +59,15 @@ func merge():
 #	Move from right lane to left lane (if left lane is open)
 	if(not inLeft and leftOpen):
 		isMerging = true
+		activateSignals("Turn Left")
+		
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
 		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
-		await tween.finished
+		await get_tree().create_timer(2.0).timeout
+		print("ANIMATION SHOULD RESET")
+		activateSignals("RESET")
 		#speed = orgSpeed
 		inLeft = true
 		isMerging = false
@@ -68,11 +80,15 @@ func merge():
 	#	Move from left lane to right lane (if right lane is open)
 	if(inLeft and rightOpen):
 		isMerging = true
+		activateSignals("Turn Right")
+		
 		var tween = create_tween()
 		var time = _determine_tween_time(speed)
 		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
-		await tween.finished
+		await get_tree().create_timer(2.0).timeout
+		print("ANIMATION SHOULD RESET")
+		activateSignals("RESET")
 		inLeft = false
 		#speed = orgSpeed
 		isMerging = false
@@ -85,10 +101,23 @@ func merge():
 
 func _physics_process(delta):
 	global_position.z -= speed * delta * direction
-#	NPC will only attempt merge lane if there is a car in front of them.
+	if not tooClose:
+		speed = orgSpeed
+
+	#	NPC will only attempt merge lane if there is a car in front of them.
 	if $FrontRayCast3D.is_colliding():
 		var collider = $FrontRayCast3D.get_collider()
 		#print("Hit:", collider.name)
+		if collider and self.global_position.distance_to(collider.global_position) < 30:
+			tooClose = true
+#			Calculate how slow the car should move based on distance from carNPC
+#			Car will slow down to the point that it stops when it gets too close to another car.
+			if collider.is_in_group("CarNPC"):
+				#print("WHAT IS IT: ", self.global_position.distance_to(collider.global_position))
+				speed = orgSpeed * (self.global_position.distance_to(collider.global_position))/40.0
+				speed = clamp(speed, 1, orgSpeed)
+		else:
+			tooClose = false
 #		If car detects a car NPC, perform merge.
 		if collider and collider.is_in_group("CarNPC") and not isMerging:
 			merge()

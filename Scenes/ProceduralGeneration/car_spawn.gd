@@ -26,13 +26,13 @@ func _on_spawn_timer_timeout():
 	var spawnCar
 	if self.get_meta("Flipped"):
 #		SHould be 0 and 1
-		spawnCar = load(carNPCsFlipped[randi_range(1,1)]).instantiate()
+		spawnCar = load(carNPCsFlipped[randi_range(0,1)]).instantiate()
 	#print("Meta: ", self.get_meta("Flipped"))
 		spawnCar.direction = -1
 		spawnCar.rightPos = -1.0
 		spawnCar.leftPos = 4.0
 	else:
-		spawnCar = load(carNPCs[randi_range(1,1)]).instantiate()
+		spawnCar = load(carNPCs[randi_range(0,1)]).instantiate()
 #	Ensure the car moves accordingly to its starting lane.
 	#print("In Left in left lane: ", self.get_meta("inLeft"))
 	spawnCar.inLeft = self.get_meta("inLeft")
@@ -52,3 +52,8 @@ func _on_check_touching_area_entered(area):
 
 func _on_check_touching_area_exited(area):
 	somethingNear = false
+
+
+#func _on_destroy_spawn_area_entered(area):
+	#if area.get_parent().name == "PlayerCar":
+		#get_parent().queue_free()

@@ -25,6 +25,7 @@ var canMerge = true
 @onready var rear_marker = $Mirrors/RearCamMarker
 @onready var left_marker = $Mirrors/LeftCamMarker
 @onready var right_marker = $Mirrors/RightCamMarker
+@onready var frontCar = $FrontCar
 
 func _process(_dt):
 	rear_mirror.global_transform = rear_marker.global_transform
@@ -32,6 +33,12 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
+	if frontCar.is_colliding():
+		var collider = frontCar.get_collider()
+		#print("COLLIDER: ", collider.name)
+#		Destroy car spawn that car gets too close too.
+		if(collider and collider.name == "DestroySpawn"):
+			collider.get_parent().queue_free()
 	#print("Speed: ", SPEED)
 #	 Slow car down if moving.
 	if (Input.is_key_pressed(Key.KEY_S)):

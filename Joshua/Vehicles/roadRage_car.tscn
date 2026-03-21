@@ -21,7 +21,7 @@ viewport_path = NodePath("Mirrors/LeftViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_utrii"]
 viewport_path = NodePath("Mirrors/RightViewport")
 
-[node name="CarBody" type="VehicleBody3D"]
+[node name="PlayerCar" type="VehicleBody3D"]
 script = ExtResource("1_vefwf")
 
 [node name="Car2" parent="." instance=ExtResource("1_bghju")]
@@ -137,6 +137,11 @@ grow_vertical = 2
 rotation = -3.7524579
 color = Color(1, 0, 0.44313726, 1)
 script = ExtResource("5_utrii")
+
+[node name="FrontCar" type="RayCast3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
+target_position = Vector3(0, -1, 5)
+collide_with_areas = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
