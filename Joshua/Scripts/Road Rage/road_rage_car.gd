@@ -33,6 +33,7 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
+	%ProgressBar.value = Global.carHealth
 	if frontCar.is_colliding():
 		var collider = frontCar.get_collider()
 		#print("COLLIDER: ", collider.name)
@@ -168,15 +169,16 @@ func _on_area_3d_area_entered(area):
 	if area.is_in_group("CarNPC"):
 		print("YES A CAR NPC!!")
 		area.get_parent().queue_free()
+		Global.carHealth -= randi_range(10,30)
 	if area.name == "GenerateGround":
 		# Cloning the ground		
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
 #		We need to access ground size to calculate how to do proceduaral generation for road rage.
-		print(ground.get_node("ActualGround").size)
+		#print(ground.get_node("ActualGround").size)
 		var offset = ground.get_node("ActualGround").size.z
 		ground.global_position.z = area.get_parent().global_position.z + offset
 		get_tree().root.add_child(ground)
-		print("Ground should be generated")
+		#print("Ground should be generated")
 	if area.name == "RemoveGround":
 		area.delete_ground()
 	
