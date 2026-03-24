@@ -19,20 +19,33 @@ func _on_spawn_timer_timeout():
 #	Do not spawn Car NPC if another car NPC is nearby.
 	if somethingNear: return
 	var decideToSpawnCar = randi_range(1,4)
+	print("Same Side: ", self.get_meta("Flipped"))
+	print("SpawnCar: ", decideToSpawnCar)
 	#var decideToSpawnCar = 1
-	if not decideToSpawnCar == 1: return
-#	It should be 10 and 15
-	$SpawnTimer.wait_time = randf_range(5, 8)
+	var randIndex = randi_range(0,1)
+#	When a police chase is going on, spawn only police cars
+	if(Global.policeActivated):
+		randIndex = 1
+		#	It should be 10 and 15
+		$SpawnTimer.wait_time = randf_range(2, 4)
+		$SpawnTimer.start()
+		if decideToSpawnCar % 2 == 0: return
+	else:
+		#	It should be 10 and 15
+		$SpawnTimer.wait_time = randf_range(5, 8)
+		$SpawnTimer.start()
+		if decideToSpawnCar % 2 == 0: return
+		
 	var spawnCar
 	if self.get_meta("Flipped"):
 #		SHould be 0 and 1
-		spawnCar = load(carNPCsFlipped[randi_range(0,1)]).instantiate()
+		spawnCar = load(carNPCsFlipped[randIndex]).instantiate()
 	#print("Meta: ", self.get_meta("Flipped"))
 		spawnCar.direction = -1
 		spawnCar.rightPos = -1.0
 		spawnCar.leftPos = 4.0
 	else:
-		spawnCar = load(carNPCs[randi_range(0,1)]).instantiate()
+		spawnCar = load(carNPCs[randIndex]).instantiate()
 #	Ensure the car moves accordingly to its starting lane.
 	#print("In Left in left lane: ", self.get_meta("inLeft"))
 	spawnCar.inLeft = self.get_meta("inLeft")
@@ -46,12 +59,16 @@ func _on_spawn_timer_timeout():
 
 
 func _on_check_touching_area_entered(area):
+	print("Car is near: ", area.is_in_group("CarNPC"))
+	#print("Same Side: ", self.get_meta("Flipped"))
 	#print("Car NPC is nearby. DO NOT SPAWN!")
-	somethingNear = true
+	if area.is_in_group("CarNPC"):
+		somethingNear = true
 
 
 func _on_check_touching_area_exited(area):
-	somethingNear = false
+	if area.is_in_group("CarNPC"):
+		somethingNear = false
 
 
 #func _on_destroy_spawn_area_entered(area):

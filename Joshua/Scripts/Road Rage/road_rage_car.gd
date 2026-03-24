@@ -1,5 +1,6 @@
 extends VehicleBody3D
 
+signal policeCalled
 #const SPEED = 40
 @export var SPEED = 0
 # We will use this to adjust brake speed
@@ -18,6 +19,9 @@ var inLeft = false
 # Make sure the car doesn't merge lane repeatedly.
 var canMerge = true
 
+var phoneRinging = preload("res://Joshua/Road Rage/Audio/phone-ringing.mp3")
+var policeOnWay = preload("res://Joshua/Road Rage/Audio/PoliceOnWay.mp3")
+
 @onready var rear_mirror = $Mirrors/RearViewport/MirrorCamera
 @onready var left_mirror = $Mirrors/LeftViewport/MirrorCamera
 @onready var right_mirror = $Mirrors/RightViewport/MirrorCamera
@@ -26,6 +30,20 @@ var canMerge = true
 @onready var left_marker = $Mirrors/LeftCamMarker
 @onready var right_marker = $Mirrors/RightCamMarker
 @onready var frontCar = $FrontCar
+
+func _ready():
+	policeCalled.connect(call_police)
+	
+func call_police():
+	Global.policeActivated = true
+	$%PhoneCallAudio.stream = phoneRinging
+	$%PhoneCallAudio.play(4.0)
+	$AnimationPlayer.play("PhoneCall")
+	
+	await $%PhoneCallAudio.finished
+	$%PhoneCallAudio.stream = policeOnWay
+	$%PhoneCallAudio.play(0.0)
+	
 
 func _process(_dt):
 	rear_mirror.global_transform = rear_marker.global_transform
@@ -38,7 +56,7 @@ func _physics_process(delta):
 		var collider = frontCar.get_collider()
 		#print("COLLIDER: ", collider.name)
 #		Destroy car spawn that car gets too close too.
-		if(collider and collider.name == "DestroySpawn"):
+		if(collider and collider.name == "DestroySpawn" and not Global.policeActivated):
 			collider.get_parent().queue_free()
 	#print("Speed: ", SPEED)
 #	 Slow car down if moving.
@@ -80,96 +98,17 @@ func _physics_process(delta):
 			
 	global_transform.origin += -global_transform.basis.z * SPEED * delta
 
-"""
-		#CarAnimations.play("move_left")
-	# When player are clicking w, they are moving forward.
-	if (Input.is_key_pressed(Key.KEY_W)):
-		if(!carStarted):
-			carStarted = true
-		#speedOffset = 0
-		isAccelerating = true
-	else:
-		isAccelerating = false
-	if isAccelerating:
-#		YOU CAN ONLY SWITCH LANES WHILE ACCELERATING
-		#	If you press q, player switch lanes to left.
-		if(Input.is_key_pressed(Key.KEY_A) 
-		and not isMerging and not inLeft and canMerge):
-			$LaneSwitchTimer.start()
-			canMerge = false
-			inLeft = true
-			isMerging = true
-			var tween = create_tween()
-			#var newPosition = Vector3(global_position.x + 5, global_position.y, global_position.z)
-			tween.tween_property(self, "global_position:x", global_position.x + 5, 1)
-			isMerging = false
-			
-#			If you press E, player switch lane to the right.
-		if(Input.is_key_pressed(Key.KEY_D)
-		and not isMerging and inLeft and canMerge):
-			$LaneSwitchTimer.start()
-			canMerge = false
-			inLeft = false
-			isMerging = true
-			var tween = create_tween()
-			#var newPosition = Vector3(global_position.x + 5, global_position.y, global_position.z)
-			tween.tween_property(self, "global_position:x", global_position.x - 5, 1)
-			isMerging = false
-		SPEED += 0.15
-		SPEED = clamp(SPEED, 0, 80)
-		speedOffset -= 0.01
-		speedOffset = clamp(speedOffset, 1, 5)
-		#print("speedOffset: ",speedOffset)
-		global_position.z += SPEED * delta
-	else:
-		if(!carStarted): return
-#		Player should gradually slow down if not accelerating.
-		#var speed = (SPEED * delta) - speedOffset
-		SPEED -= 0.05 * speedOffset
-		SPEED = clamp(SPEED, 0, 80)
-		speedOffset += 0.01
-		speedOffset = clamp(speedOffset, 1, 5)
-		if SPEED <= 0: 
-			SPEED = 0
-			speedOffset = 5
-			global_position.z += 0
-		else:
-#			Allow for lane switching even when car is slowing down
-			if(Input.is_key_pressed(Key.KEY_A) 
-			and not isMerging and not inLeft and canMerge and SPEED >= 20):
-				$LaneSwitchTimer.start()
-				canMerge = false
-				inLeft = true
-				isMerging = true
-				var tween = create_tween()
-				#var newPosition = Vector3(global_position.x + 5, global_position.y, global_position.z)
-				tween.tween_property(self, "global_position:x", global_position.x + 5, 1)
-				isMerging = false
-			
-#			If you press E, player switch lane to the right.
-			if(Input.is_key_pressed(Key.KEY_D)
-			and not isMerging and inLeft and canMerge and SPEED >= 20):
-				$LaneSwitchTimer.start()
-				canMerge = false
-				inLeft = false
-				isMerging = true
-				var tween = create_tween()
-				#var newPosition = Vector3(global_position.x + 5, global_position.y, global_position.z)
-				tween.tween_property(self, "global_position:x", global_position.x - 5, 1)
-				isMerging = false
-				
-			global_position.z += SPEED * delta
-"""
-
 
 
 func _on_area_3d_area_entered(area):
 	print(area.name)
 #	Handle Crashing Into Car.
 	if area.is_in_group("CarNPC"):
-		print("YES A CAR NPC!!")
+		#print("YES A CAR NPC!!")
 		area.get_parent().queue_free()
 		Global.carHealth -= randi_range(10,30)
+		if not Global.policeActivated:
+			call_police()
 	if area.name == "GenerateGround":
 		# Cloning the ground		
 		var ground = load("res://Scenes/ProceduralGeneration/ground.tscn").instantiate()
@@ -184,3 +123,9 @@ func _on_area_3d_area_entered(area):
 	
 func _on_lane_switch_timer_timeout():
 	canMerge = true
+
+# As soon as the phone call ends, activate police chase.
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "PhoneCall":
+		await get_tree().create_timer(6.0).timeout
+		$AnimationPlayer.play("RESET")

@@ -90,7 +90,7 @@ func merge():
 		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await get_tree().create_timer(2.0).timeout
-		print("ANIMATION SHOULD RESET")
+		#print("ANIMATION SHOULD RESET")
 		activateSignals("RESET")
 		inLeft = false
 		#speed = orgSpeed
@@ -116,20 +116,22 @@ func _physics_process(delta):
 #	NPC will only attempt merge lane if there is a car in front of them.
 	if $FrontRayCast3D.is_colliding():
 		var collider = $FrontRayCast3D.get_collider()
+		#print("collider detect player: ", collider.get_parent().name == "PlayerCar")
 		if collider and self.global_position.distance_to(collider.global_position) < 30:
 			tooClose = true
 #			Calculate how slow the car should move based on distance from carNPC
 #			Car will slow down to the point that it stops when it gets too close to another car.
-			if collider.is_in_group("CarNPC"):
-				print("WHAT IS IT: ", self.global_position.distance_to(collider.global_position))
+			if collider.is_in_group("CarNPC") or collider.name == "Player":
+				#print("WHAT IS IT: ", self.global_position.distance_to(collider.global_position))
 				speed = orgSpeed * (self.global_position.distance_to(collider.global_position))/40.0
 				speed = clamp(speed, 1, orgSpeed)
+					
 		else:
 			tooClose = false
 		# slow down the car based on the collider distance from the car.
 		#print("Hit:", collider.name)
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC") and not isMerging:
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player") and not isMerging:
 			merge()
 	else:
 		speed += 5

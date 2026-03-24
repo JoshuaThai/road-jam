@@ -336,6 +336,7 @@ metadata/inLeft = true
 metadata/Flipped = true
 
 [node name="SpawnTimer" type="Timer" parent="CarSpawnLSameSide"]
+one_shot = true
 autostart = true
 
 [node name="CheckNear" type="Area3D" parent="CarSpawnLSameSide"]
@@ -356,6 +357,7 @@ metadata/inLeft = true
 metadata/Flipped = false
 
 [node name="SpawnTimer" type="Timer" parent="CarSpawnL"]
+one_shot = true
 autostart = true
 
 [node name="CheckNear" type="Area3D" parent="CarSpawnL"]
@@ -370,6 +372,7 @@ metadata/inLeft = false
 metadata/Flipped = false
 
 [node name="SpawnTimer" type="Timer" parent="CarSpawnR"]
+one_shot = true
 autostart = true
 
 [node name="CheckNear" type="Area3D" parent="CarSpawnR"]
@@ -384,6 +387,7 @@ metadata/inLeft = false
 metadata/Flipped = true
 
 [node name="SpawnTimer" type="Timer" parent="CarSpawnRSameSide2"]
+one_shot = true
 autostart = true
 
 [node name="CheckNear" type="Area3D" parent="CarSpawnRSameSide2"]

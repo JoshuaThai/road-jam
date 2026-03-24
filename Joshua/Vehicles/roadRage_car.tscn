@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=17 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
 [ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Joshua/Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
 [ext_resource type="Texture2D" uid="uid://dq400aku2efn5" path="res://Joshua/Road Rage/UI/ChatgptSpeedometerRoadJam.png" id="4_f22eo"]
 [ext_resource type="Script" uid="uid://q065a3ikhwar" path="res://Joshua/Scripts/Road Rage/speed_stick.gd" id="5_utrii"]
+[ext_resource type="Texture2D" uid="uid://dfj82du7xet84" path="res://Joshua/Road Rage/UI/PolicePhone.png" id="6_llsi3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)
@@ -34,6 +35,66 @@ corner_radius_top_left = 36
 corner_radius_top_right = 36
 corner_radius_bottom_right = 36
 corner_radius_bottom_left = 36
+
+[sub_resource type="Animation" id="Animation_llsi3"]
+resource_name = "PhoneCall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PhoneRect/PhoneTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 300), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PhoneRect/PhoneTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_e6hxj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PhoneRect/PhoneTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PhoneRect/PhoneTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_veup7"]
+_data = {
+&"PhoneCall": SubResource("Animation_llsi3"),
+&"RESET": SubResource("Animation_e6hxj")
+}
 
 [node name="PlayerCar" type="VehicleBody3D"]
 script = ExtResource("1_vefwf")
@@ -178,11 +239,47 @@ offset_bottom = 175.0
 theme_override_font_sizes/font_size = 128
 text = "Car Health:"
 
+[node name="PhoneRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -500.0
+offset_right = 300.0
+grow_vertical = 0
+color = Color(1, 1, 1, 0)
+
+[node name="PhoneTexture" type="TextureRect" parent="CanvasLayer/PhoneRect"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 50.0
+offset_right = 150.0
+offset_bottom = 549.99994
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_llsi3")
+expand_mode = 1
+
+[node name="PhoneCallAudio" type="AudioStreamPlayer" parent="CanvasLayer/PhoneRect"]
+unique_name_in_owner = true
+
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
 target_position = Vector3(0, -1, 5)
 collide_with_areas = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_veup7")
+}
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="LaneSwitchTimer" to="." method="_on_lane_switch_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

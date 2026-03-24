@@ -110,16 +110,18 @@ func _physics_process(delta):
 		#print("Hit:", collider.name)
 		if collider and self.global_position.distance_to(collider.global_position) < 30:
 			tooClose = true
+			#print("collider detect player: ", collider.get_parent().name)
+			#print("collider detect player: ", collider.get_parent().name == "PlayerCar")
 #			Calculate how slow the car should move based on distance from carNPC
 #			Car will slow down to the point that it stops when it gets too close to another car.
-			if collider.is_in_group("CarNPC"):
+			if collider.is_in_group("CarNPC") or collider.get_parent().name == "Player":
 				#print("WHAT IS IT: ", self.global_position.distance_to(collider.global_position))
 				speed = orgSpeed * (self.global_position.distance_to(collider.global_position))/40.0
 				speed = clamp(speed, 1, orgSpeed)
 		else:
 			tooClose = false
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC") and not isMerging:
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player") and not isMerging:
 			merge()
 	else:
 		speed += 5
