@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=19 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
@@ -35,6 +35,12 @@ corner_radius_top_left = 36
 corner_radius_top_right = 36
 corner_radius_bottom_right = 36
 corner_radius_bottom_left = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_llsi3"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_e6hxj"]
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_llsi3"]
 resource_name = "PhoneCall"
@@ -269,6 +275,48 @@ expand_mode = 1
 [node name="PhoneCallAudio" type="AudioStreamPlayer" parent="CanvasLayer/PhoneRect"]
 unique_name_in_owner = true
 
+[node name="PoliceRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PoliceChaseText" type="Label" parent="CanvasLayer/PoliceRect"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -389.5
+offset_top = -179.0
+offset_right = 389.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Avoid Speeding and Crashing 
+until Timer Runs Out!
+"
+label_settings = SubResource("LabelSettings_llsi3")
+horizontal_alignment = 1
+
+[node name="TimerText" type="Label" parent="CanvasLayer/PoliceRect"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 60.0
+offset_right = 100.0
+offset_bottom = 88.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_e6hxj")
+
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
 target_position = Vector3(0, -1, 5)
@@ -279,7 +327,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_veup7")
 }
 
+[node name="PoliceChaseTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 15.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="LaneSwitchTimer" to="." method="_on_lane_switch_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="PoliceChaseTimer" to="." method="_on_police_chase_timer_timeout"]

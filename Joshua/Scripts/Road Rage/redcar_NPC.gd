@@ -66,8 +66,6 @@ func merge():
 		tween.tween_property(self, "global_position:x", global_position.x - (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await get_tree().create_timer(2.0).timeout
-		print("ANIMATION SHOULD RESET")
-		activateSignals("RESET")
 		#speed = orgSpeed
 		inLeft = true
 		isMerging = false
@@ -87,8 +85,6 @@ func merge():
 		tween.tween_property(self, "global_position:x", global_position.x + (laneShift * direction), time)
 		#$MergingCooldown.start()
 		await get_tree().create_timer(2.0).timeout
-		print("ANIMATION SHOULD RESET")
-		activateSignals("RESET")
 		inLeft = false
 		#speed = orgSpeed
 		isMerging = false
@@ -142,6 +138,8 @@ func _physics_process(delta):
 #		If car detects a car NPC, perform merge.
 		if collider and collider.is_in_group("CarNPC"):
 			leftOpen = false
+		else:
+			leftOpen = true
 	elif not $LeftRayCast3D.is_colliding():
 		leftOpen = true
 	if $BackRayCast3D.is_colliding():

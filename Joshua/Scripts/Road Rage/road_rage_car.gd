@@ -44,6 +44,12 @@ func call_police():
 	$%PhoneCallAudio.stream = policeOnWay
 	$%PhoneCallAudio.play(0.0)
 	
+	await $%PhoneCallAudio.finished
+
+	$%TimerText.visible = true
+	$%PoliceChaseText.visible = true
+	$%PoliceChaseTimer.start()
+	
 
 func _process(_dt):
 	rear_mirror.global_transform = rear_marker.global_transform
@@ -52,11 +58,12 @@ func _process(_dt):
 
 func _physics_process(delta):
 	%ProgressBar.value = Global.carHealth
+	$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
 	if frontCar.is_colliding():
 		var collider = frontCar.get_collider()
 		#print("COLLIDER: ", collider.name)
 #		Destroy car spawn that car gets too close too.
-		if(collider and collider.name == "DestroySpawn" and not Global.policeActivated):
+		if(collider and collider.name == "DestroySpawn"):
 			collider.get_parent().queue_free()
 	#print("Speed: ", SPEED)
 #	 Slow car down if moving.
@@ -129,3 +136,9 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "PhoneCall":
 		await get_tree().create_timer(6.0).timeout
 		$AnimationPlayer.play("RESET")
+
+
+func _on_police_chase_timer_timeout():
+	$%TimerText.visible = false
+	$%PoliceChaseText.visible = false
+#	Emit a signal that will be received by car spawners to reset to pre-police chase state.
