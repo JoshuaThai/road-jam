@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://xl6gnngb8drn"]
+[gd_scene load_steps=12 format=3 uid="uid://xl6gnngb8drn"]
 
 [ext_resource type="Script" uid="uid://bww1maaovht6t" path="res://Joshua/Scripts/Road Rage/police_car.gd" id="1_ku8lm"]
 [ext_resource type="PackedScene" uid="uid://dxcvaje8qm8ae" path="res://Joshua/Vehicles/CarNPC_Bodies/policeCarBody.tscn" id="2_5woft"]
+[ext_resource type="AudioStream" uid="uid://da58mwtt2xmjo" path="res://Joshua/Road Rage/Audio/police-siren.mp3" id="3_5woft"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jnj85"]
 size = Vector3(1.9, 3, 3)
@@ -142,5 +143,9 @@ material = SubResource("StandardMaterial3D_ku8lm")
 libraries = {
 &"": SubResource("AnimationLibrary_wf8g0")
 }
+
+[node name="PoliceSiren" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_5woft")
+autoplay = true
 
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

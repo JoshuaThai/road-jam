@@ -19,20 +19,20 @@ func _on_spawn_timer_timeout():
 #	Do not spawn Car NPC if another car NPC is nearby.
 	if somethingNear: return
 	var decideToSpawnCar = randi_range(1,4)
-	print("Same Side: ", self.get_meta("Flipped"))
-	print("SpawnCar: ", decideToSpawnCar)
+	#print("Same Side: ", self.get_meta("Flipped"))
+	#print("SpawnCar: ", decideToSpawnCar)
 	#var decideToSpawnCar = 1
 	var randIndex = randi_range(0,1)
 #	When a police chase is going on, spawn only police cars
 	if(Global.policeActivated):
 		randIndex = 1
 		#	It should be 10 and 15
-		$SpawnTimer.wait_time = randf_range(2, 4)
+		$SpawnTimer.wait_time = randf_range(1, 2)
 		$SpawnTimer.start()
 		if decideToSpawnCar % 2 == 0: return
 	else:
 		#	It should be 10 and 15
-		$SpawnTimer.wait_time = randf_range(5, 8)
+		$SpawnTimer.wait_time = randf_range(4, 8)
 		$SpawnTimer.start()
 		if decideToSpawnCar % 2 == 0: return
 		

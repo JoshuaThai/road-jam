@@ -4,8 +4,8 @@ extends Camera3D
 # WE WILL NO LONGER CAPTURE CURSOR IN GAME. Browser games only support this 
 # with JavaScript.
 # Hide cursor in game
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#func _ready():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 # Player will rotate with mouse motion!
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:

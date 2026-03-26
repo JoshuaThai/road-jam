@@ -45,7 +45,8 @@ func call_police():
 	$%PhoneCallAudio.play(0.0)
 	
 	await $%PhoneCallAudio.finished
-
+	
+	$PoliceSiren.play()
 	$%TimerText.visible = true
 	$%PoliceChaseText.visible = true
 	$%PoliceChaseTimer.start()
@@ -57,6 +58,12 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
+#	When user clicks the screen, the UI disappears
+	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+		get_tree().paused = false
+		$%Instructions.visible = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	%ProgressBar.value = Global.carHealth
 	$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
 	if frontCar.is_colliding():
@@ -139,6 +146,8 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_police_chase_timer_timeout():
+	Global.policeActivated = false
 	$%TimerText.visible = false
 	$%PoliceChaseText.visible = false
+	$PoliceSiren.stop()
 #	Emit a signal that will be received by car spawners to reset to pre-police chase state.

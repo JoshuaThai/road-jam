@@ -1,17 +1,31 @@
-[gd_scene load_steps=19 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=25 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
 [ext_resource type="Script" uid="uid://cka36ls8h1ho8" path="res://Joshua/Scripts/Road Rage/road_rage_player.gd" id="2_y720f"]
 [ext_resource type="Texture2D" uid="uid://dq400aku2efn5" path="res://Joshua/Road Rage/UI/ChatgptSpeedometerRoadJam.png" id="4_f22eo"]
+[ext_resource type="Shader" uid="uid://bwjjharl3ta8h" path="res://overlay.gdshader" id="4_veup7"]
 [ext_resource type="Script" uid="uid://q065a3ikhwar" path="res://Joshua/Scripts/Road Rage/speed_stick.gd" id="5_utrii"]
 [ext_resource type="Texture2D" uid="uid://dfj82du7xet84" path="res://Joshua/Road Rage/UI/PolicePhone.png" id="6_llsi3"]
+[ext_resource type="AudioStream" uid="uid://da58mwtt2xmjo" path="res://Joshua/Road Rage/Audio/police-siren.mp3" id="7_e6hxj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0r146"]
 size = Vector3(15, 15, 24.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvve3"]
+render_priority = 1
+shader = ExtResource("4_veup7")
+shader_parameter/pixel_size = 1.0
+shader_parameter/levels = 100.0
+shader_parameter/gamma = Vector2(0.1, 10)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3noxy"]
+material = SubResource("ShaderMaterial_rvve3")
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5wy1f"]
 viewport_path = NodePath("Mirrors/RearViewport")
@@ -41,6 +55,12 @@ font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_e6hxj"]
 font_size = 64
+
+[sub_resource type="FontVariation" id="FontVariation_veup7"]
+variation_embolden = 1.0
+
+[sub_resource type="Theme" id="Theme_rvve3"]
+default_font = SubResource("FontVariation_veup7")
 
 [sub_resource type="Animation" id="Animation_llsi3"]
 resource_name = "PhoneCall"
@@ -103,6 +123,7 @@ _data = {
 }
 
 [node name="PlayerCar" type="VehicleBody3D"]
+process_mode = 3
 script = ExtResource("1_vefwf")
 
 [node name="Car2" parent="." instance=ExtResource("1_bghju")]
@@ -125,6 +146,10 @@ current = true
 fov = 60.0
 script = ExtResource("2_y720f")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_3noxy")
+
 [node name="Mirrors" type="Node3D" parent="."]
 
 [node name="RearViewport" type="SubViewport" parent="Mirrors"]
@@ -137,6 +162,7 @@ far = 1000.0
 [node name="RearMirror" type="Sprite3D" parent="Mirrors"]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0.5293007, -0.06433749)
 pixel_size = 0.0005
+transparent = false
 texture = SubResource("ViewportTexture_5wy1f")
 
 [node name="RearCamMarker" type="Marker3D" parent="Mirrors"]
@@ -150,9 +176,10 @@ fov = 60.0
 far = 1000.0
 
 [node name="LeftMirror" type="Sprite3D" parent="Mirrors"]
-transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.0395381, 0, -0.1116641)
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.04, 0, -0.11)
 flip_h = true
 pixel_size = 0.0004
+transparent = false
 texture = SubResource("ViewportTexture_f22eo")
 
 [node name="LeftCamMarker" type="Marker3D" parent="Mirrors"]
@@ -166,9 +193,10 @@ fov = 60.0
 far = 1000.0
 
 [node name="RightMirror" type="Sprite3D" parent="Mirrors"]
-transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 1.0483129, 0, -0.11826503)
+transform = Transform3D(0.96592593, 0, -0.25881907, 0, 1, 0, 0.25881907, 0, 0.96592593, 1.045, 0, -0.117672466)
 flip_h = true
 pixel_size = 0.0004
+transparent = false
 texture = SubResource("ViewportTexture_utrii")
 
 [node name="RightCamMarker" type="Marker3D" parent="Mirrors"]
@@ -178,6 +206,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1,
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
@@ -317,6 +346,64 @@ offset_bottom = 88.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_e6hxj")
 
+[node name="Instructions" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_right = 400.0
+offset_bottom = 394.0
+grow_horizontal = 2
+theme = SubResource("Theme_rvve3")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 144
+bbcode_enabled = true
+text = "[u]Directions:[u]
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_top = 200.0
+offset_right = 600.0
+offset_bottom = 334.0
+grow_horizontal = 2
+theme = SubResource("Theme_rvve3")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "Avoid hitting cars and make it to the end of the level.
+
+[u]Key:[/u]
+W - Forward
+A - Left
+D - Right
+
+(CLICK ANYWHERE TO PLAY)
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
 target_position = Vector3(0, -1, 5)
@@ -331,6 +418,10 @@ libraries = {
 unique_name_in_owner = true
 wait_time = 15.0
 one_shot = true
+
+[node name="PoliceSiren" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_e6hxj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
