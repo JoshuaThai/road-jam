@@ -141,7 +141,7 @@ func _physics_process(delta):
 		var collider = $RightRayCast3D.get_collider()
 		
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			rightOpen = false
 	elif not $RightRayCast3D.is_colliding():
 		rightOpen = true
@@ -150,18 +150,25 @@ func _physics_process(delta):
 		var collider = $LeftRayCast3D.get_collider()
 		#print("Objects to left: ", collider)
 		#print("On left: ", collider.name)
+		if collider and collider.name == "Player" and collider.SPEED >= 80.0:
+#			If speeding by police and police chase not activated, you will now be wanted by police.
+			if not Global.policeActivated:
+				collider.call_police()
+#			If speeding by police and police chase already activated, game over!
+			if Global.policeActivated:
+				pass
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			leftOpen = false
 	elif not $LeftRayCast3D.is_colliding():
 		leftOpen = true
 	if $LeftBlindSpot.is_colliding():
 		var collider = $LeftBlindSpot.get_collider()
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			leftOpen = false
 	if $RightBlindSpot.is_colliding():
 		var collider = $RightBlindSpot.get_collider()
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			rightOpen = false
 	
 	

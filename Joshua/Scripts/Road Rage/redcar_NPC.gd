@@ -126,7 +126,7 @@ func _physics_process(delta):
 	if $RightRayCast3D.is_colliding():
 		var collider = $RightRayCast3D.get_collider()
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			rightOpen = false
 	elif not $RightRayCast3D.is_colliding():
 		rightOpen = true
@@ -136,7 +136,7 @@ func _physics_process(delta):
 		#print("Objects to left: ", collider)
 		#print("On left: ", collider.name)
 #		If car detects a car NPC, perform merge.
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			leftOpen = false
 		else:
 			leftOpen = true
@@ -148,11 +148,11 @@ func _physics_process(delta):
 			merge()
 	if leftBlind.is_colliding():
 		var collider = leftBlind.get_collider()
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			leftOpen = false
 	if rightBlind.is_colliding():
 		var collider = rightBlind.get_collider()
-		if collider and collider.is_in_group("CarNPC"):
+		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			rightOpen = false
 		
 

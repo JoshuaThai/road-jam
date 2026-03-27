@@ -54,7 +54,7 @@ corner_radius_bottom_left = 36
 font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_e6hxj"]
-font_size = 64
+font_size = 84
 
 [sub_resource type="FontVariation" id="FontVariation_veup7"]
 variation_embolden = 1.0
@@ -206,7 +206,6 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1,
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-process_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
@@ -256,10 +255,9 @@ color = Color(1, 1, 1, 0)
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HealthBar"]
 unique_name_in_owner = true
 layout_mode = 1
-offset_left = 700.0
-offset_top = 50.0
-offset_right = 1228.0
-offset_bottom = 150.0
+offset_top = 175.0
+offset_right = 528.0
+offset_bottom = 275.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/background = SubResource("StyleBoxFlat_llsi3")
@@ -335,7 +333,6 @@ horizontal_alignment = 1
 
 [node name="TimerText" type="Label" parent="CanvasLayer/PoliceRect"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -346,6 +343,21 @@ offset_bottom = 88.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_e6hxj")
 
+[node name="DistanceText" type="Label" parent="CanvasLayer/PoliceRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.5
+offset_top = 100.0
+offset_right = 290.5
+offset_bottom = 188.0
+grow_horizontal = 2
+text = "Distance Left:"
+label_settings = SubResource("LabelSettings_e6hxj")
+horizontal_alignment = 1
+
 [node name="Instructions" type="ColorRect" parent="CanvasLayer"]
 unique_name_in_owner = true
 process_mode = 3
@@ -354,7 +366,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.39215687)
+color = Color(0, 0, 0, 0.78431374)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Instructions"]
 layout_mode = 1
@@ -395,6 +407,7 @@ text = "Avoid hitting cars and make it to the end of the level.
 
 [u]Key:[/u]
 W - Forward
+S - Slow Down/Stop
 A - Left
 D - Right
 
@@ -403,6 +416,10 @@ D - Right
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+
+[node name="GameOver" type="ColorRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
@@ -422,6 +439,11 @@ one_shot = true
 [node name="PoliceSiren" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("7_e6hxj")
+
+[node name="LevelTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 180.0
+one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

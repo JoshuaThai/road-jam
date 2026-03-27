@@ -2,6 +2,7 @@ extends VehicleBody3D
 
 signal policeCalled
 #const SPEED = 40
+var MAX_SPEED = 160
 @export var SPEED = 0
 # We will use this to adjust brake speed
 var speedOffset = 5
@@ -35,7 +36,9 @@ func _ready():
 	policeCalled.connect(call_police)
 	
 func call_police():
+	$%LevelTimer.paused = true
 	Global.policeActivated = true
+	$%TimerText.visible = false
 	$%PhoneCallAudio.stream = phoneRinging
 	$%PhoneCallAudio.play(4.0)
 	$AnimationPlayer.play("PhoneCall")
@@ -59,13 +62,20 @@ func _process(_dt):
 
 func _physics_process(delta):
 #	When user clicks the screen, the UI disappears
-	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.roadDodgingStart):
 		get_tree().paused = false
 		$%Instructions.visible = false
+		Global.roadDodgingStart = true
+		$LevelTimer.start()
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
+	if not Global.roadDodgingStart: return
 	
 	%ProgressBar.value = Global.carHealth
-	$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
+	if Global.policeActivated:
+		$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
+	else:
+		$%TimerText.text = "Timer: %d" % $%LevelTimer.time_left
 	if frontCar.is_colliding():
 		var collider = frontCar.get_collider()
 		#print("COLLIDER: ", collider.name)
@@ -84,7 +94,7 @@ func _physics_process(delta):
 			global_position.z += 0
 			return
 		SPEED -= 1
-		SPEED = clamp(SPEED, 0, 80)
+		SPEED = clamp(SPEED, 0, MAX_SPEED)
 	elif(Input.is_key_pressed(Key.KEY_A)):
 		rotate_y((0.15 * turnOffset) * delta)
 	elif(Input.is_key_pressed(Key.KEY_D)):
@@ -92,14 +102,14 @@ func _physics_process(delta):
 
 	elif (Input.is_key_pressed(Key.KEY_W)):
 		SPEED += 0.15
-		SPEED = clamp(SPEED, 0, 80)
+		SPEED = clamp(SPEED, 0, MAX_SPEED)
 		speedOffset -= 0.01
 		turnOffset += 0.01
 		speedOffset = clamp(speedOffset, 1, 5)
 		turnOffset = clamp(turnOffset, 1, 2)
 	else:
 		SPEED -= 0.05 * speedOffset
-		SPEED = clamp(SPEED, 0, 80)
+		SPEED = clamp(SPEED, 0, MAX_SPEED)
 		speedOffset += 0.01
 		turnOffset -= 0.01
 		speedOffset = clamp(speedOffset, 1, 5)
@@ -111,6 +121,12 @@ func _physics_process(delta):
 			global_position.z += 0
 			
 	global_transform.origin += -global_transform.basis.z * SPEED * delta
+	
+	if not Global.policeActivated:
+		Global.distanceLeft -= SPEED * 0.025
+		$%DistanceText.text = "Distance Left: %d" % Global.distanceLeft
+	else:
+		$%DistanceText.text = "Distance Left: Lose the police \nto reduce distance!"
 
 
 
@@ -147,7 +163,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_police_chase_timer_timeout():
 	Global.policeActivated = false
-	$%TimerText.visible = false
+	$%LevelTimer.paused = false
 	$%PoliceChaseText.visible = false
 	$PoliceSiren.stop()
 #	Emit a signal that will be received by car spawners to reset to pre-police chase state.
