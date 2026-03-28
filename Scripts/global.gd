@@ -22,3 +22,9 @@ var carHealth = 100
 
 func _ready():
 	bar_points = 50
+	
+func _restore_defaults():
+	carHealth = 100
+	roadDodgingStart = false
+	distanceLeft = 10000
+	policeActivated = false

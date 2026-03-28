@@ -49,7 +49,7 @@ func _on_spawn_timer_timeout():
 #	Ensure the car moves accordingly to its starting lane.
 	#print("In Left in left lane: ", self.get_meta("inLeft"))
 	spawnCar.inLeft = self.get_meta("inLeft")
-	get_tree().get_root().add_child(spawnCar)
+	get_tree().root.get_child(2).add_child(spawnCar)
 	if spawnCar.is_in_group("PoliceCar"):
 		spawnCar.global_position = global_position + Vector3(0,2,0)
 		#spawnCar.global_rotation.y = spawnCar.global_rotation.y * -1

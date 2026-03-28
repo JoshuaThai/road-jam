@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=28 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://q065a3ikhwar" path="res://Joshua/Scripts/Road Rage/speed_stick.gd" id="5_utrii"]
 [ext_resource type="Texture2D" uid="uid://dfj82du7xet84" path="res://Joshua/Road Rage/UI/PolicePhone.png" id="6_llsi3"]
 [ext_resource type="AudioStream" uid="uid://da58mwtt2xmjo" path="res://Joshua/Road Rage/Audio/police-siren.mp3" id="7_e6hxj"]
+[ext_resource type="Script" uid="uid://c4jce4gfv5cyo" path="res://Joshua/Scripts/Road Rage/game_over.gd" id="8_rvve3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)
@@ -61,6 +62,21 @@ variation_embolden = 1.0
 
 [sub_resource type="Theme" id="Theme_rvve3"]
 default_font = SubResource("FontVariation_veup7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_veup7"]
+bg_color = Color(0.82689726, 0, 0.22124556, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvve3"]
+bg_color = Color(0.082132585, 0.54700863, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [sub_resource type="Animation" id="Animation_llsi3"]
 resource_name = "PhoneCall"
@@ -262,7 +278,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/background = SubResource("StyleBoxFlat_llsi3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_utrii")
-min_value = 50.0
 value = 100.0
 
 [node name="CarHealthLabel" type="Label" parent="CanvasLayer/HealthBar"]
@@ -418,8 +433,88 @@ scroll_active = false
 horizontal_alignment = 1
 
 [node name="GameOver" type="ColorRect" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.3529412)
+script = ExtResource("8_rvve3")
+
+[node name="Failed" type="RichTextLabel" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -360.0
+offset_right = 350.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/bold_font_size = 124
+bbcode_enabled = true
+text = "[b]You Failed![/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FailReason" type="RichTextLabel" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -466.0
+offset_top = -270.0
+offset_right = -147.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+accessibility_name = "Play Again"
+accessibility_description = "Press this to play this level again."
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_veup7")
+text = "Play Again"
+
+[node name="PlayEnding" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = -270.0
+offset_right = 435.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+accessibility_name = "Play Ending"
+accessibility_description = "Press this to play the ending."
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_rvve3")
+text = "Play Ending"
 
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
@@ -448,5 +543,8 @@ one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="LaneSwitchTimer" to="." method="_on_lane_switch_timer_timeout"]
+[connection signal="refreshLevel" from="CanvasLayer/GameOver" to="." method="_on_game_over_refresh_level"]
+[connection signal="pressed" from="CanvasLayer/GameOver/PlayAgain" to="CanvasLayer/GameOver" method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/PlayEnding" to="CanvasLayer/GameOver" method="_on_play_ending_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="PoliceChaseTimer" to="." method="_on_police_chase_timer_timeout"]

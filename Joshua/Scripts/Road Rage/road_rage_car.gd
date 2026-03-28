@@ -1,6 +1,7 @@
 extends VehicleBody3D
 
 signal policeCalled
+signal restartLevel
 #const SPEED = 40
 var MAX_SPEED = 160
 @export var SPEED = 0
@@ -19,6 +20,7 @@ var isMerging = false
 var inLeft = false
 # Make sure the car doesn't merge lane repeatedly.
 var canMerge = true
+
 
 var phoneRinging = preload("res://Joshua/Road Rage/Audio/phone-ringing.mp3")
 var policeOnWay = preload("res://Joshua/Road Rage/Audio/PoliceOnWay.mp3")
@@ -42,10 +44,12 @@ func call_police():
 	$%PhoneCallAudio.stream = phoneRinging
 	$%PhoneCallAudio.play(4.0)
 	$AnimationPlayer.play("PhoneCall")
+	#if Global.carHealth <= 0: return
 	
 	await $%PhoneCallAudio.finished
 	$%PhoneCallAudio.stream = policeOnWay
 	$%PhoneCallAudio.play(0.0)
+	#if Global.carHealth <= 0: return
 	
 	await $%PhoneCallAudio.finished
 	
@@ -61,6 +65,7 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
+	#print("HEALTH: ", Global.carHealth)
 #	When user clicks the screen, the UI disappears
 	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.roadDodgingStart):
 		get_tree().paused = false
@@ -72,6 +77,8 @@ func _physics_process(delta):
 	if not Global.roadDodgingStart: return
 	
 	%ProgressBar.value = Global.carHealth
+	if Global.carHealth <= 0: return
+	
 	if Global.policeActivated:
 		$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
 	else:
@@ -146,7 +153,7 @@ func _on_area_3d_area_entered(area):
 		#print(ground.get_node("ActualGround").size)
 		var offset = ground.get_node("ActualGround").size.z
 		ground.global_position.z = area.get_parent().global_position.z + offset
-		get_tree().root.add_child(ground)
+		get_tree().root.get_child(2).add_child(ground)
 		#print("Ground should be generated")
 	if area.name == "RemoveGround":
 		area.delete_ground()
@@ -167,3 +174,7 @@ func _on_police_chase_timer_timeout():
 	$%PoliceChaseText.visible = false
 	$PoliceSiren.stop()
 #	Emit a signal that will be received by car spawners to reset to pre-police chase state.
+
+
+func _on_game_over_refresh_level():
+	restartLevel.emit()
