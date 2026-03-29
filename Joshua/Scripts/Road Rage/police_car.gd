@@ -117,6 +117,14 @@ func _physics_process(delta):
 	if $FrontRayCast3D.is_colliding():
 		var collider = $FrontRayCast3D.get_collider()
 		#print("collider detect player: ", collider.get_parent().name == "PlayerCar")
+		if collider and collider.name == "Player" and collider.SPEED >= 80.0:
+#			If speeding by police and police chase not activated, you will now be wanted by police.
+			if not Global.policeActivated:
+				collider.call_police()
+#			If speeding by police and police chase already activated, game over!
+			if collider.wanted:
+				collider.end_game("You got caught speeding!")
+				
 		if collider and self.global_position.distance_to(collider.global_position) < 30:
 			tooClose = true
 #			Calculate how slow the car should move based on distance from carNPC
@@ -140,6 +148,14 @@ func _physics_process(delta):
 	if $RightRayCast3D.is_colliding():
 		var collider = $RightRayCast3D.get_collider()
 		
+		if collider and collider.name == "Player" and collider.SPEED >= 80.0:
+#			If speeding by police and police chase not activated, you will now be wanted by police.
+			if not Global.policeActivated:
+				collider.call_police()
+#			If speeding by police and police chase already activated, game over!
+			if collider.wanted:
+				collider.end_game("You got caught speeding!")
+		
 #		If car detects a car NPC, perform merge.
 		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			rightOpen = false
@@ -155,8 +171,8 @@ func _physics_process(delta):
 			if not Global.policeActivated:
 				collider.call_police()
 #			If speeding by police and police chase already activated, game over!
-			if Global.policeActivated:
-				pass
+			if collider.wanted:
+				collider.end_game("You got caught speeding!")
 #		If car detects a car NPC, perform merge.
 		if collider and (collider.is_in_group("CarNPC") or collider.name == "Player"):
 			leftOpen = false

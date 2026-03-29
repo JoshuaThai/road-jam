@@ -1,5 +1,6 @@
 extends Node
 
+var score = 0
 var bar_points = 100
 var driving_points = 100
 var drunk = false

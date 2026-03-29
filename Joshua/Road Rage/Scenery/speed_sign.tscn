@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://b61vtaja6xopa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3f785"]
+albedo_color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dy7l8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dy7l8"]
+material = SubResource("StandardMaterial3D_dy7l8")
+size = Vector3(1, 1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dlc55"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_dlc55"]
+material = SubResource("StandardMaterial3D_dlc55")
+text = "Speed 
+Limit
+"
+font_size = 28
+uppercase = true
+line_spacing = -5.0
+
+[sub_resource type="FontVariation" id="FontVariation_dy7l8"]
+variation_embolden = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxvlr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_3f785"]
+material = SubResource("StandardMaterial3D_lxvlr")
+text = "70"
+font = SubResource("FontVariation_dy7l8")
+font_size = 36
+
+[node name="SpeedSign" type="Node3D" groups=["CarNPC"]]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76467645, 0)
+radius = 0.1
+height = 1.9000001
+material = SubResource("StandardMaterial3D_3f785")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2210724, 0)
+mesh = SubResource("BoxMesh_dy7l8")
+skeleton = NodePath("")
+
+[node name="Text" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027422667, 0.18971765, 0.037312448)
+mesh = SubResource("TextMesh_dlc55")
+
+[node name="Text2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3016305, 0.037)
+mesh = SubResource("TextMesh_3f785")

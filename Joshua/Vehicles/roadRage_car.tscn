@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kjugmux01p8i"]
+[gd_scene load_steps=33 format=3 uid="uid://kjugmux01p8i"]
 
 [ext_resource type="PackedScene" uid="uid://3kbesdvo0edx" path="res://Joshua/Vehicles/CarBody.tscn" id="1_bghju"]
 [ext_resource type="Script" uid="uid://c4f5t57p1g1y6" path="res://Joshua/Scripts/Road Rage/road_rage_car.gd" id="1_vefwf"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dfj82du7xet84" path="res://Joshua/Road Rage/UI/PolicePhone.png" id="6_llsi3"]
 [ext_resource type="AudioStream" uid="uid://da58mwtt2xmjo" path="res://Joshua/Road Rage/Audio/police-siren.mp3" id="7_e6hxj"]
 [ext_resource type="Script" uid="uid://c4jce4gfv5cyo" path="res://Joshua/Scripts/Road Rage/game_over.gd" id="8_rvve3"]
+[ext_resource type="AudioStream" uid="uid://ccyqsb1t4qpsw" path="res://Joshua/Road Rage/Audio/EndingDialogue1.mp3" id="9_h20bj"]
+[ext_resource type="Script" uid="uid://cgmspfaicc3kh" path="res://Joshua/Scripts/Road Rage/ending_audio.gd" id="10_qth03"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vefwf"]
 size = Vector3(2, 3.25, 3)
@@ -71,12 +73,29 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 corner_detail = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3noxy"]
+bg_color = Color(0.9999687, 0.40385267, 0.44087288, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvve3"]
 bg_color = Color(0.082132585, 0.54700863, 0, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h20bj"]
+bg_color = Color(0.13490623, 0.7747019, 1.540184e-06, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_rvve3"]
+font_size = 84
 
 [sub_resource type="Animation" id="Animation_llsi3"]
 resource_name = "PhoneCall"
@@ -418,7 +437,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
-text = "Avoid hitting cars and make it to the end of the level.
+text = "Avoid hitting cars, speeding and make it to the end of the level.
 
 [u]Key:[/u]
 W - Forward
@@ -471,12 +490,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
+offset_left = -375.0
 offset_top = -100.0
-offset_right = 300.0
+offset_right = 375.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 84
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayAgain" type="Button" parent="CanvasLayer/GameOver"]
 layout_mode = 1
@@ -495,6 +519,8 @@ accessibility_name = "Play Again"
 accessibility_description = "Press this to play this level again."
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_veup7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3noxy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3noxy")
 text = "Play Again"
 
 [node name="PlayEnding" type="Button" parent="CanvasLayer/GameOver"]
@@ -514,11 +540,43 @@ accessibility_name = "Play Ending"
 accessibility_description = "Press this to play the ending."
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_rvve3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h20bj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h20bj")
 text = "Play Ending"
+
+[node name="Ending" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DialogueText" type="Label" parent="CanvasLayer/Ending"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -88.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_rvve3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndingAudio" type="AudioStreamPlayer" parent="CanvasLayer/Ending"]
+stream = ExtResource("9_h20bj")
+script = ExtResource("10_qth03")
 
 [node name="FrontCar" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1)
-target_position = Vector3(0, -1, 5)
+target_position = Vector3(0, -1, 20)
 collide_with_areas = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -543,8 +601,8 @@ one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="LaneSwitchTimer" to="." method="_on_lane_switch_timer_timeout"]
-[connection signal="refreshLevel" from="CanvasLayer/GameOver" to="." method="_on_game_over_refresh_level"]
 [connection signal="pressed" from="CanvasLayer/GameOver/PlayAgain" to="CanvasLayer/GameOver" method="_on_play_again_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameOver/PlayEnding" to="CanvasLayer/GameOver" method="_on_play_ending_pressed"]
+[connection signal="finished" from="CanvasLayer/Ending/EndingAudio" to="CanvasLayer/GameOver" method="_on_ending_audio_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="PoliceChaseTimer" to="." method="_on_police_chase_timer_timeout"]

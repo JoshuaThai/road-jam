@@ -6,7 +6,7 @@ signal restartLevel
 var MAX_SPEED = 160
 @export var SPEED = 0
 # We will use this to adjust brake speed
-var speedOffset = 5
+var speedOffset = 6
 var turnOffset = 1
 
 # Car variables
@@ -20,6 +20,8 @@ var isMerging = false
 var inLeft = false
 # Make sure the car doesn't merge lane repeatedly.
 var canMerge = true
+# Keep track if the police chase is active
+@export var wanted = false
 
 
 var phoneRinging = preload("res://Joshua/Road Rage/Audio/phone-ringing.mp3")
@@ -52,12 +54,17 @@ func call_police():
 	#if Global.carHealth <= 0: return
 	
 	await $%PhoneCallAudio.finished
-	
+	wanted = true
 	$PoliceSiren.play()
 	$%TimerText.visible = true
 	$%PoliceChaseText.visible = true
 	$%PoliceChaseTimer.start()
 	
+#	End game for other reason
+func end_game(reason):
+	$%GameOver.get_node("FailReason").text = reason
+	$%GameOver.gameOver = true
+	$%GameOver.visible = true
 
 func _process(_dt):
 	rear_mirror.global_transform = rear_marker.global_transform
@@ -77,12 +84,15 @@ func _physics_process(delta):
 	if not Global.roadDodgingStart: return
 	
 	%ProgressBar.value = Global.carHealth
-	if Global.carHealth <= 0: return
+	#if Global.carHealth <= 0: return
+#	Car can no longer be moved anymore after game over
+	if $%GameOver.visible: return
 	
 	if Global.policeActivated:
 		$%TimerText.text = "Timer: %d" % $%PoliceChaseTimer.time_left
 	else:
 		$%TimerText.text = "Timer: %d" % $%LevelTimer.time_left
+#	Destroy car spawns when you get too close.
 	if frontCar.is_colliding():
 		var collider = frontCar.get_collider()
 		#print("COLLIDER: ", collider.name)
@@ -100,7 +110,7 @@ func _physics_process(delta):
 			turnOffset = 1
 			global_position.z += 0
 			return
-		SPEED -= 1
+		SPEED -= 0.25
 		SPEED = clamp(SPEED, 0, MAX_SPEED)
 	elif(Input.is_key_pressed(Key.KEY_A)):
 		rotate_y((0.15 * turnOffset) * delta)
@@ -141,6 +151,9 @@ func _on_area_3d_area_entered(area):
 	print(area.name)
 #	Handle Crashing Into Car.
 	if area.is_in_group("CarNPC"):
+		if Global.policeActivated and area.get_parent().get_node("PoliceCar"):
+			end_game("You crashed into the police!")
+			
 		#print("YES A CAR NPC!!")
 		area.get_parent().queue_free()
 		Global.carHealth -= randi_range(10,30)
@@ -169,12 +182,15 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_police_chase_timer_timeout():
+	wanted = false
 	Global.policeActivated = false
 	$%LevelTimer.paused = false
 	$%PoliceChaseText.visible = false
-	$PoliceSiren.stop()
+	if $PoliceSiren:
+		$PoliceSiren.stop()
 #	Emit a signal that will be received by car spawners to reset to pre-police chase state.
 
 
 func _on_game_over_refresh_level():
 	restartLevel.emit()
+	
