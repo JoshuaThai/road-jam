@@ -333,6 +333,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3, 2
 
 [node name="CarSpawnLSameSide" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.70000005, -19)
+visible = false
 script = ExtResource("8_mibgi")
 metadata/inLeft = true
 metadata/Flipped = true
@@ -354,6 +355,7 @@ shape = SubResource("BoxShape3D_55gwa")
 
 [node name="CarSpawnL" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.70000005, 19)
+visible = false
 script = ExtResource("8_mibgi")
 metadata/inLeft = true
 metadata/Flipped = false
@@ -369,6 +371,7 @@ shape = SubResource("BoxShape3D_mibgi")
 
 [node name="CarSpawnR" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.70000005, 197)
+visible = false
 script = ExtResource("8_mibgi")
 metadata/inLeft = false
 metadata/Flipped = false
@@ -384,6 +387,7 @@ shape = SubResource("BoxShape3D_mibgi")
 
 [node name="CarSpawnRSameSide2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.70000005, 108)
+visible = false
 script = ExtResource("8_mibgi")
 metadata/inLeft = false
 metadata/Flipped = true

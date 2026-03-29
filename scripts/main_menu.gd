@@ -11,7 +11,7 @@ func _ready() -> void:
 # =========================
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/bar_level.tscn")
+	get_tree().change_scene_to_file("res://Scenes/ProceduralGeneration/road_rage.tscn")
 
 
 func _on_settings_pressed() -> void:
@@ -23,7 +23,8 @@ func _on_Characters_pressed() -> void:
 
 
 func _on_about_pressed() -> void:
-	print("About Button Pressed")
+	OS.shell_open("https://www.linkedin.com/company/dead-signal-studio/")
+	#print("About Button Pressed")
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
