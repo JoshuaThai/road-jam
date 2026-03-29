@@ -72,6 +72,13 @@ func _process(_dt):
 	right_mirror.global_transform = right_marker.global_transform
 
 func _physics_process(delta):
+	if Global.distanceLeft <= 0:
+		if $%GameOver.visible: return
+		$%GameOver.visible = true
+		$%GameOver.get_node("Failed").text = "[b]SUCCESS![/b]"
+		$%GameOver.get_node("FailReason").text = "YOU ARE THE GREATEST DRIVER EVER!"
+		Global.score += 50
+		return
 	#print("HEALTH: ", Global.carHealth)
 #	When user clicks the screen, the UI disappears
 	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.roadDodgingStart):

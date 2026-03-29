@@ -14,6 +14,7 @@ var drunk = false
 var policeActivated = false
 
 # The distance that a player will have to travel to complete the level.
+# 10000
 var distanceLeft = 10000
 
 var roadDodgingStart = false
